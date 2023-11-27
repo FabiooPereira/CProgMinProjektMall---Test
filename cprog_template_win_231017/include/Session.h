@@ -7,12 +7,15 @@
 class Session
 {
 public:
-	void add(Component* comp);
-	void remove(Component* comp);
+	Session();
+	~Session();
+	void add(Component *comp);
+	void remove(Component *comp);
 	void run();
+
 private:
-	std::vector<Component*> comps;
-	std::vector<Component*> added, removed;
+	std::vector<Component *> comps;
+	std::vector<Component *> added, removed;
 };
 
 #endif

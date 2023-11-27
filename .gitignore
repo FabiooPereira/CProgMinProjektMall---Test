@@ -4,3 +4,7 @@ cprog_template_win_231017/build/debug/play.dSYM/Contents/Resources/DWARF/play
 cprog_template_win_231017/build/debug/play.dSYM/Contents/Resources/Relocations/aarch64/play.yml
 cprog_template_win_231017/build/debug/play.dSYM/Contents/Info.plist
 cprog_template_win_231017/Makefile
+cprog_template_win_231017/.DS_Store
+cprog_template_win_231017/resources/.DS_Store
+cprog_template_win_231017/resources/images/.DS_Store
+.vscode/settings.json
