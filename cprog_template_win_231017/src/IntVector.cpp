@@ -1,9 +1,11 @@
 // Labb2, IntVector.cpp – definitioner av icke-triviala medlemsfunktioner
 
+//HEJ
+
 #include "IntVector.h"
 
 //Default konstruktor
-IntVector::IntVector(): data(nullptr), sizeOfVector(0){}
+IntVector::IntVector(): data(nullptr), sizeOfVector(2){}
 //Copy konstruktor
 IntVector::IntVector(const IntVector& other): data(nullptr), sizeOfVector(other.sizeOfVector){
     data = new int[sizeOfVector];
