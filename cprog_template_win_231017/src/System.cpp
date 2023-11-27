@@ -13,7 +13,7 @@
 			SDL_WINDOWPOS_CENTERED, 1000, 1000, 0);
 		ren = SDL_CreateRenderer(win, -1, 0);
 		TTF_Init();
-		font = TTF_OpenFont( (constants::gResPath + "undertale.ttf").c_str(), 50);
+		font = TTF_OpenFont((constants::gResPath + "fonts/undertale.ttf").c_str(), 50);
 		std::cout << "resPath: " << constants::gResPath << std::endl;
 	}
 

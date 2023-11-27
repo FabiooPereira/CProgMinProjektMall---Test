@@ -26,7 +26,7 @@ private:
 class MinskaKnapp : public Button
 {
 public:
-    MinskaKnapp(Label *lbl) : Button(600, 300, 200, 70, "Öka"), label(lbl) {}
+    MinskaKnapp(Label *lbl) : Button(600, 300, 200, 70, "Minska"), label(lbl) {}
 
     void perform(Button *source)
     {
@@ -44,9 +44,6 @@ int main()
     Label *lbl = Label::getInstance(300, 300, 300, 300, "0");
     std::cout << lbl;
     ses.add(lbl);
-
-    // Button *b = Button::getInstance(500, 500, 200, 200, "button!");
-    // ses.add(b);
 
     Button *btn = new OkaKnapp(lbl);
     ses.add(btn);
