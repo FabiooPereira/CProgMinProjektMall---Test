@@ -7,3 +7,5 @@ cprog_template_win_231017/resources/.DS_Store
 cprog_template_win_231017/resources/images/.DS_Store
 .vscode/settings.json
 cprog_template_win_231017/Makefile
+.vscode/launch.json
+.vscode/tasks.json
