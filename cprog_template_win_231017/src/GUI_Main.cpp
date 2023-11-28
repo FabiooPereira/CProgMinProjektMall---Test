@@ -40,8 +40,9 @@ private:
 
 int main(int argv, char** args)
 {
+    //Fab
     Session ses;
-    Label *lbl = Label::getInstance(300, 300, 300, 300, "0");
+    Label *lbl = Label::getInstance(500, 500, 500, 500, "0");
     std::cout << lbl;
     ses.add(lbl);
 
