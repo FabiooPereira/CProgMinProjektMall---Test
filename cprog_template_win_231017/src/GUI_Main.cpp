@@ -12,7 +12,7 @@ int value = 0;
 class OkaKnapp : public Button
 {
 public:
-    OkaKnapp(Label *lbl) : Button(100, 300, 200, 70, "Öka"), label(lbl) {}
+    OkaKnapp(Label *lbl) : Button(100, 300, 70, 70, "Öka"), label(lbl) {}
 
     void perform(Button *source)
     {
@@ -26,7 +26,7 @@ private:
 class MinskaKnapp : public Button
 {
 public:
-    MinskaKnapp(Label *lbl) : Button(600, 300, 200, 70, "Minska"), label(lbl) {}
+    MinskaKnapp(Label *lbl) : Button(500, 300, 70, 70, "Minska"), label(lbl) {}
 
     void perform(Button *source)
     {
@@ -42,7 +42,7 @@ int main(int argv, char** args)
 {
     //Fab
     Session ses;
-    Label *lbl = Label::getInstance(500, 500, 500, 500, "0");
+    Label *lbl = Label::getInstance(300, 300, 50, 50, "0");
     std::cout << lbl;
     ses.add(lbl);
 
