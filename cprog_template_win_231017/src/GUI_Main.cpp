@@ -38,7 +38,7 @@ private:
     Label *label;
 };
 
-int main()
+int main(int argv, char** args)
 {
     Session ses;
     Label *lbl = Label::getInstance(300, 300, 300, 300, "0");

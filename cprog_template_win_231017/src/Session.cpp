@@ -1,6 +1,6 @@
 #include "Session.h"
 #include <SDL2/SDL.h>
-// #include "Component.h"
+#include "Component.h"
 #include "System.h"
 
 using namespace std;
