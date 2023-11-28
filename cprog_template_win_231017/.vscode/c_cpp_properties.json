@@ -1,23 +1,17 @@
 {
     "configurations": [
         {
-            "name": "Win64",
+            "name": "Mac",
             "includePath": [
                 "${workspaceFolder}/**",
                 "${workspaceFolder}/include",
-                "C:/Plugg/CPROG/MSYS2/ucrt64/include/SDL2",
-                "C:/Plugg/CPROG/MSYS2/ucrt64/include"
+                "/opt/homebrew/include/SDL2",
+                "/opt/homebrew/include"
             ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "windowsSdkVersion": "10.0.17763.0",
-            "compilerPath": "C:/Plugg/CPROG/MSYS2/ucrt64/bin/g++.exe",
-            "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-x64"
+            "compilerPath": "/usr/bin/g++",
+            "intelliSenseMode": "macos-clang-arm64",
+            "cStandard": "c11",
+            "cppStandard": "c++17"
         }
     ],
     "version": 4
