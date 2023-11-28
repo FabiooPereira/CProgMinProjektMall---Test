@@ -9,3 +9,4 @@ cprog_template_win_231017/resources/images/.DS_Store
 cprog_template_win_231017/Makefile
 .vscode/launch.json
 .vscode/tasks.json
+cprog_template_win_231017/include/Constants.h
