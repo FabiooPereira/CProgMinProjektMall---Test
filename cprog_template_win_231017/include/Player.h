@@ -1,14 +1,27 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "Component.h"
-class Player : Component
+#include <SDL2/SDL.h>
+#include "System.h"
+#include "Constants.h"
+#include <SDL2/SDL_image.h>
+class Player : public Component
 {
 private:
-    /* data */
+    SDL_Texture *playerImage;
+
+protected:
+    Player(int xPos, int yPos, int w, int h);
+
 public:
-    Player(/* args */);
+    static Player *getInstance(int x, int y, int w, int h);
+
+    void keyDown(const SDL_Event &eve);
+    void keyUp(const SDL_Event &eve);
+
+    virtual void draw() const override;
+    void tick() override;
 
     ~Player();
-
 };
 #endif

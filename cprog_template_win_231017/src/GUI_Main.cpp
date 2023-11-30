@@ -3,6 +3,7 @@
 #include "Session.h"
 #include "Label.h"
 #include "Button.h"
+#include "Player.h"
 #include <SDL2/SDL.h>
 
 using namespace std;
@@ -51,6 +52,9 @@ int main(int argv, char** args)
 
     Button *btn2 = new MinskaKnapp(lbl);
     ses.add(btn2);
+
+    Player *player = Player::getInstance(200,200, 100,100);
+    ses.add(player);
 
     ses.run();
     return 0;
