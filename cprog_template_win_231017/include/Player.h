@@ -22,6 +22,8 @@ public:
     virtual void draw() const override;
     void tick() override;
 
+    void applyGravity();
+
     ~Player();
 };
 #endif

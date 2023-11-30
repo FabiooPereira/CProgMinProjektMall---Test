@@ -39,6 +39,14 @@ void Player::keyUp(const SDL_Event &even)
 }
 void Player::tick()
 {
+    applyGravity();
+}
+void Player::applyGravity(){
+    const int gravity = 1;
+
+    SDL_Rect playerRect = getRect();
+    playerRect.y += gravity;
+    setRect(playerRect);
 }
 Player::~Player()
 {
