@@ -8,7 +8,13 @@
 class Player : public Component
 {
 private:
-    SDL_Texture *playerImage;
+    SDL_Texture *idleSpriteSheet;
+
+    int currentFrame;
+    int frameCountter;
+    int animationSpeed;
+
+    SDL_Texture* activeSpriteSheet() const;
 
 protected:
     Player(int xPos, int yPos, int w, int h);
