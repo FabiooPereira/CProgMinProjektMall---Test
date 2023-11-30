@@ -7,8 +7,11 @@ class Component
 public:
 	virtual void mouseUp(const SDL_Event &eve) {}
 	virtual void mouseDown(const SDL_Event &eve) {}
-	virtual void draw() const = 0;
+	virtual void keyUp(const SDL_Event &eve){}
+	virtual void keyDown(const SDL_Event &eve){}
+ 	virtual void draw() const = 0;
 	const SDL_Rect &getRect() const { return rect; }
+	void setRect(const SDL_Rect &newRect);
 	virtual void tick() = 0;
 
 protected:

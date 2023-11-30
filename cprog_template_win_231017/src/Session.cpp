@@ -45,6 +45,10 @@ void Session::run()
 				for (Component *c : comps)
 					c->mouseDown(event);
 				break;
+			case SDL_KEYDOWN:
+			for (Component *c:comps)
+					c->keyDown(event);
+				break;
 			case SDL_QUIT:
 				quit = true;
 				break;
