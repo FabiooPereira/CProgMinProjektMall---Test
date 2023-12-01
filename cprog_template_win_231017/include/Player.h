@@ -9,6 +9,7 @@ class Player : public Component
 {
 private:
     SDL_Texture *idleSpriteSheet;
+    SDL_Texture *RunSpriteSheet;
 
     int currentFrame;
     int frameCountter;
