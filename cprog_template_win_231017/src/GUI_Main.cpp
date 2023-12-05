@@ -48,6 +48,9 @@ int main(int argv, char** args)
     Platform* platform = Platform::getInstance(200, 800, 500, 50, true);
     ses.add(platform);
 
+    Platform* platform1 = Platform::getInstance(400, 400, 500, 50, true);
+    ses.add(platform1);
+
 
     Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
     std::cout << lbl;
@@ -59,7 +62,7 @@ int main(int argv, char** args)
     Button *btn2 = new MinskaKnapp(lbl);
     ses.add(btn2);
 
-    Player *player = Player::getInstance(300,300, 100,100, true);
+    Player *player = Player::getInstance(400,400, 100,100, true);
     ses.add(player);
 
     std::cout << std::endl << ses.colliders[0] << std::endl << ses.colliders[1] << std::endl << player << std::endl << platform;

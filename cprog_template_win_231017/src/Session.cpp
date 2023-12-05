@@ -80,7 +80,7 @@ void Session::run()
 			} // switch
 		}	  // inre while event while
 
-		checkCollision(colliders[1]);
+		checkCollision(colliders[2]);
 
 		for (Component *c : comps)
 			c->tick();
