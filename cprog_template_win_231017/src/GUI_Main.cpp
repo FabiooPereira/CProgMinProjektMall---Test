@@ -45,11 +45,11 @@ int main(int argv, char** args)
     //Fab
     Session ses;
 
-    Platform* platform = Platform::getInstance(200, 200, 50, 50, true);
+    Platform* platform = Platform::getInstance(200, 800, 500, 50, true);
     ses.add(platform);
 
 
-    Label *lbl = Label::getInstance(300, 300, 50, 50, "0");
+    Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
     std::cout << lbl;
     ses.add(lbl);
 

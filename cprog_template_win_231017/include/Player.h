@@ -16,7 +16,7 @@ private:
     int animationSpeed;
     float velocity;
     int jumpForce;
-
+    float gravity;
     bool jumping;
 
     SDL_Texture* activeSpriteSheet() const;
