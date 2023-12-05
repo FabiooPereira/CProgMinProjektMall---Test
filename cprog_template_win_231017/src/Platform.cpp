@@ -13,7 +13,9 @@ using namespace std;
     };
 
     void Platform::tick(){
-
+        SDL_Rect platformRect = getRect();
+        platformRect.y += 5;
+        setRect(platformRect);
     };
 
     Platform::~Platform(){};

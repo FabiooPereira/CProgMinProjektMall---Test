@@ -9,6 +9,7 @@
 
 using namespace std;
 
+Session ses;
 int value = 0;
 
 class OkaKnapp : public Button
@@ -40,32 +41,48 @@ private:
     Label *label;
 };
 
-int main(int argv, char** args)
+class PlatformInstantiator : public Component
 {
-    //Fab
-    Session ses;
+public:
 
-    Platform* platform = Platform::getInstance(200, 800, 500, 50, true);
+    PlatformInstantiator(int x, int y, int w, int h) : Component(x, y, w, h)
+    {
+    }
+    void draw() const
+    {
+    }
+
+    void tick()
+    {
+        // Platform *platf = Platform::getInstance(20, 80, 500, 50, true);
+        // ses.add(platf);
+    }
+};
+
+int main(int argv, char **args)
+{
+    // Fab
+    // PlatformInstantiator pi(0, 0, 0, 0);
+    // ses.add(&pi);
+
+    Platform *platform = Platform::getInstance(200, 800, 500, 50, true);
     ses.add(platform);
 
-    Platform* platform1 = Platform::getInstance(400, 400, 500, 50, true);
+    Platform *platform1 = Platform::getInstance(400, 400, 500, 50, true);
     ses.add(platform1);
 
-
-    Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
-    std::cout << lbl;
-    ses.add(lbl);
-
-    Button *btn = new OkaKnapp(lbl);
-    ses.add(btn);
-
-    Button *btn2 = new MinskaKnapp(lbl);
-    ses.add(btn2);
-
-    Player *player = Player::getInstance(400,400, 100,100, true);
+    Player *player = Player::getInstance(400, 400, 100, 100, true);
     ses.add(player);
 
-    std::cout << std::endl << ses.colliders[0] << std::endl << ses.colliders[1] << std::endl << player << std::endl << platform;
+    // Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
+    // std::cout << lbl;
+    // ses.add(lbl);
+
+    // Button *btn = new OkaKnapp(lbl);
+    // ses.add(btn);
+
+    // Button *btn2 = new MinskaKnapp(lbl);
+    // ses.add(btn2);
 
     ses.run();
     return 0;
