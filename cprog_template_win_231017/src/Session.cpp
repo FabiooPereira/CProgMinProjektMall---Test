@@ -47,6 +47,11 @@ void Session::checkCollision(Component *collider)
 
 void Session::collisionLoop()
 {
+	for (auto c : colliders)
+	{
+		checkCollision(c);
+	}
+	
 }
 
 void Session::run()
@@ -80,7 +85,7 @@ void Session::run()
 			} // switch
 		}	  // inre while event while
 
-		checkCollision(colliders[2]);
+		collisionLoop();
 
 		for (Component *c : comps)
 			c->tick();
