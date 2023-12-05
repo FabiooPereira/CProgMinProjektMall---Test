@@ -4,7 +4,8 @@
 using namespace std;
 
 
-    Platform* Platform::getInstance(int x, int y, int w, int h){
+    Platform* Platform::getInstance(int x, int y, int w, int h, bool collision = false){
+        return new Platform(x,y,w,h,collision);
     };
 
     void Platform::draw() const {
@@ -15,7 +16,7 @@ using namespace std;
 
     Platform::~Platform(){};
 
-    Platform::Platform(int x, int y, int w, int h) : Component (x, y, w, h){
+    Platform::Platform(int x, int y, int w, int h, bool collision = false) : Component (x, y, w, h, collision) {
         texture = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/platform.jpg").c_str());
     }; 
 

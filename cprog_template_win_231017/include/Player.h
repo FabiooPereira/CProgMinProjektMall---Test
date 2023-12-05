@@ -18,10 +18,10 @@ private:
     SDL_Texture* activeSpriteSheet() const;
 
 protected:
-    Player(int xPos, int yPos, int w, int h);
+    Player(int xPos, int yPos, int w, int h, bool collision);
 
 public:
-    static Player *getInstance(int x, int y, int w, int h);
+    static Player *getInstance(int x, int y, int w, int h, bool collision);
 
     void keyDown(const SDL_Event &eve);
     void keyUp(const SDL_Event &eve);

@@ -1,6 +1,6 @@
 #include "Player.h"
 
-Player::Player(int xPos, int yPos, int w, int h) : Component(xPos, yPos, w, h)
+Player::Player(int xPos, int yPos, int w, int h, bool collision = false) : Component(xPos, yPos, w, h, collision)
 {
     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/PlayerIdle.png").c_str());
 
@@ -8,9 +8,9 @@ Player::Player(int xPos, int yPos, int w, int h) : Component(xPos, yPos, w, h)
     frameCountter = 0;
     animationSpeed = 10;
 }
-Player *Player::getInstance(int x, int y, int w, int h)
+Player *Player::getInstance(int x, int y, int w, int h, bool collision = false)
 {
-    return new Player(x, y, w, h);
+    return new Player(x, y, w, h, collision);
 }
 void Player::draw() const
 {

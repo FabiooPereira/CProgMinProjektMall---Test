@@ -4,6 +4,7 @@
 #include "Label.h"
 #include "Button.h"
 #include "Player.h"
+#include "platform.h"
 #include <SDL2/SDL.h>
 
 using namespace std;
@@ -43,6 +44,11 @@ int main(int argv, char** args)
 {
     //Fab
     Session ses;
+
+    Platform* platform = Platform::getInstance(200, 200, 600, 50, true);
+    ses.add(platform);
+
+
     Label *lbl = Label::getInstance(300, 300, 50, 50, "0");
     std::cout << lbl;
     ses.add(lbl);
@@ -53,7 +59,7 @@ int main(int argv, char** args)
     Button *btn2 = new MinskaKnapp(lbl);
     ses.add(btn2);
 
-    Player *player = Player::getInstance(200,200, 100,100);
+    Player *player = Player::getInstance(200,200, 100,100, true);
     ses.add(player);
 
     ses.run();

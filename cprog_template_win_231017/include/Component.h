@@ -17,6 +17,7 @@ public:
 	bool getCollision();
 
 protected:
+	Component(int x, int y, int w, int h, bool c);
 	Component(int x, int y, int w, int h);
 
 private:

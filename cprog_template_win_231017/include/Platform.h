@@ -10,13 +10,13 @@
 
 class Platform : public Component {
     public:
-    static Platform* getInstance(int x, int y, int w, int h);
+    static Platform* getInstance(int x, int y, int w, int h, bool collsion);
     virtual void draw() const;
     void tick();
     ~Platform();
 
     protected:
-    Platform(int x, int y, int w, int h); 
+    Platform(int x, int y, int w, int h, bool collision); 
 
     private:
     SDL_Texture* texture;
