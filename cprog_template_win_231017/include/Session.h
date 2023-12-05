@@ -16,6 +16,9 @@ public:
 private:
 	std::vector<Component *> comps;
 	std::vector<Component *> added, removed;
+	std::vector<Component *> colliders;
+	void checkCollision(Component *collider);
+	void collisionLoop();
 };
 
 #endif

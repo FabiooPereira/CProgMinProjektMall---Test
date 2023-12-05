@@ -14,6 +14,8 @@ public:
 	void setRect(const SDL_Rect &newRect);
 	virtual void tick() = 0;
 
+	bool getCollision();
+
 protected:
 	Component(int x, int y, int w, int h);
 
@@ -21,6 +23,7 @@ private:
 	SDL_Rect rect;
 	Component(const Component &) = delete;
 	const Component &operator=(const Component &) = delete;
+	bool collision;
 };
 
 #endif

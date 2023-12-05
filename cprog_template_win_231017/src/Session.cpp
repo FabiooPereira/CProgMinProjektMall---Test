@@ -24,6 +24,13 @@ void Session::remove(Component *comp)
 	removed.push_back(comp);
 }
 
+void Session::checkCollision(Component *collider)
+{
+}
+void Session::collisionLoop()
+{
+}
+
 void Session::run()
 {
 	bool quit = false;
@@ -46,7 +53,7 @@ void Session::run()
 					c->mouseDown(event);
 				break;
 			case SDL_KEYDOWN:
-			for (Component *c:comps)
+				for (Component *c : comps)
 					c->keyDown(event);
 				break;
 			case SDL_QUIT:
