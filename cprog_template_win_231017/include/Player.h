@@ -12,8 +12,12 @@ private:
     SDL_Texture *RunSpriteSheet;
 
     int currentFrame;
-    int frameCountter;
+    int frameCounter;
     int animationSpeed;
+    float velocity;
+    int jumpForce;
+
+    bool jumping;
 
     SDL_Texture* activeSpriteSheet() const;
 
@@ -29,7 +33,9 @@ public:
     virtual void draw() const override;
     void tick() override;
 
-    void applyGravity();
+    void applyGravity(SDL_Rect *rect);
+    void applyVelocity(SDL_Rect *rect);
+    void jump(int jumpForce, SDL_Rect *rect);
     void onCollision(Component* c);
 
     ~Player();

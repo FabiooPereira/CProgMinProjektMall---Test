@@ -6,8 +6,11 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/PlayerIdle.png").c_str());
 
     currentFrame = 0;
-    frameCountter = 0;
+    frameCounter = 0;
     animationSpeed = 10;
+    velocity = 1;
+    jumping = false;
+    jumpForce = 5;
 }
 Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 {
@@ -45,29 +48,46 @@ void Player::keyUp(const SDL_Event &even)
 }
 void Player::tick()
 {
-    applyGravity();
+    SDL_Rect playerRect = getRect();
+    applyVelocity(&playerRect);
+    setRect(playerRect);
+    std::cout << velocity;
 
-    frameCountter++;
-    if (frameCountter >= animationSpeed)
+    frameCounter++;
+    if (frameCounter >= animationSpeed)
     {
         currentFrame = (currentFrame + 1) % 6;
-        frameCountter = 0;
+        frameCounter = 0;
     }
 }
-void Player::applyGravity()
-{
-    const int gravity = 1;
 
-    SDL_Rect playerRect = getRect();
-    playerRect.y += gravity;
-    setRect(playerRect);
+void Player::applyVelocity(SDL_Rect *rect){
+    
+    if(jumping){
+        jump(jumpForce, rect);
+    }
+    velocity *= 1.005;
+    applyGravity(rect);
 }
+
+void Player::jump(int force, SDL_Rect *rect){
+    rect -> y -= 100;
+    jumping = false;
+}
+
+void Player::applyGravity(SDL_Rect *rect){
+    rect->y += velocity;
+}
+
+
 void Player::onCollision(Component *c)
 {
+    jumping = true;
+
     std::cout << "Hej";
-    SDL_Rect playerRect = getRect();
+    /*SDL_Rect playerRect = getRect();
     playerRect.y -= 100;
-    setRect(playerRect);
+    setRect(playerRect);*/
 }
 SDL_Texture* Player::activeSpriteSheet() const
 {
