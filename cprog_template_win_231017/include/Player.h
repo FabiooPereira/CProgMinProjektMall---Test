@@ -30,6 +30,7 @@ public:
     void tick() override;
 
     void applyGravity();
+    void onCollision(Component* c);
 
     ~Player();
 };

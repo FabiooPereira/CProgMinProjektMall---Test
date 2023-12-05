@@ -45,7 +45,7 @@ int main(int argv, char** args)
     //Fab
     Session ses;
 
-    Platform* platform = Platform::getInstance(200, 200, 600, 50, true);
+    Platform* platform = Platform::getInstance(200, 200, 50, 50, true);
     ses.add(platform);
 
 
@@ -59,8 +59,10 @@ int main(int argv, char** args)
     Button *btn2 = new MinskaKnapp(lbl);
     ses.add(btn2);
 
-    Player *player = Player::getInstance(200,200, 100,100, true);
+    Player *player = Player::getInstance(300,300, 100,100, true);
     ses.add(player);
+
+    std::cout << std::endl << ses.colliders[0] << std::endl << ses.colliders[1] << std::endl << player << std::endl << platform;
 
     ses.run();
     return 0;

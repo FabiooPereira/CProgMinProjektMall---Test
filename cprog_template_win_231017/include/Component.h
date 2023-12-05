@@ -15,6 +15,8 @@ public:
 	virtual void tick() = 0;
 
 	bool getCollision();
+	virtual void onCollision(Component *c){}
+	 bool isCollider() { return collision;}
 
 protected:
 	Component(int x, int y, int w, int h, bool c);

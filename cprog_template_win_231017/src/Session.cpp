@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 // #include "Component.h"
 #include "System.h"
+#include <iostream>
 
 using namespace std;
 
@@ -17,6 +18,7 @@ Session::~Session()
 void Session::add(Component *comp)
 {
 	added.push_back(comp);
+	if (comp->isCollider()) colliders.push_back(comp);
 }
 
 void Session::remove(Component *comp)
@@ -26,7 +28,23 @@ void Session::remove(Component *comp)
 
 void Session::checkCollision(Component *collider)
 {
+    
+    // for (Component* c : colliders)
+    // {
+    //     SDL_Rect rect2 = collider->getRect();
+    //     if ((rect.x + rect.w) > rect2.x && rect.x < (rect2.x + rect2.w) && (rect.y + rect.h) > rect2.y && rect.y < (rect2.y + rect2.h))
+    //         collider->onCollision(c);
+    // }
+	for (Component* c : colliders){
+		
+		if(SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c){
+			 collider->onCollision(c);
+		}
+		
+	}
 }
+	
+
 void Session::collisionLoop()
 {
 }
@@ -60,7 +78,9 @@ void Session::run()
 				quit = true;
 				break;
 			} // switch
-		}	  // inre while
+		}	  // inre while event while
+
+		checkCollision(colliders[1]);
 
 		for (Component *c : comps)
 			c->tick();

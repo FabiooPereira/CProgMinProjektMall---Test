@@ -1,6 +1,7 @@
 #include "Player.h"
+#include<iostream>
 
-Player::Player(int xPos, int yPos, int w, int h, bool collision = false) : Component(xPos, yPos, w, h, collision)
+Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/PlayerIdle.png").c_str());
 
@@ -8,7 +9,7 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision = false) : Compo
     frameCountter = 0;
     animationSpeed = 10;
 }
-Player *Player::getInstance(int x, int y, int w, int h, bool collision = false)
+Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 {
     return new Player(x, y, w, h, collision);
 }
@@ -44,7 +45,7 @@ void Player::keyUp(const SDL_Event &even)
 }
 void Player::tick()
 {
-    //applyGravity();
+    applyGravity();
 
     frameCountter++;
     if (frameCountter >= animationSpeed)
@@ -59,6 +60,13 @@ void Player::applyGravity()
 
     SDL_Rect playerRect = getRect();
     playerRect.y += gravity;
+    setRect(playerRect);
+}
+void Player::onCollision(Component *c)
+{
+    std::cout << "Hej";
+    SDL_Rect playerRect = getRect();
+    playerRect.y -= 100;
     setRect(playerRect);
 }
 SDL_Texture* Player::activeSpriteSheet() const
