@@ -5,39 +5,43 @@
 #include "System.h"
 #include "Constants.h"
 #include <SDL2/SDL_image.h>
-class Player : public Component
+
+namespace engine
 {
-private:
-    SDL_Texture *idleSpriteSheet;
-    SDL_Texture *RunSpriteSheet;
+    class Player : public Component
+    {
+    private:
+        SDL_Texture *idleSpriteSheet;
+        SDL_Texture *RunSpriteSheet;
 
-    int currentFrame;
-    int frameCounter;
-    int animationSpeed;
-    float velocity;
-    int jumpForce;
-    float gravity;
-    bool jumping;
+        int currentFrame;
+        int frameCounter;
+        int animationSpeed;
+        float velocity;
+        int jumpForce;
+        float gravity;
+        bool jumping;
 
-    SDL_Texture* activeSpriteSheet() const;
+        SDL_Texture *activeSpriteSheet() const;
 
-protected:
-    Player(int xPos, int yPos, int w, int h, bool collision);
+    protected:
+        Player(int xPos, int yPos, int w, int h, bool collision);
 
-public:
-    static Player *getInstance(int x, int y, int w, int h, bool collision);
+    public:
+        static Player *getInstance(int x, int y, int w, int h, bool collision);
 
-    void keyDown(const SDL_Event &eve);
-    void keyUp(const SDL_Event &eve);
+        void keyDown(const SDL_Event &eve);
+        void keyUp(const SDL_Event &eve);
 
-    virtual void draw() const override;
-    void tick() override;
+        virtual void draw() const override;
+        void tick() override;
 
-    void applyGravity(SDL_Rect *rect);
-    void applyVelocity(SDL_Rect *rect);
-    void jump(int jumpForce, SDL_Rect *rect);
-    void onCollision(Component* c);
+        void applyGravity(SDL_Rect *rect);
+        void applyVelocity(SDL_Rect *rect);
+        void jump(int jumpForce, SDL_Rect *rect);
+        void onCollision(Component *c);
 
-    ~Player();
-};
+        ~Player();
+    };
+}
 #endif

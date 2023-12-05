@@ -5,13 +5,14 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 
-
+namespace engine{
 	class System
 	{
 	public:
 		System();
 		~System();
 		SDL_Renderer* get_ren() const;
+		int get_height() const;
 		TTF_Font* get_font() const;
 	private:
 		SDL_Window* win;
@@ -19,6 +20,6 @@
 		TTF_Font* font;
 	};
 	
-	extern System sys;
-
+	extern System sys; // Statiskt globalt objekt (definierad utanför funktioner.)
+}
 #endif

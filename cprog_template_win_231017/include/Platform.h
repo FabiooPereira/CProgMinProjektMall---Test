@@ -8,6 +8,8 @@
 #include "System.h"
 #include <SDL2/SDL_ttf.h>
 
+
+namespace engine{
 class Platform : public Component {
     public:
     static Platform* getInstance(int x, int y, int w, int h, bool collsion);
@@ -22,5 +24,5 @@ class Platform : public Component {
     SDL_Texture* texture;
 
 };
-
+}
 #endif
