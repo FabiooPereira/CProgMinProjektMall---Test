@@ -6,7 +6,7 @@
 
 System::System()
 {
-	std::cout << "*** System::System()\n";
+	std::cout << "system created";
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	win = SDL_CreateWindow("Scribble Hop", SDL_WINDOWPOS_CENTERED,
@@ -19,7 +19,7 @@ System::System()
 
 System::~System()
 {
-	std::cout << "*** System::~System()\n";
+	std::cout << "system destruct";
 	TTF_CloseFont(font);
 	TTF_Quit();
 	SDL_DestroyWindow(win);

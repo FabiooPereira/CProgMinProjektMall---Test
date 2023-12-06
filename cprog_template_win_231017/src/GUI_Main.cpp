@@ -40,6 +40,50 @@ private:
     Label *label;
 };
 
+class Camera : public Component
+{
+public:
+    static Camera *getInstance(int x, int y, int w, int h, Player *playerComponent)
+    {
+        return new Camera(x, y, w, h, playerComponent);
+    }
+
+    void draw() const
+    {
+    }
+
+    void tick()
+    {
+        // cout << "player height:  " << player->getRect().y << endl;
+        if (player->getRect().y < 250)
+        {
+            toMove += (450 - player->getRect().y);
+        }
+        else if (player->getRect().y < 450)
+        {
+            toMove += (450 - player->getRect().y) / 60;
+        }
+        std::vector<Component *> colliders(ses.getMovables());
+        for (Component *c : colliders)
+        {
+            SDL_Rect platformRect = c->getRect();
+            platformRect.y += toMove / 60;
+            c->setRect(platformRect);
+
+            toMove -= toMove / 60;
+        }
+    }
+
+protected:
+    Camera(int x, int y, int w, int h, Player *playerComponent) : Component(x, y, w, h), player(playerComponent)
+    {
+    }
+
+private:
+    Player *player;
+    int toMove;
+};
+
 class PlatformInstantiator : public Component
 {
 public:
@@ -57,53 +101,52 @@ public:
     void tick()
     {
         counter++;
-        if (counter >= 40)
+        std::cout << counter << endl;
+        if (counter >= 10 && platforms < 12)
         {
             int random = 1 + (rand() % 500);
             counter = 0;
+
             Platform *platf = Platform::getInstance(random, 100, 100, 20, true);
+            objects.push_back(platf);
             ses.add(platf);
+            platforms++;
         }
+
+        for (Component *c : objects)
+        {
+            if (c->getRect().y > 900)
+            {
+                ses.remove(c);
+                toRemove.push_back(c);
+                platforms--;
+                std::cout << "removed!" << std::endl;
+            }
+        }
+
+        for (Component *c : toRemove)
+        {
+            for (vector<Component *>::iterator i = objects.begin();
+                 i != objects.end();)
+            {
+                if (*i == c)
+                {
+                    i = objects.erase(i);
+                }
+                else
+                {
+                    i++;
+                }
+            }
+        }
+        toRemove.clear();
     }
 
 private:
     int counter;
-};
-
-class Camera : public Component
-{
-public:
-    static Camera *getInstance(int x, int y, int w, int h, Player *playerComponent)
-    {
-        return new Camera(x, y, w, h, playerComponent);
-    }
-
-    void draw() const
-    {
-    }
-
-    void tick()
-    {
-        // cout << "player height:  " << player->getRect().y << endl;
-
-        if (player->getRect().y < 450)
-        {
-            for (Component *c : ses.colliders)
-            {
-                SDL_Rect platformRect = c->getRect();
-                platformRect.y += 3;
-                c->setRect(platformRect);
-            }
-        }
-    }
-
-protected:
-    Camera(int x, int y, int w, int h, Player *playerComponent) : Component(x, y, w, h), player(playerComponent)
-    {
-    }
-
-private:
-    Player *player;
+    int platforms;
+    std::vector<Component *> objects;
+    std::vector<Component *> toRemove;
 };
 
 int main(int argv, char **args)
@@ -112,25 +155,39 @@ int main(int argv, char **args)
     PlatformInstantiator *pi = PlatformInstantiator::getInstance(0, 0, 0, 0);
     ses.add(pi);
 
-    Platform *platform = Platform::getInstance(200, 200, 100, 20, true);
+    Platform *platform = Platform::getInstance(200, 650, 100, 20, true);
     ses.add(platform);
 
-    Player *player = Player::getInstance(200, 150, 100, 100, true);
+    Platform *platform2 = Platform::getInstance(100, 250, 100, 20, true);
+    ses.add(platform2);
+
+    Player *player = Player::getInstance(200, 600, 100, 100, true);
     ses.add(player);
 
     Camera *camera = Camera::getInstance(0, 0, 0, 0, player);
     ses.add(camera);
 
-    // Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
-    // std::cout << lbl;
-    // ses.add(lbl);
-
-    // Button *btn = new OkaKnapp(lbl);
-    // ses.add(btn);
-
-    // Button *btn2 = new MinskaKnapp(lbl);
-    // ses.add(btn2);
-
     ses.run();
+    std::cout << "after run()";
     return 0;
 }
+
+/*
+
+0.0									500.0
+
+
+            200.150
+
+
+
+
+
+
+
+0.900								500.900
+
+
+            450 - 200 = 250
+
+*/

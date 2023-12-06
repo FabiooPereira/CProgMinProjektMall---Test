@@ -12,11 +12,16 @@ public:
 	void add(Component *comp);
 	void remove(Component *comp);
 	void run();
-	std::vector<Component *> colliders;
+
+	const std::vector<Component *> getMovables() const
+	{
+		return colliders;
+	}
 
 private:
-	std::vector<Component *> comps;
+	std::vector<Component *> components;
 	std::vector<Component *> added, removed;
+	std::vector<Component *> colliders;
 
 	void checkCollision(Component *collider);
 	void collisionLoop();

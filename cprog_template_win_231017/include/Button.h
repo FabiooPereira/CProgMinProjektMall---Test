@@ -3,6 +3,7 @@
 
 #include <SDL2/SDL.h>
 #include "Component.h"
+// #include "MemoryCheck.h"
 #include <string>
 
 class Button : public Component
@@ -26,5 +27,4 @@ private:
     SDL_Texture *upImage, *downImage;
     bool isDown = false;
 };
-
 #endif

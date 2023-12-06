@@ -13,14 +13,5 @@ void Component::setRect(const SDL_Rect &newRect)
 }
 void Component::onCollision(Component *c)
 {
-    std::cout << "collision! F";
-}
-
-
-
-void * Component::operator new(size_t size)
-{
-    std::cout << "memory allocated: " << size << std::endl;
-
-    return malloc(size);
+    // std::cout << "collision! F" << std::endl;
 }

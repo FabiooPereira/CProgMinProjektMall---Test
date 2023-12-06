@@ -106,6 +106,7 @@ SDL_Texture *Player::activeSpriteSheet() const
 
 Player::~Player()
 {
+    std::cout << "player destruct" << std::endl;
     SDL_DestroyTexture(idleSpriteSheet);
     SDL_DestroyTexture(RunSpriteSheet);
 }

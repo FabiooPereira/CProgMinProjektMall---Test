@@ -22,6 +22,7 @@ void Platform::tick()
 Platform::~Platform()
 {
     SDL_DestroyTexture(texture);
+    std::cout << "platform destruct" << std::endl;
 }
 
 Platform::Platform(int x, int y, int w, int h, bool collision) : Component(x, y, w, h, collision)

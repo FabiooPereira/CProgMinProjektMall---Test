@@ -14,7 +14,9 @@ Session::Session()
 
 Session::~Session()
 {
+	std::cout << "session destruct" << std::endl;
 }
+
 void Session::add(Component *comp)
 {
 	added.push_back(comp);
@@ -38,9 +40,9 @@ void Session::checkCollision(Component *collider)
 	// }
 	for (Component *c : colliders)
 	{
-
 		if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 		{
+			std::cout << "collision!" << endl;
 			collider->onCollision(c);
 		}
 	}
@@ -68,40 +70,57 @@ void Session::run()
 			switch (event.type)
 			{
 			case SDL_MOUSEBUTTONUP:
-				for (Component *c : comps)
+				for (Component *c : components)
 					c->mouseUp(event);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				for (Component *c : comps)
+				for (Component *c : components)
 					c->mouseDown(event);
 				break;
 			case SDL_KEYDOWN:
-				for (Component *c : comps)
+				for (Component *c : components)
 					c->keyDown(event);
 				break;
 			case SDL_QUIT:
 				quit = true;
+				std::cout << "quit pressed";
 				break;
 			} // switch
 		}	  // inre while event while
 
 		collisionLoop();
 
-		for (Component *c : comps)
+		for (Component *c : components)
 			c->tick();
 
 		for (Component *c : added)
-			comps.push_back(c);
+			components.push_back(c);
 		added.clear();
 
 		for (Component *c : removed)
 		{
-			for (vector<Component *>::iterator i = comps.begin();
-				 i != comps.end();)
+			for (vector<Component *>::iterator i = colliders.begin();
+				 i != colliders.end();)
 			{
 				if (*i == c)
 				{
-					i = comps.erase(i);
+					if (c->isCollider())
+						i = colliders.erase(i);
+				}
+				else
+				{
+					i++;
+				}
+			}
+		}
+		for (Component *c : removed)
+		{
+			for (vector<Component *>::iterator i = components.begin();
+				 i != components.end();)
+			{
+				if (*i == c)
+				{
+					i = components.erase(i);
 				}
 				else
 				{
@@ -112,7 +131,7 @@ void Session::run()
 		removed.clear();
 		SDL_RenderClear(sys.get_ren());
 		SDL_SetRenderDrawColor(sys.get_ren(), 100, 100, 100, 0);
-		for (Component *c : comps)
+		for (Component *c : components)
 			c->draw();
 		SDL_RenderPresent(sys.get_ren());
 
@@ -120,4 +139,5 @@ void Session::run()
 		if (delay > 0)
 			SDL_Delay(delay);
 	} // yttre while
+	std::cout << "end of run() ";
 }

@@ -1,11 +1,12 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
 #include <SDL2/SDL.h>
-// #include "memorycheck.h"
+
+// #include "MemoryCheck.h"
+#include <iostream>
 
 class Component
 {
-
 public:
 	virtual void mouseUp(const SDL_Event &eve) {}
 	virtual void mouseDown(const SDL_Event &eve) {}
@@ -18,8 +19,6 @@ public:
 
 	virtual void onCollision(Component *c);
 	bool isCollider() { return collider; }
-
-	void *operator new(size_t size);
 
 protected:
 	Component(int x, int y, int w, int h, bool c);
