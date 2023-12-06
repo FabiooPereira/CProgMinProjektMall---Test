@@ -4,12 +4,10 @@
 #include "Label.h"
 #include "Button.h"
 #include "Player.h"
-#include "platform.h"
+#include "Platform.h"
 #include <SDL2/SDL.h>
 
 using namespace std;
-using namespace engine;
-using namespace game;
 Session ses;
 int value = 0;
 
@@ -86,7 +84,7 @@ public:
 
     void tick()
     {
-        cout << "player height:  " << player->getRect().y << endl;
+        // cout << "player height:  " << player->getRect().y << endl;
 
         if (player->getRect().y < 450)
         {
@@ -122,9 +120,6 @@ int main(int argv, char **args)
 
     Camera *camera = Camera::getInstance(0, 0, 0, 0, player);
     ses.add(camera);
-
-
-
 
     // Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
     // std::cout << lbl;

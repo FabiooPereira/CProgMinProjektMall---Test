@@ -8,21 +8,19 @@
 #include "System.h"
 #include <SDL2/SDL_ttf.h>
 
-
-namespace engine{
-class Platform : public Component {
-    public:
-    static Platform* getInstance(int x, int y, int w, int h, bool collsion);
+class Platform : public Component
+{
+public:
+    static Platform *getInstance(int x, int y, int w, int h, bool collsion);
     virtual void draw() const;
     void tick();
     ~Platform();
 
-    protected:
-    Platform(int x, int y, int w, int h, bool collision); 
+protected:
+    Platform(int x, int y, int w, int h, bool collision);
 
-    private:
-    SDL_Texture* texture;
-
+private:
+    SDL_Texture *texture;
 };
-}
+
 #endif

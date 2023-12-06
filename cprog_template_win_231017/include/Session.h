@@ -4,25 +4,22 @@
 #include "Component.h"
 #include <vector>
 
-namespace engine
+class Session
 {
-	class Session
-	{
-	public:
-		Session();
-		~Session();
-		void add(Component *comp);
-		void remove(Component *comp);
-		void run();
-		std::vector<Component *> colliders;
-		
+public:
+	Session();
+	~Session();
+	void add(Component *comp);
+	void remove(Component *comp);
+	void run();
+	std::vector<Component *> colliders;
 
-	private:
-		std::vector<Component *> comps;
-		std::vector<Component *> added, removed;
+private:
+	std::vector<Component *> comps;
+	std::vector<Component *> added, removed;
 
-		void checkCollision(Component *collider);
-		void collisionLoop();
-	};
-}
+	void checkCollision(Component *collider);
+	void collisionLoop();
+};
+
 #endif
