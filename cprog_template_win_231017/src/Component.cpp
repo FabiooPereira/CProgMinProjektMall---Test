@@ -3,10 +3,10 @@
 
 namespace engine
 {
-    Component::Component(int x, int y, int w, int h) : rect{x, y, w, h}, collision(false)
+    Component::Component(int x, int y, int w, int h) : rect{x, y, w, h}, collider(false)
     {
     }
-    Component::Component(int x, int y, int w, int h, bool colliderOn) : rect{x, y, w, h}, collision(colliderOn)
+    Component::Component(int x, int y, int w, int h, bool colliderOn) : rect{x, y, w, h}, collider(colliderOn)
     {
     }
     void Component::setRect(const SDL_Rect &newRect)

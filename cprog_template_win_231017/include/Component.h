@@ -16,9 +16,8 @@ namespace engine
 		void setRect(const SDL_Rect &newRect);
 		virtual void tick() = 0;
 
-		bool getCollision();
 		virtual void onCollision(Component *c) {}
-		bool isCollider() { return collision; }
+		bool isCollider() { return collider; }
 
 	protected:
 		Component(int x, int y, int w, int h, bool c);
@@ -28,7 +27,7 @@ namespace engine
 		SDL_Rect rect;
 		Component(const Component &) = delete;
 		const Component &operator=(const Component &) = delete;
-		bool collision;
+		bool collider;
 	};
 }
 #endif

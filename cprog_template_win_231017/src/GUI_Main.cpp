@@ -9,6 +9,7 @@
 
 using namespace std;
 using namespace engine;
+using namespace game;
 Session ses;
 int value = 0;
 
@@ -121,6 +122,10 @@ int main(int argv, char **args)
 
     Camera *camera = Camera::getInstance(0, 0, 0, 0, player);
     ses.add(camera);
+
+
+
+
     // Label *lbl = Label::getInstance(300, 300, 500, 50, "0");
     // std::cout << lbl;
     // ses.add(lbl);

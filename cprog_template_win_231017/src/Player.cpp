@@ -1,7 +1,9 @@
 #include "Player.h"
 #include <iostream>
 
-namespace engine
+using namespace engine;
+
+namespace game
 {
     Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
     {
@@ -108,5 +110,7 @@ namespace engine
 
     Player::~Player()
     {
+        SDL_DestroyTexture(idleSpriteSheet);
+        SDL_DestroyTexture(RunSpriteSheet);
     }
 }

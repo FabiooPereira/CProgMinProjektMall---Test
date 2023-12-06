@@ -15,6 +15,7 @@ namespace engine
 		void remove(Component *comp);
 		void run();
 		std::vector<Component *> colliders;
+		
 
 	private:
 		std::vector<Component *> comps;
