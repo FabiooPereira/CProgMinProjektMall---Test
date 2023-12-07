@@ -42,7 +42,7 @@ void Session::checkCollision(Component *collider)
 	{
 		if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 		{
-			std::cout << "collision!" << endl;
+			// std::cout << "collision!" << endl;
 			collider->onCollision(c);
 		}
 	}

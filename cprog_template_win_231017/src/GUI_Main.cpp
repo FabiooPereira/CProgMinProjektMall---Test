@@ -54,14 +54,14 @@ public:
     void tick()
     {
         // cout << "player height:  " << player->getRect().y << endl;
-        if (player->getFRect().y < 400) // om spelaren är väldigt högt upp
+        if (player->getRect().y < 400) // om spelaren är väldigt högt upp
         {
-            toMove += (450 - player->getFRect().y); // skynda och flytta kameran
+            toMove += (450 - player->getRect().y); // skynda och flytta kameran
         }
         std::vector<Component *> colliders(ses.getMovables()); // hämta pekare till alla movables
-        if (player->getFRect().y < 450)
+        if (player->getRect().y < 450)
         {
-            toMove += (450 - player->getFRect().y) / 60; // flytta kameran mjukt och lugnt
+            toMove += (450 - player->getRect().y) / 60; // flytta kameran mjukt och lugnt
             float toMoveThisFrame = toMove / 60;
             for (Component *c : colliders)
             {
@@ -120,7 +120,7 @@ private:
     {
         for (Component *c : objects) // går igenom egna vektorn och kollar om de är utanför fönstret
         {
-            if (c->getFRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
+            if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
                 ses.remove(c);         // lägger till i sessions remove
                 toRemove.push_back(c); // lägger till i egen remove

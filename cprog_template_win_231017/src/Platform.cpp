@@ -9,9 +9,7 @@ Platform *Platform::getInstance(int x, int y, int w, int h, bool collision)
 
 void Platform::draw() const
 {
-    // SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
-    
-    SDL_RenderCopyF(sys.get_ren(), texture, NULL, &getFRect());
+    SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
 }
 
 void Platform::tick() {}

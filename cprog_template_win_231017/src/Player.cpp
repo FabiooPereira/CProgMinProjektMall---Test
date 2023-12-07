@@ -22,7 +22,7 @@ Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 void Player::draw() const
 {
     SDL_Rect srcRect = {currentFrame * 48, 0, 48, 48};
-    SDL_RenderCopyF(sys.get_ren(), activeSpriteSheet(), &srcRect, &getFRect());
+    SDL_RenderCopy(sys.get_ren(), activeSpriteSheet(), &srcRect, &getRect());
 }
 
 void Player::keyDown(const SDL_Event &eve)
@@ -73,7 +73,6 @@ void Player::tick()
         currentFrame = (currentFrame + 1) % 6;
         frameCounter = 0;
     }
-    std::cout << getRect().y << std::endl;
 }
 
 void Player::applyVelocity()
