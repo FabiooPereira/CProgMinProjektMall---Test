@@ -14,11 +14,15 @@ public:
 	virtual void keyDown(const SDL_Event &eve) {}
 	virtual void draw() const = 0;
 	const SDL_Rect &getRect() const { return rect; }
-	void setRect(const SDL_Rect &newRect);
+
+	const SDL_FRect &getFRect() const { return frect; }
+	// void setRect(const SDL_Rect &newRect);
+	void setFRect(const SDL_FRect &newRect);
 	virtual void tick() = 0;
 
 	virtual void onCollision(Component *c);
 	bool isCollider() { return collider; }
+	void move(const float x, const float y);
 
 protected:
 	Component(int x, int y, int w, int h, bool c);
@@ -26,6 +30,8 @@ protected:
 
 private:
 	SDL_Rect rect;
+
+	SDL_FRect frect;
 	Component(const Component &) = delete;
 	const Component &operator=(const Component &) = delete;
 	bool collider;

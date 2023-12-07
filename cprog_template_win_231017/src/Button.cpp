@@ -28,13 +28,18 @@ void Button::draw() const
 {
     if (isDown)
     {
-        SDL_RenderCopy(sys.get_ren(), downImage, NULL, &getRect());
-        SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
+        // SDL_RenderCopy(sys.get_ren(), downImage, NULL, &getRect());
+        // SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
+
+        SDL_RenderCopyF(sys.get_ren(), downImage, NULL, &getFRect());
+        SDL_RenderCopyF(sys.get_ren(), texture, NULL, &getFRect());
     }
 
     else
     {
-        SDL_RenderCopy(sys.get_ren(), upImage, NULL, &getRect());
+        // SDL_RenderCopy(sys.get_ren(), upImage, NULL, &getRect());
+
+        SDL_RenderCopyF(sys.get_ren(), upImage, NULL, &getFRect());
     }
 }
 

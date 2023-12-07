@@ -21,5 +21,7 @@ protected:
 
 private:
     SDL_Texture *texture;
+    const int width = 100;
+    const int height = 20;
 };
 #endif

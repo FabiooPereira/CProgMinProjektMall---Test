@@ -10,6 +10,7 @@
 using namespace std;
 Session ses;
 int value = 0;
+double distanceMoved;
 
 class OkaKnapp : public Button
 {
@@ -43,88 +44,94 @@ private:
 class Camera : public Component
 {
 public:
-    static Camera *getInstance(int x, int y, int w, int h, Player *playerComponent)
+    static Camera *getInstance(Player *playerComponent)
     {
-        return new Camera(x, y, w, h, playerComponent);
+        return new Camera(playerComponent);
     }
 
-    void draw() const
-    {
-    }
+    void draw() const {}
 
     void tick()
     {
         // cout << "player height:  " << player->getRect().y << endl;
-        if (player->getRect().y < 250)
+        if (player->getFRect().y < 400) // om spelaren är väldigt högt upp
         {
-            toMove += (450 - player->getRect().y);
+            toMove += (450 - player->getFRect().y); // skynda och flytta kameran
         }
-        else if (player->getRect().y < 450)
+        std::vector<Component *> colliders(ses.getMovables()); // hämta pekare till alla movables
+        if (player->getFRect().y < 450)
         {
-            toMove += (450 - player->getRect().y) / 60;
-        }
-        std::vector<Component *> colliders(ses.getMovables());
-        for (Component *c : colliders)
-        {
-            SDL_Rect platformRect = c->getRect();
-            platformRect.y += toMove / 60;
-            c->setRect(platformRect);
-
-            toMove -= toMove / 60;
+            toMove += (450 - player->getFRect().y) / 60; // flytta kameran mjukt och lugnt
+            float toMoveThisFrame = toMove / 60;
+            for (Component *c : colliders)
+            {
+                c->move(0, toMoveThisFrame);
+            }
+            toMove -= toMoveThisFrame;
+            distanceMoved += toMoveThisFrame;
         }
     }
 
 protected:
-    Camera(int x, int y, int w, int h, Player *playerComponent) : Component(x, y, w, h), player(playerComponent)
+    Camera(Player *playerComponent) : Component(0, 0, 0, 0), player(playerComponent)
     {
     }
 
 private:
     Player *player;
-    int toMove;
+    float toMove;
 };
 
-class PlatformInstantiator : public Component
+class PlatformInstantiator : public Component // instantierar plattformar
 {
 public:
-    static PlatformInstantiator *getInstance(int x, int y, int w, int h)
+    static PlatformInstantiator *getInstance()
     {
-        return new PlatformInstantiator(x, y, w, h);
+        return new PlatformInstantiator();
     }
-    PlatformInstantiator(int x, int y, int w, int h) : Component(x, y, w, h)
-    {
-    }
-    void draw() const
-    {
-    }
+
+    PlatformInstantiator() : Component(0, 0, 0, 0), platforms(0) {}
+
+    void draw() const {}
 
     void tick()
     {
-        counter++;
-        std::cout << counter << endl;
-        if (counter >= 10 && platforms < 12)
-        {
-            int random = 1 + (rand() % 500);
-            counter = 0;
+        createPlatform();
+        checkOutOfScope();
+        removeOutOfScope();
+    }
 
-            Platform *platf = Platform::getInstance(random, 100, 100, 20, true);
-            objects.push_back(platf);
-            ses.add(platf);
-            platforms++;
+private:
+    void createPlatform()
+    {
+        if ((distanceMoved - recentDistance) >= distanceInterval && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
+        {
+            recentDistance = distanceMoved;
+            int random = 1 + (rand() % 500); // random x position mellan 0 och 500
+                                             // reset counter
+
+            Platform *platf = Platform::getInstance(random, -50, 100, 20, true); // skapar plattform
+            objects.push_back(platf);                                            // lägger till i egen vektor
+            ses.add(platf);                                                      // lägger till i sessions vektor
+            platforms++;                                                         // håller koll på antal plattformar
         }
-
-        for (Component *c : objects)
+    }
+    void checkOutOfScope()
+    {
+        for (Component *c : objects) // går igenom egna vektorn och kollar om de är utanför fönstret
         {
-            if (c->getRect().y > 900)
+            if (c->getFRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
-                ses.remove(c);
-                toRemove.push_back(c);
-                platforms--;
-                std::cout << "removed!" << std::endl;
+                ses.remove(c);         // lägger till i sessions remove
+                toRemove.push_back(c); // lägger till i egen remove
+                platforms--;           // håller koll på antal plattformar
+                // std::cout << "removed!" << std::endl;
             }
         }
-
-        for (Component *c : toRemove)
+    }
+    void removeOutOfScope()
+    {
+        for (Component *c : toRemove) // itererar och tar bort plattformar
         {
             for (vector<Component *>::iterator i = objects.begin();
                  i != objects.end();)
@@ -141,10 +148,10 @@ public:
         }
         toRemove.clear();
     }
-
-private:
-    int counter;
+    float recentDistance;
+    const int distanceInterval = 50;
     int platforms;
+    int maxPlatforms = 20;
     std::vector<Component *> objects;
     std::vector<Component *> toRemove;
 };
@@ -152,19 +159,31 @@ private:
 int main(int argv, char **args)
 {
     // Fab
-    PlatformInstantiator *pi = PlatformInstantiator::getInstance(0, 0, 0, 0);
+    PlatformInstantiator *pi = PlatformInstantiator::getInstance();
     ses.add(pi);
 
-    Platform *platform = Platform::getInstance(200, 650, 100, 20, true);
+    Platform *platform = Platform::getInstance(200, 880, 100, 20, true);
     ses.add(platform);
 
-    Platform *platform2 = Platform::getInstance(100, 250, 100, 20, true);
+    Platform *platform2 = Platform::getInstance(150, 600, 100, 20, true);
     ses.add(platform2);
 
-    Player *player = Player::getInstance(200, 600, 100, 100, true);
+    Platform *platform3 = Platform::getInstance(100, 300, 100, 20, true);
+    ses.add(platform3);
+
+    Platform *platform4 = Platform::getInstance(200, 200, 100, 20, true);
+    ses.add(platform4);
+
+    Platform *platform5 = Platform::getInstance(150, 100, 100, 20, true);
+    ses.add(platform5);
+
+    Platform *platform6 = Platform::getInstance(100, 50, 100, 20, true);
+    ses.add(platform6);
+
+    Player *player = Player::getInstance(250, 850, 100, 100, true);
     ses.add(player);
 
-    Camera *camera = Camera::getInstance(0, 0, 0, 0, player);
+    Camera *camera = Camera::getInstance(player);
     ses.add(camera);
 
     ses.run();

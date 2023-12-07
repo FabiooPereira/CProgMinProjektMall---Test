@@ -17,9 +17,9 @@ public:
     virtual void draw() const override;
     void tick() override;
 
-    void applyGravity(SDL_Rect *rect);
-    void applyVelocity(SDL_Rect *rect);
-    void jump(int jumpForce, SDL_Rect *rect);
+    void applyGravity();
+    void applyVelocity();
+    void jump();
     void onCollision(Component *c) override;
 
     ~Player();

@@ -22,7 +22,10 @@ Label::Label(int x, int y, int w, int h,
 
 void Label::draw() const
 {
-	SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
+	// SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
+	SDL_RenderCopyF(sys.get_ren(), texture, NULL, &getFRect());
+
+	
 }
 
 Label::~Label()

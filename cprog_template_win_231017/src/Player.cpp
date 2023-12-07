@@ -22,19 +22,21 @@ Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 void Player::draw() const
 {
     SDL_Rect srcRect = {currentFrame * 48, 0, 48, 48};
-    SDL_RenderCopy(sys.get_ren(), activeSpriteSheet(), &srcRect, &getRect());
+    SDL_RenderCopyF(sys.get_ren(), activeSpriteSheet(), &srcRect, &getFRect());
 }
 
 void Player::keyDown(const SDL_Event &eve)
 {
-    SDL_Rect playerRect = getRect();
+    // SDL_Rect playerRect = getRect();
     switch (eve.key.keysym.sym)
     {
     case SDLK_LEFT:
-        playerRect.x -= 20;
+        // playerRect.x -= 20;
+        move(-20, 0);
         break;
     case SDLK_RIGHT:
-        playerRect.x += 20;
+        // playerRect.x += 20;
+        move(20, 0);
         break;
     case SDLK_UP:
         if (!jumping) // Allowing jumping only when not already jumping
@@ -44,12 +46,13 @@ void Player::keyDown(const SDL_Event &eve)
         }
         break;
     case SDLK_DOWN:
-        playerRect.y += 10;
+        // playerRect.y += 10;
+        move(0, 10);
         break;
     default:
         break;
     }
-    setRect(playerRect);
+    // setRect(playerRect);
 }
 
 void Player::keyUp(const SDL_Event &even)
@@ -58,33 +61,46 @@ void Player::keyUp(const SDL_Event &even)
 
 void Player::tick()
 {
-    SDL_Rect playerRect = getRect();
-    applyVelocity(&playerRect);
-    setRect(playerRect);
+    // SDL_Rect playerRect = getRect();
+    // applyVelocity(&playerRect);
+    // setRect(playerRect);
     // std::cout << "Velocity: " << velocity << std::endl;
 
+    applyVelocity();
     frameCounter++;
     if (frameCounter >= animationSpeed)
     {
         currentFrame = (currentFrame + 1) % 6;
         frameCounter = 0;
     }
+    std::cout << getRect().y << std::endl;
 }
 
-void Player::applyVelocity(SDL_Rect *rect)
+void Player::applyVelocity()
 {
     if (jumping)
     {
-        jump(jumpForce, rect);
+        jump();
     }
     if (velocity < 10)
         velocity *= gravity; // Applying gravity
-    rect->y += velocity;
+    move(0, velocity);
 }
 
-void Player::jump(int force, SDL_Rect *rect)
+// void Player::applyVelocity(SDL_Rect *rect)
+// {
+//     if (jumping)
+//     {
+//         jump(jumpForce, rect);
+//     }
+//     if (velocity < 10)
+//         velocity *= gravity; // Applying gravity
+//     rect->y += velocity;
+// }
+
+void Player::jump()
 {
-    rect->y -= force;
+    move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
     if (jumpForce <= 0)
     {
@@ -92,6 +108,17 @@ void Player::jump(int force, SDL_Rect *rect)
         jumpForce = 30;
     }
 }
+
+// void Player::jump(int force, SDL_Rect *rect)
+// {
+//     rect->y -= force;
+//     jumpForce--; // Reducing jump force to simulate decreasing force over time
+//     if (jumpForce <= 0)
+//     {
+//         jumping = false; // Stop jumping when jump force is exhausted
+//         jumpForce = 30;
+//     }
+// }
 
 void Player::onCollision(Component *c)
 {
