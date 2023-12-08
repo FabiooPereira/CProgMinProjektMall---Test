@@ -32,11 +32,12 @@ void Session::remove(Component *comp)
 void Session::checkCollision(Component *collider)
 {
 
-	// for (Component* c : colliders)
+	// SDL_Rect rect = collider->getRect();
+	// for (Component *c : colliders)
 	// {
-	//     SDL_Rect rect2 = collider->getRect();
-	//     if ((rect.x + rect.w) > rect2.x && rect.x < (rect2.x + rect2.w) && (rect.y + rect.h) > rect2.y && rect.y < (rect2.y + rect2.h))
-	//         collider->onCollision(c);
+	// 	SDL_Rect rect2 = c->getRect();
+	// 	if (collider != c && (rect.x + rect.w) > rect2.x && rect.x < (rect2.x + rect2.w) && (rect.y + rect.h) > rect2.y && rect.y < (rect2.y + rect2.h))
+	// 		collider->onCollision(c);
 	// }
 	for (Component *c : colliders)
 	{
@@ -84,6 +85,8 @@ void Session::run()
 			case SDL_QUIT:
 				quit = true;
 				std::cout << "quit pressed";
+				for (Component *c : components)
+					std::cout << c << endl;
 				break;
 			} // switch
 		}	  // inre while event while
