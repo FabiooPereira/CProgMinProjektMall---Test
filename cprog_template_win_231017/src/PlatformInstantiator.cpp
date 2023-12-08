@@ -1,9 +1,8 @@
-#include "PlatformInstantiator.h"
-#include "Platform.h"
-#include "Session.h"
 #include "Camera.h"
 #include "Component.h"
-
+#include "Session.h"
+#include "PlatformInstantiator.h"
+#include "Platform.h"
 
 PlatformInstantiator *PlatformInstantiator::getInstance()
 {
@@ -12,23 +11,6 @@ PlatformInstantiator *PlatformInstantiator::getInstance()
 
 PlatformInstantiator::PlatformInstantiator() : Component(0, 0, 0, 0), recentDistance(0), platforms(0) {}
 
-// Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
-// {
-//     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/Player_Idle.png").c_str());
-
-//     currentFrame = 0;
-//     frameCounter = 0;
-//     animationSpeed = 10;
-//     velocity = 1;
-//     jumping = false;
-//     jumpForce = 30; // Adjust the jump force as needed
-//     gravity = 1.05; // Adjust the gravity as needed
-// }
-
-// Player *Player::getInstance(int x, int y, int w, int h, bool collision)
-// {
-//     return new Player(x, y, w, h, collision);
-// }
 void PlatformInstantiator::tick()
 {
     createPlatform();
@@ -81,7 +63,4 @@ void PlatformInstantiator::removeOutOfScope()
         }
     }
     toRemove.clear();
-}
-void PlatformInstantiator::draw()const{
-
 }

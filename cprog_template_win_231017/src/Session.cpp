@@ -1,8 +1,7 @@
-#include "Session.h"
 #include <SDL2/SDL.h>
-// #include "Component.h"
-#include "System.h"
 #include <iostream>
+#include "Session.h"
+#include "System.h"
 
 using namespace std;
 
@@ -14,7 +13,7 @@ Session::Session()
 
 Session::~Session()
 {
-	std::cout << "session destruct" << std::endl;
+	// std::cout << "session destruct" << this << std::endl;
 }
 
 void Session::add(Component *comp)
@@ -85,8 +84,8 @@ void Session::run()
 			case SDL_QUIT:
 				quit = true;
 				std::cout << "quit pressed";
-				for (Component *c : components)
-					std::cout << c << endl;
+				// for (Component *c : components)
+				// 	std::cout << c << endl;
 				break;
 			} // switch
 		}	  // inre while event while
@@ -143,5 +142,6 @@ void Session::run()
 			SDL_Delay(delay);
 	} // yttre while
 	std::cout << "end of run() ";
-	Session ses;
 }
+
+Session ses;

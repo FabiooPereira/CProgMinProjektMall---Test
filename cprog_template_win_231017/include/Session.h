@@ -1,8 +1,8 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-#include "Component.h"
 #include <vector>
+#include "Component.h"
 
 class Session
 {
