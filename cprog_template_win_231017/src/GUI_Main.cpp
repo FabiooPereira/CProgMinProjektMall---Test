@@ -6,7 +6,7 @@
 #include "Player.h"
 #include "Platform.h"
 #include <SDL2/SDL.h>
-
+#define FPS 60
 using namespace std;
 Session ses;
 int value = 0;
@@ -44,7 +44,7 @@ private:
 class Camera : public Component
 {
 public:
-    static Camera *getInstance(Player *playerComponent)
+    static Camera *getInstance(Component *playerComponent)
     {
         return new Camera(playerComponent);
     }
@@ -54,15 +54,15 @@ public:
     void tick()
     {
         // cout << "player height:  " << player->getRect().y << endl;
-        if (player->getRect().y < 400) // om spelaren är väldigt högt upp
+        if (componentToFollow->getRect().y < 400) // om spelaren är väldigt högt upp
         {
-            toMove += (450 - player->getRect().y); // skynda och flytta kameran
+            toMove += (450 - componentToFollow->getRect().y); // skynda och flytta kameran
         }
         std::vector<Component *> colliders(ses.getMovables()); // hämta pekare till alla movables
-        if (player->getRect().y < 450)
+        if (componentToFollow->getRect().y < 450)
         {
-            toMove += (450 - player->getRect().y) / 60; // flytta kameran mjukt och lugnt
-            float toMoveThisFrame = toMove / 60;
+            toMove += (450 - componentToFollow->getRect().y) / FPS; // flytta kameran mjukt och lugnt
+            float toMoveThisFrame = toMove / FPS;
             for (Component *c : colliders)
             {
                 c->move(0, toMoveThisFrame);
@@ -73,12 +73,12 @@ public:
     }
 
 protected:
-    Camera(Player *playerComponent) : Component(0, 0, 0, 0), player(playerComponent)
+    Camera(Component *component) : Component(0, 0, 0, 0), componentToFollow(component)
     {
     }
 
 private:
-    Player *player;
+    Component *componentToFollow;
     float toMove;
 };
 
@@ -151,7 +151,7 @@ private:
     float recentDistance;
     const int distanceInterval = 50;
     int platforms;
-    int maxPlatforms = 20;
+    int maxPlatforms = 16;
     std::vector<Component *> objects;
     std::vector<Component *> toRemove;
 };
