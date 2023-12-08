@@ -26,5 +26,5 @@ private:
 	void checkCollision(Component *collider);
 	void collisionLoop();
 };
-
+extern Session ses;
 #endif

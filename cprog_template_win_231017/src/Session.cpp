@@ -143,4 +143,5 @@ void Session::run()
 			SDL_Delay(delay);
 	} // yttre while
 	std::cout << "end of run() ";
+	Session ses;
 }
