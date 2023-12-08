@@ -21,7 +21,7 @@ Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 
 void Player::draw() const
 {
-    SDL_Rect srcRect = {(currentFrame * 48)+17, 0, 20, 48}; //Hårdkodat PLS FIX
+    SDL_Rect srcRect = {(currentFrame * 48)+17, 0, 20, 20}; //Hårdkodat PLS FIX
     SDL_RenderCopy(sys.get_ren(), activeSpriteSheet(), &srcRect, &getRect());
 }
 
