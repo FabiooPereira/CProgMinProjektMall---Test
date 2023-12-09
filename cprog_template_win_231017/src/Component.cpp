@@ -31,11 +31,13 @@ void Component::move(const int x, const int y)
 
 Component::~Component()
 {
-    std::cout << "player destruct" << std::endl;
     deleteCount++;
     leftOverCount = createCount - deleteCount;
 }
 
-void Component::printCounts(){
-    
+void Component::printCounts()
+{
+    std::cout << "components created: " << createCount << std::endl;
+    std::cout << "components deleted: " << deleteCount << std::endl;
+    std::cout << "components leftover: " << leftOverCount << std::endl;
 }

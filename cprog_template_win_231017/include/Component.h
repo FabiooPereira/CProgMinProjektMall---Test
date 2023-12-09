@@ -21,7 +21,7 @@ public:
 	bool isCollider() { return collider; }
 	void move(const int x, const int y);
 
-	void printCounts();
+	static void printCounts();
 
 protected:
 	Component(int x, int y, int w, int h, bool c);

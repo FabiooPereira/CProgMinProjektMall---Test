@@ -15,45 +15,42 @@ using namespace std;
 
 int main(int argv, char **args)
 {
-    // Mix_Music* bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
-    // mixer->playMusic(bgMusic);
-    // Fab
-    // PlatformInstantiator *pi = PlatformInstantiator::getInstance();
-    // ses.add(pi);
+    Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
+    mixer->playMusic(bgMusic);
+
+    PlatformInstantiator *pi = PlatformInstantiator::getInstance();
+    ses.add(pi);
 
     Platform *platform = Platform::getInstance(200, 880, 100, 20, true);
     ses.add(platform);
 
-    // Platform *platform2 = Platform::getInstance(150, 600, 100, 20, true);
-    // ses.add(platform2);
+    Platform *platform2 = Platform::getInstance(150, 600, 100, 20, true);
+    ses.add(platform2);
 
-    // Platform *platform3 = Platform::getInstance(100, 300, 100, 20, true);
-    // ses.add(platform3);
+    Platform *platform3 = Platform::getInstance(100, 300, 100, 20, true);
+    ses.add(platform3);
 
-    // Platform *platform4 = Platform::getInstance(200, 200, 100, 20, true);
-    // ses.add(platform4);
+    Platform *platform4 = Platform::getInstance(200, 200, 100, 20, true);
+    ses.add(platform4);
 
-    // Platform *platform5 = Platform::getInstance(150, 100, 100, 20, true);
-    // ses.add(platform5);
+    Platform *platform5 = Platform::getInstance(150, 100, 100, 20, true);
+    ses.add(platform5);
 
-    // Platform *platform6 = Platform::getInstance(100, 50, 100, 20, true);
-    // ses.add(platform6);
+    Platform *platform6 = Platform::getInstance(100, 50, 100, 20, true);
+    ses.add(platform6);
 
-    // Player *player = Player::getInstance(250, 850, 100, 100, true);
-    // ses.add(player);
+    Player *player = Player::getInstance(250, 850, 100, 100, true);
+    ses.add(player);
     // {
     //     Player *test = Player::getInstance(0, 0, 0, 0, false);
     //     Player::getInstance(0, 0, 0, 0, false);
     // }
-    // Camera *camera = Camera::getInstance(player);
-    // ses.add(camera);
+    Camera *camera = Camera::getInstance(player);
+    ses.add(camera);
 
     ses.run();
     std::cout << "after run()" << std::endl;
-    delete platform;
-    std::cout << "components created: " << Component::createCount << std::endl;
-    std::cout << "components deleted: " << Component::deleteCount << std::endl;
-    std::cout << "components leftover: " << Component::leftOverCount << std::endl;
+    Component::printCounts();
 
     return 0;
 }

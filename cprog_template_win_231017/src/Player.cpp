@@ -4,6 +4,7 @@
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
+    std::cout << "player created: " << this << std::endl;
     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/Player_Idle.png").c_str());
 
     currentFrame = 0;
@@ -17,7 +18,7 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
 
 Player::~Player()
 {
-    std::cout << "player destruct" << std::endl;
+    std::cout << "player destructed: " << this << std::endl;
     SDL_DestroyTexture(idleSpriteSheet);
     SDL_DestroyTexture(RunSpriteSheet);
 }
@@ -107,7 +108,7 @@ void Player::applyVelocity()
 
 void Player::jump()
 {
-    Mix_Chunk* jumpFX = mixer->loadSound("Jump.wav");
+    Mix_Chunk *jumpFX = mixer->loadSound("Jump.wav");
     mixer->playOneShot(jumpFX);
     move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
