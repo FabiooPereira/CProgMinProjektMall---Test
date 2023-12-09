@@ -1,8 +1,7 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
-#include <SDL2/SDL.h>
 
-// #include "MemoryCheck.h"
+#include <SDL2/SDL.h>
 #include <iostream>
 
 class Component

@@ -1,6 +1,9 @@
-#include "Player.h"
 #include <iostream>
+<<<<<<< HEAD
 #include "MasterMixer.h"
+=======
+#include "Player.h"
+>>>>>>> main
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
@@ -15,6 +18,13 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
     gravity = 1.05; // Adjust the gravity as needed
 }
 
+Player::~Player()
+{
+    std::cout << "player destruct" << std::endl;
+    SDL_DestroyTexture(idleSpriteSheet);
+    SDL_DestroyTexture(RunSpriteSheet);
+}
+
 Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 {
     return new Player(x, y, w, h, collision);
@@ -22,7 +32,7 @@ Player *Player::getInstance(int x, int y, int w, int h, bool collision)
 
 void Player::draw() const
 {
-    SDL_Rect srcRect = {(currentFrame * 48)+17, 0, 20, 20}; //Hårdkodat PLS FIX
+    SDL_Rect srcRect = {(currentFrame * 48) + 17, 0, 20, 20}; // Hårdkodat PLS FIX
     SDL_RenderCopy(sys.get_ren(), activeSpriteSheet(), &srcRect, &getRect());
 }
 
@@ -131,11 +141,4 @@ void Player::onCollision(Component *c)
 SDL_Texture *Player::activeSpriteSheet() const
 {
     return idleSpriteSheet;
-}
-
-Player::~Player()
-{
-    std::cout << "player destruct" << std::endl;
-    SDL_DestroyTexture(idleSpriteSheet);
-    SDL_DestroyTexture(RunSpriteSheet);
 }

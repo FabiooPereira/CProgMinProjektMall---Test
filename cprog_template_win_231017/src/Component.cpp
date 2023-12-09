@@ -1,5 +1,5 @@
-#include "Component.h"
 #include <iostream>
+#include "Component.h"
 
 Component::Component(int x, int y, int w, int h) : rect{x, y, w, h}, collider(false)
 {

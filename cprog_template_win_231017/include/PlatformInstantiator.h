@@ -1,13 +1,12 @@
 #ifndef PLATFORMINSTANTIATOR_H
 #define PLATFORMINSTANTIATOR_H
 
-#include <Component.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_ttf.h>
+#include "Component.h"
 #include "Constants.h"
 #include "System.h"
-#include <SDL2/SDL_ttf.h>
-#include<vector>
 
 class PlatformInstantiator : public Component
 {
@@ -21,14 +20,13 @@ private:
     void createPlatform();
     void checkOutOfScope();
     void removeOutOfScope();
-    //int distanceMoved;
 
 public:
     PlatformInstantiator();
     static PlatformInstantiator *getInstance();
-    void draw() const;
+    void draw() const {}
     void tick();
-    ~PlatformInstantiator(){}
+    ~PlatformInstantiator() {}
 
 protected:
 };

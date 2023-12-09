@@ -3,8 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include "Component.h"
-// #include "MemoryCheck.h"
-#include <string>
 
 class Button : public Component
 {
@@ -22,7 +20,6 @@ protected:
 
 private:
     std::string text;
-    SDL_Rect rect;
     SDL_Texture *texture;
     SDL_Texture *upImage, *downImage;
     bool isDown = false;

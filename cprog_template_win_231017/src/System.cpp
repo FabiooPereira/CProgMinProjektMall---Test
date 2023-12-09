@@ -1,8 +1,8 @@
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include "Constants.h"
 #include "System.h"
-#include <SDL2/SDL.h>
-#include <iostream>
-#include <SDL2/SDL_ttf.h>
 
 System::System()
 {
@@ -21,7 +21,7 @@ System::System()
 
 System::~System()
 {
-	std::cout << "system destruct";
+	// std::cout << "system destruct";
 	TTF_CloseFont(font);
 	TTF_Quit();
 	SDL_DestroyWindow(win);

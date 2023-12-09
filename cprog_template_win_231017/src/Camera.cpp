@@ -1,7 +1,7 @@
 #include "Camera.h"
 #include "Session.h"
 
-double Camera::distanceMoved=0;
+double Camera::distanceMoved = 0;
 Camera::Camera(Component *component) : Component(0, 0, 0, 0), componentToFollow(component)
 {
 }
