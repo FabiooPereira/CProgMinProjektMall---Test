@@ -21,15 +21,21 @@ public:
 	bool isCollider() { return collider; }
 	void move(const int x, const int y);
 
+	void printCounts();
+
 protected:
 	Component(int x, int y, int w, int h, bool c);
 	Component(int x, int y, int w, int h);
+	~Component();
 
 private:
 	SDL_Rect rect;
 	Component(const Component &) = delete;
 	const Component &operator=(const Component &) = delete;
 	bool collider;
+	static int createCount;
+	static int deleteCount;
+	static int leftOverCount;
 };
 
 #endif

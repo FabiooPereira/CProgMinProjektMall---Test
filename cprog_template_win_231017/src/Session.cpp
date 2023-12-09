@@ -83,9 +83,11 @@ void Session::run()
 				break;
 			case SDL_QUIT:
 				quit = true;
-				std::cout << "quit pressed";
+				std::cout << "quit pressed" << std::endl;
 				// for (Component *c : components)
-				// 	std::cout << c << endl;
+				// 	std::cout  << endl << c << endl;
+				// for (Component *c : colliders)
+				// 	std::cout  << endl << c << endl;
 				break;
 			} // switch
 		}	  // inre while event while
