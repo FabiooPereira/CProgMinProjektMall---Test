@@ -8,6 +8,7 @@
 #include <SDL2/SDL.h>
 #include "Camera.h"
 #include "PlatformInstantiator.h"
+#include "MasterMixer.h"
 #define FPS 60
 using namespace std;
 Session ses;
@@ -160,6 +161,10 @@ private:
 
 int main(int argv, char **args)
 {
+    //MAsterMixer
+    Mix_Music* bgMusic = mixer->loadMusic("sounds\\BacgroundMusic_489035__michael-db__game-music-01.wav");
+    mixer->playMusic(bgMusic);
+    
     // Fab
     PlatformInstantiator *pi = PlatformInstantiator::getInstance();
     ses.add(pi);

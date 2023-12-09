@@ -15,6 +15,8 @@ System::System()
 	TTF_Init();
 	font = TTF_OpenFont((constants::gResPath + "fonts/undertale.ttf").c_str(), 50);
 	std::cout << "resPath: " << constants::gResPath << std::endl;
+
+	
 }
 
 System::~System()
