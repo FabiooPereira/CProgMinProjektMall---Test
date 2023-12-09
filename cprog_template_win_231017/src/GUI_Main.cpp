@@ -15,7 +15,7 @@ using namespace std;
 
 int main(int argv, char **args)
 {
-    Mix_Music* bgMusic = mixer->loadMusic("audio\\BacgroundMusic_489035__michael-db__game-music-01.wav");
+    Mix_Music* bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
     mixer->playMusic(bgMusic);
     // Fab
     PlatformInstantiator *pi = PlatformInstantiator::getInstance();

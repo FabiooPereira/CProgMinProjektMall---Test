@@ -107,7 +107,7 @@ void Player::applyVelocity()
 
 void Player::jump()
 {
-    Mix_Chunk* jumpFX = mixer->loadSound("audio\\Jump.wav");
+    Mix_Chunk* jumpFX = mixer->loadSound("Jump.wav");
     mixer->playOneShot(jumpFX);
     move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
