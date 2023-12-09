@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Player.h"
+#include "MasterMixer.h"
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
@@ -106,6 +107,8 @@ void Player::applyVelocity()
 
 void Player::jump()
 {
+    Mix_Chunk* jumpFX = mixer->loadSound("audio\\Jump.wav");
+    mixer->playOneShot(jumpFX);
     move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
     if (jumpForce <= 0)
