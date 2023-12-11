@@ -2,15 +2,18 @@
 #include "Session.h"
 
 double Camera::distanceMoved = 0;
-Camera::Camera(Component *component) : Component(0, 0, 0, 0), componentToFollow(component)
+Camera::Camera(std::shared_ptr<Component> target) : Component(0, 0, 0, 0), componentToFollow(target)
 {
 }
 
-Camera *Camera::getInstance(Component *playerComponent)
+// Camera *Camera::getInstance(Component *playerComponent)
+// {
+//     return new Camera(playerComponent);
+// }
+std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
 {
-    return new Camera(playerComponent);
+    return std::shared_ptr<Camera>(new Camera(target));
 }
-
 void Camera::tick()
 {
     // cout << "player height:  " << player->getRect().y << endl;
@@ -18,12 +21,12 @@ void Camera::tick()
     {
         toMove += (450 - componentToFollow->getRect().y); // skynda och flytta kameran
     }
-    std::vector<Component *> colliders(ses.getMovables()); // hämta pekare till alla movables
+    std::vector<std::shared_ptr<Component>> colliders(ses.getMovables()); // hämta pekare till alla movables
     if (componentToFollow->getRect().y < 450)
     {
         toMove += (450 - componentToFollow->getRect().y) / 60; // FPS; // flytta kameran mjukt och lugnt
         float toMoveThisFrame = toMove / 60;                   // FPS;
-        for (Component *c : colliders)
+        for (std::shared_ptr<Component> c : colliders)
         {
             c->move(0, toMoveThisFrame);
         }

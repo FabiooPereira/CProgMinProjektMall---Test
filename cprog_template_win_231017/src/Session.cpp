@@ -16,19 +16,19 @@ Session::~Session()
 	// std::cout << "session destruct" << this << std::endl;
 }
 
-void Session::add(Component *comp)
+void Session::add(std::shared_ptr<Component> comp)
 {
 	added.push_back(comp);
 	if (comp->isCollider())
 		colliders.push_back(comp);
 }
 
-void Session::remove(Component *comp)
+void Session::remove(std::shared_ptr<Component> comp)
 {
 	removed.push_back(comp);
 }
 
-void Session::checkCollision(Component *collider)
+void Session::checkCollision(std::shared_ptr<Component> collider)
 {
 
 	// SDL_Rect rect = collider->getRect();
@@ -38,7 +38,7 @@ void Session::checkCollision(Component *collider)
 	// 	if (collider != c && (rect.x + rect.w) > rect2.x && rect.x < (rect2.x + rect2.w) && (rect.y + rect.h) > rect2.y && rect.y < (rect2.y + rect2.h))
 	// 		collider->onCollision(c);
 	// }
-	for (Component *c : colliders)
+	for (std::shared_ptr<Component> c : colliders)
 	{
 		if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 		{
@@ -70,15 +70,15 @@ void Session::run()
 			switch (event.type)
 			{
 			case SDL_MOUSEBUTTONUP:
-				for (Component *c : components)
+				for (std::shared_ptr<Component> c : components)
 					c->mouseUp(event);
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				for (Component *c : components)
+				for (std::shared_ptr<Component> c : components)
 					c->mouseDown(event);
 				break;
 			case SDL_KEYDOWN:
-				for (Component *c : components)
+				for (std::shared_ptr<Component> c : components)
 					c->keyDown(event);
 				break;
 			case SDL_QUIT:
@@ -94,16 +94,16 @@ void Session::run()
 
 		collisionLoop();
 
-		for (Component *c : components)
+		for (std::shared_ptr<Component> c : components)
 			c->tick();
 
-		for (Component *c : added)
+		for (std::shared_ptr<Component> c : added)
 			components.push_back(c);
 		added.clear();
 
-		for (Component *c : removed)
+		for (std::shared_ptr<Component> c : removed)
 		{
-			for (vector<Component *>::iterator i = colliders.begin();
+			for (vector<std::shared_ptr<Component>>::iterator i = colliders.begin();
 				 i != colliders.end();)
 			{
 				if (*i == c)
@@ -117,9 +117,9 @@ void Session::run()
 				}
 			}
 		}
-		for (Component *c : removed)
+		for (std::shared_ptr<Component> c : removed)
 		{
-			for (vector<Component *>::iterator i = components.begin();
+			for (vector<std::shared_ptr<Component>>::iterator i = components.begin();
 				 i != components.end();)
 			{
 				if (*i == c)
@@ -135,7 +135,7 @@ void Session::run()
 		removed.clear();
 		SDL_RenderClear(sys.get_ren());
 		SDL_SetRenderDrawColor(sys.get_ren(), 100, 100, 100, 0);
-		for (Component *c : components)
+		for (std::shared_ptr<Component> c : components)
 			c->draw();
 		SDL_RenderPresent(sys.get_ren());
 

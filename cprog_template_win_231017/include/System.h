@@ -5,7 +5,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <string>
 #include <iostream>
-
+#include <memory>
 class System
 {
 public:

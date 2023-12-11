@@ -2,11 +2,14 @@
 #include "Component.h"
 #include "Session.h"
 #include "PlatformInstantiator.h"
-#include "Platform.h"
 
-PlatformInstantiator *PlatformInstantiator::getInstance()
+// PlatformInstantiator *PlatformInstantiator::getInstance()
+// {
+//     return new PlatformInstantiator();
+// }
+std::shared_ptr<PlatformInstantiator> PlatformInstantiator::getInstance()
 {
-    return new PlatformInstantiator();
+    return std::shared_ptr<PlatformInstantiator>(new PlatformInstantiator());
 }
 
 PlatformInstantiator::PlatformInstantiator() : Component(0, 0, 0, 0), recentDistance(0), platforms(0) {}
@@ -26,15 +29,16 @@ void PlatformInstantiator::createPlatform()
         int random = 1 + (rand() % 500); // random x position mellan 0 och 500
                                          // reset counter
 
-        Platform *platf = Platform::getInstance(random, -50, 100, 20, true); // skapar plattform
-        objects.push_back(platf);                                            // lägger till i egen vektor
-        ses.add(platf);                                                      // lägger till i sessions vektor
-        platforms++;                                                         // håller koll på antal plattformar
+        std::shared_ptr<Platform> p = Platform::getInstance(random, -5); // skapar plattform
+        objects.push_back(p);                                         // lägger till i egen vektor
+        ses.add(p);                                                   // lägger till i sessions vektor
+        platforms++;                                                  // håller koll på antal plattformar
     }
 }
+
 void PlatformInstantiator::checkOutOfScope()
 {
-    for (Component *c : objects) // går igenom egna vektorn och kollar om de är utanför fönstret
+    for (std::shared_ptr<Platform> c : objects) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
         if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
         {
@@ -45,11 +49,12 @@ void PlatformInstantiator::checkOutOfScope()
         }
     }
 }
+
 void PlatformInstantiator::removeOutOfScope()
 {
-    for (Component *c : toRemove) // itererar och tar bort plattformar
+    for (std::shared_ptr<Platform> c : toRemove) // itererar och tar bort plattformar
     {
-        for (std::vector<Component *>::iterator i = objects.begin();
+        for (std::vector<std::shared_ptr<Platform>>::iterator i = objects.begin();
              i != objects.end();)
         {
             if (*i == c)

@@ -10,20 +10,21 @@
 class Player : public Component
 {
 public:
-    static Player *getInstance(int x, int y, int w, int h, bool collision);
+    // static Player *getInstance(int x, int y, int w, int h, bool collision);
+    static std::shared_ptr<Player> getInstance(int x, int y, int w, int h, bool collision);
 
     void keyDown(const SDL_Event &eve) override;
     void keyUp(const SDL_Event &eve) override;
 
-    virtual void draw() const override;
+    void draw() const override;
     void tick() override;
 
     void applyGravity();
     void applyVelocity();
     void jump();
-    void onCollision(Component *c) override;
+    void onCollision(std::shared_ptr<Component> c) override;
 
-    ~Player();
+    ~Player() override;
 
 protected:
     Player(int xPos, int yPos, int w, int h, bool collision);

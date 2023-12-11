@@ -8,12 +8,13 @@
 class Label : public Component
 {
 public:
-	static Label *getInstance(int x, int y, int w, int h, std::string txt);
-	void draw() const;
+	// static Label *getInstance(int x, int y, int w, int h, std::string txt);
+	static std::shared_ptr<Label> getInstance(int x, int y, int w, int h, std::string txt);
 	std::string getText() const;
 	void setText(std::string newText);
-	~Label();
-	void tick();
+	void draw() const override;
+	void tick() override;
+	~Label() override;
 
 protected:
 	Label(int x, int y, int w, int h, std::string txt);

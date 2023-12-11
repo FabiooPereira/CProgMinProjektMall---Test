@@ -17,7 +17,7 @@ void Component::setRect(const SDL_Rect &newRect)
 {
     rect = newRect;
 }
-void Component::onCollision(Component *c)
+void Component::onCollision(std::shared_ptr<Component> c)
 {
     // std::cout << "collision! F" << std::endl;
 }
@@ -33,6 +33,7 @@ Component::~Component()
 {
     deleteCount++;
     leftOverCount = createCount - deleteCount;
+    Component::printCounts();
 }
 
 void Component::printCounts()

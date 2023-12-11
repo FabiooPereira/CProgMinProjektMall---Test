@@ -23,11 +23,14 @@ Player::~Player()
     SDL_DestroyTexture(RunSpriteSheet);
 }
 
-Player *Player::getInstance(int x, int y, int w, int h, bool collision)
+// Player *Player::getInstance(int x, int y, int w, int h, bool collision)
+// {
+//     return new Player(x, y, w, h, collision);
+// }
+std::shared_ptr<Player> Player::getInstance(int x, int y, int w, int h, bool collision)
 {
-    return new Player(x, y, w, h, collision);
+    return std::shared_ptr<Player>(new Player(x, y, w, h, collision));
 }
-
 void Player::draw() const
 {
     SDL_Rect srcRect = {(currentFrame * 48) + 17, 0, 20, 20}; // Hårdkodat PLS FIX
@@ -130,7 +133,7 @@ void Player::jump()
 //     }
 // }
 
-void Player::onCollision(Component *c)
+void Player::onCollision(std::shared_ptr<Component> c)
 {
     jumping = true; // Reset jumping when colliding with something
     velocity = 1;
