@@ -18,7 +18,7 @@ public:
 	// 	return colliders;
 	// }
 	void exit();
-	void deleteComponentsInVector(std::vector<std::shared_ptr<Component>> &vec);
+	void deleteComponentsInVector();
 	std::vector<std::shared_ptr<Component>> components;
 
 private:

@@ -102,9 +102,7 @@ void Session::run()
 			components.push_back(c);
 		added.clear();
 
-		// deleteComponentsInVector(colliders);
-
-		deleteComponentsInVector(components);
+		deleteComponentsInVector();
 
 		removed.clear();
 
@@ -124,23 +122,23 @@ void Session::run()
 	{
 		remove(c);
 	}
-	deleteComponentsInVector(components);
+	deleteComponentsInVector();
 
 	removed.clear();
 	Component::printCounts();
 	Component::resetCounts();
 }
 
-void Session::deleteComponentsInVector(std::vector<std::shared_ptr<Component>> &vec)
+void Session::deleteComponentsInVector()
 {
 	for (std::shared_ptr<Component> c : removed)
 	{
-		for (std::vector<std::shared_ptr<Component>>::iterator i = vec.begin();
-			 i != vec.end();)
+		for (std::vector<std::shared_ptr<Component>>::iterator i = components.begin();
+			 i != components.end();)
 		{
 			if (*i == c)
 			{
-				i = vec.erase(i);
+				i = components.erase(i);
 			}
 			else
 			{
