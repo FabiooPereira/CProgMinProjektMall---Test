@@ -11,6 +11,12 @@ std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
 {
     return std::shared_ptr<Camera>(new Camera(target));
 }
+Camera::~Camera()
+{
+    std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
+    std::cout << "camera destructed: " << this << std::endl;
+    // delete componentToFollow;
+}
 void Camera::tick()
 {
     // cout << "player height:  " << player->getRect().y << endl;

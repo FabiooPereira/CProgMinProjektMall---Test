@@ -15,7 +15,7 @@ public:
     void draw() const override {}
 
     void tick() override;
-    ~Camera() override {}
+    ~Camera() override;
 
 protected:
     Camera(std::shared_ptr<Component> target);
