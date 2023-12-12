@@ -41,7 +41,6 @@ void PlatformInstantiator::checkOutOfScope()
 
         if (derivedPtr)
         {
-            // std::cout << typeid(c).name() << std::endl;
             if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
                 ses.remove(c); // lägger till i sessions remove

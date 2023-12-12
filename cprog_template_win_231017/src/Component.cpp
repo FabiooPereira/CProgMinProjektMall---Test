@@ -42,3 +42,9 @@ void Component::printCounts()
     std::cout << "components deleted: " << deleteCount << std::endl;
     std::cout << "components leftover: " << leftOverCount << std::endl;
 }
+void Component::resetCounts()
+{
+    Component::createCount = 0;
+    Component::deleteCount = 0;
+    Component::leftOverCount = 0;
+}

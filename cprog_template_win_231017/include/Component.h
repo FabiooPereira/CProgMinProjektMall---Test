@@ -23,6 +23,7 @@ public:
 	void move(const int x, const int y);
 
 	static void printCounts();
+	static void resetCounts();
 
 protected:
 	Component(int x, int y, int w, int h, bool c);

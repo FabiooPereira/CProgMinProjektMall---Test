@@ -124,12 +124,11 @@ void Session::run()
 	{
 		remove(c);
 	}
-
-	// deleteComponentsInVector(colliders);
-
 	deleteComponentsInVector(components);
 
 	removed.clear();
+	Component::printCounts();
+	Component::resetCounts();
 }
 
 void Session::deleteComponentsInVector(std::vector<std::shared_ptr<Component>> &vec)
