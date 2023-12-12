@@ -112,6 +112,8 @@ void createDoodleJump()
     ses.add(Platform::getInstance(100, 50, 120, 20, true));
 
     shared_ptr<Player> player = Player::getInstance(250, 850, 100, 100, true);
+    player->setSprite("Player_Idle.png");
+    player->setAnimation(6);
     ses.add(player);
     ses.add(Camera::getInstance(player));
 }

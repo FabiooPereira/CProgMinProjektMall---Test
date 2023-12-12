@@ -5,8 +5,6 @@
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
     std::cout << "player created: " << this << std::endl;
-    idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/Player_Idle.png").c_str());
-
     currentFrame = 0;
     frameCounter = 0;
     animationSpeed = 10;
@@ -19,18 +17,24 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
 Player::~Player()
 {
     std::cout << "player destructed: " << this << std::endl;
-    SDL_DestroyTexture(idleSpriteSheet);
-    SDL_DestroyTexture(RunSpriteSheet);
+    SDL_DestroyTexture(idleSpriteSheet);    
 }
 
 std::shared_ptr<Player> Player::getInstance(int x, int y, int w, int h, bool collision)
+
 {
     return std::shared_ptr<Player>(new Player(x, y, w, h, collision));
 }
+
 void Player::draw() const
 {
-    SDL_Rect srcRect = {(currentFrame * 48) + 17, 0, 20, 20}; // Hårdkodat PLS FIX
-    SDL_RenderCopy(sys.get_ren(), activeSpriteSheet(), &srcRect, &getRect());
+    SDL_Rect srcRect;
+    srcRect.x = currentFrame * frameWidth; 
+    srcRect.y = 0; 
+    srcRect.w = frameWidth; 
+    srcRect.h = frameHeight; 
+
+    SDL_RenderCopy(sys.get_ren(), idleSpriteSheet, &srcRect, &getRect());
 }
 
 void Player::keyDown(const SDL_Event &eve)
@@ -68,7 +72,7 @@ void Player::tick()
     frameCounter++;
     if (frameCounter >= animationSpeed)
     {
-        currentFrame = (currentFrame + 1) % 6;
+        currentFrame = (currentFrame + 1) % frameCount;
         frameCounter = 0;
     }
 }
@@ -106,7 +110,18 @@ void Player::onCollision(std::shared_ptr<Component> c)
     }
 }
 
-SDL_Texture *Player::activeSpriteSheet() const
-{
-    return idleSpriteSheet;
+void Player::setSprite(const std::string& imageFile) {
+    imageFileURL = imageFile;
+    SDL_DestroyTexture(idleSpriteSheet);
+    idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResImagePath + imageFileURL).c_str());
+}
+
+void Player::setAnimation(int frames) {
+
+    SDL_QueryTexture(idleSpriteSheet, NULL, NULL, &spriteSheetWidth, &spriteSheetHeight);
+
+    frameCount = frames;
+    frameWidth = spriteSheetWidth / frameCount;
+    frameHeight = spriteSheetHeight;
+
 }

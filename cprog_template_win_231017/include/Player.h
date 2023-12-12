@@ -18,10 +18,13 @@ public:
     void draw() const override;
     void tick() override;
 
-    void applyGravity();
     void applyVelocity();
     void jump();
     void onCollision(std::shared_ptr<Component> c) override;
+
+    //Sprite management
+    void setSprite(const std::string& imageFile);
+    void setAnimation(int frames);
 
     ~Player() override;
 
@@ -29,18 +32,24 @@ protected:
     Player(int xPos, int yPos, int w, int h, bool collision);
 
 private:
-    SDL_Texture *idleSpriteSheet;
-    SDL_Texture *RunSpriteSheet;
 
-    int currentFrame;
-    int frameCounter;
-    int animationSpeed;
     float velocity;
     int jumpForce;
     float gravity;
     bool jumping;
 
-    SDL_Texture *activeSpriteSheet() const;
+    //Sprite management
+    SDL_Texture *idleSpriteSheet = nullptr;
+
+    std::string imageFileURL;
+    int spriteSheetWidth, spriteSheetHeight; // Dimensions of the entire sprite sheet
+    int frameWidth, frameHeight;            // Dimensions of a single frame
+    int frameCount;
+
+    int currentFrame;
+    int frameCounter;
+    int animationSpeed;
+    //
 };
 
 #endif
