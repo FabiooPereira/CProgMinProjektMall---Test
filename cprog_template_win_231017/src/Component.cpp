@@ -33,7 +33,7 @@ Component::~Component()
 {
     deleteCount++;
     leftOverCount = createCount - deleteCount;
-    Component::printCounts();
+    // Component::printCounts();
 }
 
 void Component::printCounts()

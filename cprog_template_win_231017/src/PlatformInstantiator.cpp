@@ -41,16 +41,13 @@ void PlatformInstantiator::checkOutOfScope()
 
         if (derivedPtr)
         {
-            if (strcmp(typeid(c).name(), "Platform"))
+            // std::cout << typeid(c).name() << std::endl;
+            if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
-                // std::cout << typeid(c).name() << std::endl;
-                if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
-                {
-                    ses.remove(c); // lägger till i sessions remove
-                    // toRemove.push_back(c); // lägger till i egen remove
-                    platforms--; // håller koll på antal plattformar
-                    // std::cout << "removed!" << std::endl;
-                }
+                ses.remove(c); // lägger till i sessions remove
+                // toRemove.push_back(c); // lägger till i egen remove
+                platforms--; // håller koll på antal plattformar
+                // std::cout << "removed!" << std::endl;
             }
         }
     }
