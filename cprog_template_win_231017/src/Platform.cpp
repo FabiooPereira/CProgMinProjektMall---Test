@@ -1,10 +1,10 @@
 #include "Platform.h"
 
-Platform *Platform::getInstance(int x, int y, int w, int h, bool collision)
-{
-    return new Platform(x, y, w, h, collision);
-}
-std::shared_ptr<Platform> Platform::getInstance(int x, int y)
+// Platform *Platform::getInstance(int x, int y, int w, int h, bool collision)
+// {
+//     return new Platform(x, y, w, h, collision);
+// }
+std::shared_ptr<Platform> Platform::getInstance(int x, int y, int w, int h, bool collision)
 {
     return std::shared_ptr<Platform>(new Platform(x, y, 120, 20, true));
 }

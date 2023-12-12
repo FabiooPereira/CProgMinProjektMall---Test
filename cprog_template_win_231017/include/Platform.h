@@ -10,8 +10,8 @@
 class Platform : public Component
 {
 public:
-    static Platform *getInstance(int x, int y, int w, int h, bool collsion);
-    static std::shared_ptr<Platform> getInstance(int x, int y);
+    // static Platform *getInstance(int x, int y, int w, int h, bool collsion);
+    static std::shared_ptr<Platform> getInstance(int x, int y, int w, int h, bool collision);
     void draw() const override;
     void tick() override {}
     ~Platform() override;
