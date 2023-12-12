@@ -17,6 +17,8 @@ public:
 	{
 		return colliders;
 	}
+	void exit();
+	void deleteComponentsInVector(std::vector<std::shared_ptr<Component>> &vec);
 
 private:
 	std::vector<std::shared_ptr<Component>> components;
@@ -25,6 +27,10 @@ private:
 
 	void checkCollision(std::shared_ptr<Component> collider);
 	void collisionLoop();
+	bool quit;
 };
+extern Session startScreen;
 extern Session ses;
+extern Session gameoverScreen;
+
 #endif

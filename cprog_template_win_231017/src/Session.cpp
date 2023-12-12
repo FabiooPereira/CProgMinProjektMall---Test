@@ -3,8 +3,6 @@
 #include "Session.h"
 #include "System.h"
 
-using namespace std;
-
 #define FPS 60
 
 Session::Session()
@@ -55,11 +53,15 @@ void Session::collisionLoop()
 		checkCollision(c);
 	}
 }
+void Session::exit()
+{
+	std::cout << "exit";
+	quit = true;
+}
 
 void Session::run()
 {
-	bool quit = false;
-
+	quit = false;
 	Uint32 tickInterval = 1000 / FPS;
 	while (!quit)
 	{
@@ -84,10 +86,6 @@ void Session::run()
 			case SDL_QUIT:
 				quit = true;
 				std::cout << "quit pressed" << std::endl;
-				// for (Component *c : components)
-				// 	std::cout  << endl << c << endl;
-				// for (Component *c : colliders)
-				// 	std::cout  << endl << c << endl;
 				break;
 			} // switch
 		}	  // inre while event while
@@ -101,38 +99,12 @@ void Session::run()
 			components.push_back(c);
 		added.clear();
 
-		for (std::shared_ptr<Component> c : removed)
-		{
-			for (vector<std::shared_ptr<Component>>::iterator i = colliders.begin();
-				 i != colliders.end();)
-			{
-				if (*i == c)
-				{
-					if (c->isCollider())
-						i = colliders.erase(i);
-				}
-				else
-				{
-					i++;
-				}
-			}
-		}
-		for (std::shared_ptr<Component> c : removed)
-		{
-			for (vector<std::shared_ptr<Component>>::iterator i = components.begin();
-				 i != components.end();)
-			{
-				if (*i == c)
-				{
-					i = components.erase(i);
-				}
-				else
-				{
-					i++;
-				}
-			}
-		}
+		deleteComponentsInVector(colliders);
+
+		deleteComponentsInVector(components);
+
 		removed.clear();
+
 		SDL_RenderClear(sys.get_ren());
 		SDL_SetRenderDrawColor(sys.get_ren(), 100, 100, 100, 0);
 		for (std::shared_ptr<Component> c : components)
@@ -144,6 +116,38 @@ void Session::run()
 			SDL_Delay(delay);
 	} // yttre while
 	std::cout << "end of run() ";
+
+	for (std::shared_ptr<Component> c : components)
+	{
+		remove(c);
+	}
+
+	deleteComponentsInVector(colliders);
+
+	deleteComponentsInVector(components);
+
+	removed.clear();
 }
 
+void Session::deleteComponentsInVector(std::vector<std::shared_ptr<Component>> &vec)
+{
+	for (std::shared_ptr<Component> c : removed)
+	{
+		for (std::vector<std::shared_ptr<Component>>::iterator i = vec.begin();
+			 i != vec.end();)
+		{
+			if (*i == c)
+			{
+				i = vec.erase(i);
+			}
+			else
+			{
+				i++;
+			}
+		}
+	}
+}
+
+Session startScreen;
 Session ses;
+Session gameoverScreen;

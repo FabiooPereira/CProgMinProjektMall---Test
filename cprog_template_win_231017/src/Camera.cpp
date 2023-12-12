@@ -4,6 +4,7 @@
 double Camera::distanceMoved = 0;
 Camera::Camera(std::shared_ptr<Component> target) : Component(0, 0, 0, 0), componentToFollow(target)
 {
+    distanceMoved = 0;
 }
 
 std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
