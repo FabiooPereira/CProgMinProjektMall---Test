@@ -16,11 +16,9 @@ private:
     const int distanceInterval = 50;
     int platforms;
     int maxPlatforms = 16;
-    // std::vector<std::shared_ptr<Platform>> objects;
-    // std::vector<std::shared_ptr<Platform>> toRemove;
+
     void createPlatform();
     void checkOutOfScope();
-    // void removeOutOfScope();
 
 public:
     PlatformInstantiator();

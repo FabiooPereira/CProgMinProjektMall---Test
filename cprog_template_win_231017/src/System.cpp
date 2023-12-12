@@ -19,7 +19,6 @@ System::System()
 
 System::~System()
 {
-	// std::cout << "system destruct";
 	TTF_CloseFont(font);
 	TTF_Quit();
 	SDL_DestroyWindow(win);

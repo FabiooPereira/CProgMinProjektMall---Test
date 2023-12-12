@@ -13,17 +13,12 @@ public:
 	void remove(std::shared_ptr<Component> comp);
 	void run();
 
-	// const std::vector<std::shared_ptr<Component>> getMovables() const
-	// {
-	// 	return colliders;
-	// }
 	void exit();
 	void deleteComponentsInVector();
 	std::vector<std::shared_ptr<Component>> components;
 
 private:
 	std::vector<std::shared_ptr<Component>> added, removed;
-	// std::vector<std::shared_ptr<Component>> colliders;
 
 	void checkCollision(std::shared_ptr<Component> collider);
 	void collisionLoop();
