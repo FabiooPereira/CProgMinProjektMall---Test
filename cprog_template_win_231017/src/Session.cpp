@@ -17,8 +17,6 @@ Session::~Session()
 void Session::add(std::shared_ptr<Component> comp)
 {
 	added.push_back(comp);
-	// if (comp->isCollider())
-	// 	colliders.push_back(comp);
 }
 
 void Session::remove(std::shared_ptr<Component> comp)
