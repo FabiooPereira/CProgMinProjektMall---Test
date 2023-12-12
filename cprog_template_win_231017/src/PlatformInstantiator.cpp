@@ -29,10 +29,10 @@ void PlatformInstantiator::createPlatform()
         int random = 1 + (rand() % 500); // random x position mellan 0 och 500
                                          // reset counter
 
-        std::shared_ptr<Platform> p = Platform::getInstance(random, -5); // skapar plattform
-        objects.push_back(p);                                         // lägger till i egen vektor
-        ses.add(p);                                                   // lägger till i sessions vektor
-        platforms++;                                                  // håller koll på antal plattformar
+        std::shared_ptr<Platform> p = Platform::getInstance(random, -5, 120, 20, true); // skapar plattform
+        objects.push_back(p);                                                           // lägger till i egen vektor
+        ses.add(p);                                                                     // lägger till i sessions vektor
+        platforms++;                                                                    // håller koll på antal plattformar
     }
 }
 

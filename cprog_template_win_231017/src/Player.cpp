@@ -111,8 +111,6 @@ void Player::applyVelocity()
 
 void Player::jump()
 {
-    Mix_Chunk *jumpFX = mixer->loadSound("Jump.wav");
-    mixer->playOneShot(jumpFX);
     move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
     if (jumpForce <= 0)
@@ -135,8 +133,13 @@ void Player::jump()
 
 void Player::onCollision(std::shared_ptr<Component> c)
 {
-    jumping = true; // Reset jumping when colliding with something
-    velocity = 1;
+    if (!jumping)
+    {
+        jumping = true; // Reset jumping when colliding with something
+        velocity = 1;
+        Mix_Chunk *jumpFX = mixer->loadSound("Jump.wav");
+        mixer->playOneShot(jumpFX);
+    }
 }
 
 SDL_Texture *Player::activeSpriteSheet() const
