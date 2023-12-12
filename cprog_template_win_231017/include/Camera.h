@@ -10,18 +10,19 @@ class Camera : public Component
 {
 public:
     static double distanceMoved;
-    static Camera *getInstance(Component *playerComponent);
+    // static Camera *getInstance(Component *playerComponent);
+    static std::shared_ptr<Camera> getInstance(std::shared_ptr<Component> target);
 
-    void draw() const {}
+    void draw() const override {}
 
-    void tick();
-    ~Camera();
+    void tick() override;
+    ~Camera() override {}
 
 protected:
-    Camera(Component *component);
+    Camera(std::shared_ptr<Component> target);
 
 private:
-    Component *componentToFollow;
+    std::shared_ptr<Component> componentToFollow;
     float toMove;
 };
 
