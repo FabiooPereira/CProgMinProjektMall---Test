@@ -6,12 +6,6 @@
 
 using namespace std;
 
-// Label *Label::getInstance(int x, int y, int w,
-// 						  int h, std::string txt)
-// {
-// 	return new Label(x, y, w, h, txt);
-// }
-
 std::shared_ptr<Label> Label::getInstance(int x, int y, int w, int h, std::string txt)
 {
 	return std::shared_ptr<Label>(new Label(x, y, w, h, txt));

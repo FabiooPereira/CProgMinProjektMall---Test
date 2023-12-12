@@ -10,7 +10,6 @@ class Camera : public Component
 {
 public:
     static double distanceMoved;
-    // static Camera *getInstance(Component *playerComponent);
     static std::shared_ptr<Camera> getInstance(std::shared_ptr<Component> target);
 
     void draw() const override {}

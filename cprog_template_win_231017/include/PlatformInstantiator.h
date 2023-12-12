@@ -24,7 +24,6 @@ private:
 
 public:
     PlatformInstantiator();
-    // static PlatformInstantiator *getInstance();
     static std::shared_ptr<PlatformInstantiator> getInstance();
     void draw() const override {}
     void tick() override;

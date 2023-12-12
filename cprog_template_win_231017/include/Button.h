@@ -7,7 +7,6 @@
 class Button : public Component
 {
 public:
-    // static Button *getInstance(int x, int y, int w, int h, std::string t);
     static std::shared_ptr<Button> getInstance(int x, int y, int w, int h, std::string t);
 
     void mouseUp(const SDL_Event &eve) override;

@@ -15,8 +15,6 @@ Button::Button(int x, int y, int w, int h, std::string t) : Component(x, y, w, h
     downImage = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/bg.jpg").c_str());
 }
 
-// Button *Button::getInstance(int x, int y, int w, int h, std::string t) { return new Button(x, y, w, h, t); }
-
 std::shared_ptr<Button> Button::getInstance(int x, int y, int w, int h, std::string t)
 {
     return std::shared_ptr<Button>(new Button(x, y, w, h, t));

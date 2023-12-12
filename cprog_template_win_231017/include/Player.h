@@ -10,7 +10,6 @@
 class Player : public Component
 {
 public:
-    // static Player *getInstance(int x, int y, int w, int h, bool collision);
     static std::shared_ptr<Player> getInstance(int x, int y, int w, int h, bool collision);
 
     void keyDown(const SDL_Event &eve) override;

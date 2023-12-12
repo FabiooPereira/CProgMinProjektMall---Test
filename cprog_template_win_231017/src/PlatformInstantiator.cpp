@@ -3,10 +3,6 @@
 #include "Session.h"
 #include "PlatformInstantiator.h"
 
-// PlatformInstantiator *PlatformInstantiator::getInstance()
-// {
-//     return new PlatformInstantiator();
-// }
 std::shared_ptr<PlatformInstantiator> PlatformInstantiator::getInstance()
 {
     return std::shared_ptr<PlatformInstantiator>(new PlatformInstantiator());

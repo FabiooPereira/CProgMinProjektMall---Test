@@ -23,10 +23,6 @@ Player::~Player()
     SDL_DestroyTexture(RunSpriteSheet);
 }
 
-// Player *Player::getInstance(int x, int y, int w, int h, bool collision)
-// {
-//     return new Player(x, y, w, h, collision);
-// }
 std::shared_ptr<Player> Player::getInstance(int x, int y, int w, int h, bool collision)
 {
     return std::shared_ptr<Player>(new Player(x, y, w, h, collision));
@@ -39,15 +35,12 @@ void Player::draw() const
 
 void Player::keyDown(const SDL_Event &eve)
 {
-    // SDL_Rect playerRect = getRect();
     switch (eve.key.keysym.sym)
     {
     case SDLK_LEFT:
-        // playerRect.x -= 20;
         move(-20, 0);
         break;
     case SDLK_RIGHT:
-        // playerRect.x += 20;
         move(20, 0);
         break;
     case SDLK_UP:
@@ -58,13 +51,11 @@ void Player::keyDown(const SDL_Event &eve)
         }
         break;
     case SDLK_DOWN:
-        // playerRect.y += 10;
         move(0, 10);
         break;
     default:
         break;
     }
-    // setRect(playerRect);
 }
 
 void Player::keyUp(const SDL_Event &even)
@@ -73,11 +64,6 @@ void Player::keyUp(const SDL_Event &even)
 
 void Player::tick()
 {
-    // SDL_Rect playerRect = getRect();
-    // applyVelocity(&playerRect);
-    // setRect(playerRect);
-    // std::cout << "Velocity: " << velocity << std::endl;
-
     applyVelocity();
     frameCounter++;
     if (frameCounter >= animationSpeed)
@@ -98,17 +84,6 @@ void Player::applyVelocity()
     move(0, velocity);
 }
 
-// void Player::applyVelocity(SDL_Rect *rect)
-// {
-//     if (jumping)
-//     {
-//         jump(jumpForce, rect);
-//     }
-//     if (velocity < 10)
-//         velocity *= gravity; // Applying gravity
-//     rect->y += velocity;
-// }
-
 void Player::jump()
 {
     move(0, -jumpForce);
@@ -119,17 +94,6 @@ void Player::jump()
         jumpForce = 30;
     }
 }
-
-// void Player::jump(int force, SDL_Rect *rect)
-// {
-//     rect->y -= force;
-//     jumpForce--; // Reducing jump force to simulate decreasing force over time
-//     if (jumpForce <= 0)
-//     {
-//         jumping = false; // Stop jumping when jump force is exhausted
-//         jumpForce = 30;
-//     }
-// }
 
 void Player::onCollision(std::shared_ptr<Component> c)
 {

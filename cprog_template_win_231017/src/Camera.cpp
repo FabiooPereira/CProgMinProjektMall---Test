@@ -6,10 +6,6 @@ Camera::Camera(std::shared_ptr<Component> target) : Component(0, 0, 0, 0), compo
 {
 }
 
-// Camera *Camera::getInstance(Component *playerComponent)
-// {
-//     return new Camera(playerComponent);
-// }
 std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
 {
     return std::shared_ptr<Camera>(new Camera(target));
