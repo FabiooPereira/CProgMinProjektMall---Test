@@ -18,14 +18,15 @@ void Camera::tick()
     {
         toMove += (450 - componentToFollow->getRect().y); // skynda och flytta kameran
     }
-    std::vector<std::shared_ptr<Component>> colliders(ses.getMovables()); // hämta pekare till alla movables
+    // std::vector<std::shared_ptr<Component>> colliders(ses.getMovables()); // hämta pekare till alla movables
     if (componentToFollow->getRect().y < 450)
     {
         toMove += (450 - componentToFollow->getRect().y) / 60; // FPS; // flytta kameran mjukt och lugnt
         float toMoveThisFrame = toMove / 60;                   // FPS;
-        for (std::shared_ptr<Component> c : colliders)
+        for (std::shared_ptr<Component> c : ses.components)
         {
-            c->move(0, toMoveThisFrame);
+            if (c->isCollider())
+                c->move(0, toMoveThisFrame);
         }
         toMove -= toMoveThisFrame;
         distanceMoved += toMoveThisFrame;

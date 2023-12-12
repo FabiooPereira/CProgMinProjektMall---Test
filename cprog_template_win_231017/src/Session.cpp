@@ -17,8 +17,8 @@ Session::~Session()
 void Session::add(std::shared_ptr<Component> comp)
 {
 	added.push_back(comp);
-	if (comp->isCollider())
-		colliders.push_back(comp);
+	// if (comp->isCollider())
+	// 	colliders.push_back(comp);
 }
 
 void Session::remove(std::shared_ptr<Component> comp)
@@ -36,7 +36,7 @@ void Session::checkCollision(std::shared_ptr<Component> collider)
 	// 	if (collider != c && (rect.x + rect.w) > rect2.x && rect.x < (rect2.x + rect2.w) && (rect.y + rect.h) > rect2.y && rect.y < (rect2.y + rect2.h))
 	// 		collider->onCollision(c);
 	// }
-	for (std::shared_ptr<Component> c : colliders)
+	for (std::shared_ptr<Component> c : components)
 	{
 		if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 		{
@@ -48,9 +48,12 @@ void Session::checkCollision(std::shared_ptr<Component> collider)
 
 void Session::collisionLoop()
 {
-	for (auto c : colliders)
+	for (auto c : components)
 	{
-		checkCollision(c);
+		if (c->isCollider())
+		{
+			checkCollision(c);
+		}
 	}
 }
 void Session::exit()
@@ -99,7 +102,7 @@ void Session::run()
 			components.push_back(c);
 		added.clear();
 
-		deleteComponentsInVector(colliders);
+		// deleteComponentsInVector(colliders);
 
 		deleteComponentsInVector(components);
 
@@ -122,7 +125,7 @@ void Session::run()
 		remove(c);
 	}
 
-	deleteComponentsInVector(colliders);
+	// deleteComponentsInVector(colliders);
 
 	deleteComponentsInVector(components);
 
