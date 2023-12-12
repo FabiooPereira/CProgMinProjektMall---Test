@@ -1,8 +1,10 @@
 #include <iostream>
 #include "Player.h"
+#include "MasterMixer.h"
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
+    std::cout << "player created: " << this << std::endl;
     idleSpriteSheet = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/Player_Idle.png").c_str());
 
     currentFrame = 0;
@@ -16,16 +18,19 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
 
 Player::~Player()
 {
-    std::cout << "player destruct" << std::endl;
+    std::cout << "player destructed: " << this << std::endl;
     SDL_DestroyTexture(idleSpriteSheet);
     SDL_DestroyTexture(RunSpriteSheet);
 }
 
-Player *Player::getInstance(int x, int y, int w, int h, bool collision)
+// Player *Player::getInstance(int x, int y, int w, int h, bool collision)
+// {
+//     return new Player(x, y, w, h, collision);
+// }
+std::shared_ptr<Player> Player::getInstance(int x, int y, int w, int h, bool collision)
 {
-    return new Player(x, y, w, h, collision);
+    return std::shared_ptr<Player>(new Player(x, y, w, h, collision));
 }
-
 void Player::draw() const
 {
     SDL_Rect srcRect = {(currentFrame * 48) + 17, 0, 20, 20}; // Hårdkodat PLS FIX
@@ -106,6 +111,8 @@ void Player::applyVelocity()
 
 void Player::jump()
 {
+    Mix_Chunk *jumpFX = mixer->loadSound("Jump.wav");
+    mixer->playOneShot(jumpFX);
     move(0, -jumpForce);
     jumpForce--; // Reducing jump force to simulate decreasing force over time
     if (jumpForce <= 0)
@@ -126,7 +133,7 @@ void Player::jump()
 //     }
 // }
 
-void Player::onCollision(Component *c)
+void Player::onCollision(std::shared_ptr<Component> c)
 {
     jumping = true; // Reset jumping when colliding with something
     velocity = 1;

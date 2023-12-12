@@ -6,12 +6,16 @@
 
 using namespace std;
 
-Label *Label::getInstance(int x, int y, int w,
-						  int h, std::string txt)
-{
-	return new Label(x, y, w, h, txt);
-}
+// Label *Label::getInstance(int x, int y, int w,
+// 						  int h, std::string txt)
+// {
+// 	return new Label(x, y, w, h, txt);
+// }
 
+std::shared_ptr<Label> Label::getInstance(int x, int y, int w, int h, std::string txt)
+{
+	return std::shared_ptr<Label>(new Label(x, y, w, h, txt));
+}
 Label::Label(int x, int y, int w, int h,
 			 std::string txt) : Component(x, y, w, h), text(txt)
 {
@@ -23,8 +27,6 @@ Label::Label(int x, int y, int w, int h,
 void Label::draw() const
 {
 	SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
-
-	
 }
 
 Label::~Label()

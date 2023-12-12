@@ -7,6 +7,7 @@
 #include "Component.h"
 #include "Constants.h"
 #include "System.h"
+#include "Platform.h"
 
 class PlatformInstantiator : public Component
 {
@@ -15,18 +16,19 @@ private:
     const int distanceInterval = 50;
     int platforms;
     int maxPlatforms = 16;
-    std::vector<Component *> objects;
-    std::vector<Component *> toRemove;
+    std::vector<std::shared_ptr<Platform>> objects;
+    std::vector<std::shared_ptr<Platform>> toRemove;
     void createPlatform();
     void checkOutOfScope();
     void removeOutOfScope();
 
 public:
     PlatformInstantiator();
-    static PlatformInstantiator *getInstance();
-    void draw() const {}
-    void tick();
-    ~PlatformInstantiator() {}
+    // static PlatformInstantiator *getInstance();
+    static std::shared_ptr<PlatformInstantiator> getInstance();
+    void draw() const override {}
+    void tick() override;
+    ~PlatformInstantiator() override {}
 
 protected:
 };

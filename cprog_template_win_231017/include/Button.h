@@ -7,13 +7,15 @@
 class Button : public Component
 {
 public:
-    static Button *getInstance(int x, int y, int w, int h, std::string t);
-    ~Button();
-    void draw() const;
-    void mouseUp(const SDL_Event &eve);
-    void mouseDown(const SDL_Event &eve);
+    // static Button *getInstance(int x, int y, int w, int h, std::string t);
+    static std::shared_ptr<Button> getInstance(int x, int y, int w, int h, std::string t);
+
+    void mouseUp(const SDL_Event &eve) override;
+    void mouseDown(const SDL_Event &eve) override;
     virtual void perform(Button *source) {}
-    void tick() {}
+    void tick() override {}
+    void draw() const override;
+    ~Button() override;
 
 protected:
     Button(int x, int y, int w, int h, std::string txt);
