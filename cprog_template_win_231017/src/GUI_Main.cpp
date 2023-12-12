@@ -29,23 +29,22 @@ int main(int argv, char **args)
 
 void createDoodleJumpComponents()
 {
-
     Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
     mixer->playMusic(bgMusic);
 
     ses.add(PlatformInstantiator::getInstance());
 
-    ses.add(Platform::getInstance(200, 880));
+    ses.add(Platform::getInstance(200, 880, 120, 20, true));
 
-    ses.add(Platform::getInstance(150, 600));
+    ses.add(Platform::getInstance(150, 600, 120, 20, true));
 
-    ses.add(Platform::getInstance(100, 300));
+    ses.add(Platform::getInstance(100, 300, 120, 20, true));
 
-    ses.add(Platform::getInstance(200, 200));
+    ses.add(Platform::getInstance(200, 200, 120, 20, true));
 
-    ses.add(Platform::getInstance(150, 100));
+    ses.add(Platform::getInstance(150, 100, 120, 20, true));
 
-    ses.add(Platform::getInstance(100, 50));
+    ses.add(Platform::getInstance(100, 50, 120, 20, true));
 
     shared_ptr<Player> player = Player::getInstance(250, 850, 100, 100, true);
     ses.add(player);
