@@ -119,7 +119,7 @@ void createDoodleJump()
 void createGameOverScreen()
 {
     gameoverScreen.add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-    gameoverScreen.add(Label::getInstance(50, 200, 400, 100, "Distance traveled:"));
+    gameoverScreen.add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
     gameoverScreen.add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
     gameoverScreen.add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
     gameoverScreen.add(GameOverLabel::getInstance());
