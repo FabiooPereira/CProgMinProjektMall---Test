@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "Session.h"
+#include "SceneManager.h"
 #include "System.h"
 
 double Camera::distanceMoved = 0;
@@ -28,7 +29,7 @@ void Camera::tick()
     {
         toMove += (450 - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
         float toMoveThisFrame = toMove / System::getfps();                   // FPS;
-        for (std::shared_ptr<Component> c : ses.getComps())
+        for (std::shared_ptr<Component> c : manager->getScene("Start")->getComps())
         {
             if (c->isCollider())
                 c->move(0, toMoveThisFrame);

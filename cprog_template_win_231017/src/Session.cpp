@@ -3,8 +3,15 @@
 #include "Session.h"
 #include "System.h"
 
-Session::Session()
+Session *Session::getInstance(std::string name, void (*build)())
 {
+	return new Session(name, build);
+}
+
+Session::Session(std::string name, void (*build)())
+{
+	this->name = name;
+	this->build = build;
 }
 
 Session::~Session()
@@ -60,6 +67,7 @@ void Session::exit()
 
 void Session::run()
 {
+	// build();
 	quit = false;
 	Uint32 tickInterval = 1000 / FPS;
 	while (!quit)
@@ -143,7 +151,10 @@ void Session::deleteComponentsInVector()
 		}
 	}
 }
-
-Session startScreen;
-Session ses;
-Session gameoverScreen;
+std::string Session::getName()
+{
+	return name;
+}
+// Session startScreen;
+// Session ses;
+// Session gameoverScreen;

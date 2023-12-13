@@ -7,7 +7,8 @@
 class Session
 {
 public:
-	Session();
+	static Session* getInstance(std::string name, void (*build)());
+	Session(std::string name, void (*build)());
 	~Session();
 	void add(std::shared_ptr<Component> comp);
 	void remove(std::shared_ptr<Component> comp);
@@ -20,14 +21,15 @@ public:
 
 private:
 	std::vector<std::shared_ptr<Component>> components;
-	std::vector<std::shared_ptr<Component>> added, removed;
+	std::string getName();
+	void (*build)();
 
+	std::vector<std::shared_ptr<Component>> added, removed;
+	std::string name;
+	
 	void checkCollision(std::shared_ptr<Component> collider);
 	void collisionLoop();
 	bool quit;
 };
-extern Session startScreen;
-extern Session ses;
-extern Session gameoverScreen;
 
 #endif
