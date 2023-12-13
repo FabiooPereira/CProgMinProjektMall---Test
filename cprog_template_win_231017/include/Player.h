@@ -13,7 +13,6 @@ public:
     static std::shared_ptr<Player> getInstance(int x, int y, int w, int h, bool collision);
 
     void keyDown(const SDL_Event &eve) override;
-    void keyUp(const SDL_Event &eve) override;
 
     void draw() const override;
     void tick() override;
@@ -25,7 +24,7 @@ public:
     // Sprite management
     void setSprite(const std::string &imageFile);
     void setAnimation(int frames);
-
+    void updateFrame();
     ~Player() override;
 
 protected:

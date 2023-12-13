@@ -8,10 +8,6 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
     currentFrame = 0;
     frameCounter = 0;
     animationSpeed = 10;
-    velocity = 1;
-    jumping = false;
-    jumpForce = 30; // Adjust the jump force as needed
-    gravity = 1.05; // Adjust the gravity as needed
 }
 
 Player::~Player()
@@ -41,12 +37,15 @@ void Player::keyDown(const SDL_Event &eve)
     switch (eve.key.keysym.sym)
     {
     case SDLK_LEFT:
+        // leftfunction
         move(-20, 0);
         break;
     case SDLK_RIGHT:
+        // rightfunction
         move(20, 0);
         break;
     case SDLK_UP:
+        // upfunction
         if (!jumping) // Allowing jumping only when not already jumping
         {
             jumping = true;
@@ -54,6 +53,7 @@ void Player::keyDown(const SDL_Event &eve)
         }
         break;
     case SDLK_DOWN:
+        // downfunction
         move(0, 10);
         break;
     default:
@@ -61,13 +61,14 @@ void Player::keyDown(const SDL_Event &eve)
     }
 }
 
-void Player::keyUp(const SDL_Event &even)
-{
-}
-
 void Player::tick()
 {
-    applyVelocity();
+    updateFrame();
+}
+
+void Player::updateFrame()
+{
+
     frameCounter++;
     if (frameCounter >= animationSpeed)
     {
@@ -76,37 +77,8 @@ void Player::tick()
     }
 }
 
-void Player::applyVelocity()
-{
-    if (jumping)
-    {
-        jump();
-    }
-    if (velocity < 10)
-        velocity *= gravity; // Applying gravity
-    move(0, velocity);
-}
-
-void Player::jump()
-{
-    move(0, -jumpForce);
-    jumpForce--; // Reducing jump force to simulate decreasing force over time
-    if (jumpForce <= 0)
-    {
-        jumping = false; // Stop jumping when jump force is exhausted
-        jumpForce = 30;
-    }
-}
-
 void Player::onCollision(std::shared_ptr<Component> c)
 {
-    if (!jumping)
-    {
-        jumping = true; // Reset jumping when colliding with something
-        velocity = 1;
-        Mix_Chunk *jumpFX = mixer->loadSound("Jump.wav");
-        mixer->playOneShot(jumpFX);
-    }
 }
 
 void Player::setSprite(const std::string &imageFile)
@@ -118,7 +90,6 @@ void Player::setSprite(const std::string &imageFile)
 
 void Player::setAnimation(int frames)
 {
-
     SDL_QueryTexture(idleSpriteSheet, NULL, NULL, &spriteSheetWidth, &spriteSheetHeight);
 
     frameCount = frames;

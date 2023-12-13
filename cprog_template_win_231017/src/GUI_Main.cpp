@@ -10,11 +10,8 @@
 #include "Camera.h"
 #include "PlatformInstantiator.h"
 #include "MasterMixer.h"
-<<<<<<< HEAD
-
-=======
 #include "SceneManager.h"
->>>>>>> FabBranch
+
 using namespace std;
 
 class DoodlePlayer : public Player
@@ -26,9 +23,11 @@ public:
     }
     void tick() override
     {
+        Player::tick();
+        applyVelocity();
         if (getRect().y > 1500)
         {
-            // SceneManager::changeScene(2); gameover
+            // manager->loadScene("GameOver");
         }
     }
     void onCollision(std::shared_ptr<Component> c) final
@@ -40,10 +39,39 @@ public:
             // mixer->playOneShot(mixer->loadSound("boing-2.mp3"));
         }
     }
+
+    void applyVelocity()
+    {
+        if (jumping)
+        {
+            jump();
+        }
+        if (velocity < 10)
+            velocity *= gravity; // Applying gravity
+        move(0, velocity);
+    }
+
+    void jump()
+    {
+        move(0, -jumpForce);
+        jumpForce--; // Reducing jump force to simulate decreasing force over time
+        if (jumpForce <= 0)
+        {
+            jumping = false; // Stop jumping when jump force is exhausted
+            jumpForce = 30;
+        }
+    }
     ~DoodlePlayer() {}
 
 protected:
-    DoodlePlayer() : Player(250, 850, 100, 100, true) {}
+    DoodlePlayer() : Player(250, 850, 100, 100, true)
+    {
+        std::cout << "player created: " << this << std::endl;
+        velocity = 1;
+        jumping = false;
+        jumpForce = 30; // Adjust the jump force as needed
+        gravity = 1.05; // Adjust the gravity as needed
+    }
 };
 
 class StartLabel : public Label
@@ -138,10 +166,8 @@ void createStartScreen()
 // }
 int main(int argv, char **args)
 {
-<<<<<<< HEAD
     Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
     mixer->playMusic(bgMusic);
-=======
     // play = true;
     // createStartScreen();
     // startScreen.run();
@@ -154,8 +180,6 @@ int main(int argv, char **args)
     // }
     // std::cout << "after run()" << std::endl;
     manager->createScene("Start", *createStartScreen);
->>>>>>> FabBranch
-
     manager->loadScene("Start");
 
     return 0;
