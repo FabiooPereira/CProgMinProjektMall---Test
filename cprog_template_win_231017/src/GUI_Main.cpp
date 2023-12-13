@@ -28,7 +28,7 @@ public:
     }
     void keyDown(const SDL_Event &eve) override
     {
-        manager->getScene("Start").exit();
+        manager->getScene("Start")->exit();
     }
     void tick() override {}
     ~StartLabel() {}
@@ -69,13 +69,10 @@ protected:
 //     GameOverLabel() : Label(50, 700, 400, 50, "Press 'space' to play again") {}
 // };
 
-
-
 void createStartScreen()
 {
-    std::cout << "PLZ call me" << std::endl;
-    manager->getScene("Start").add(Label::getInstance(25, 200, 450, 50, "ScribbleHop"));
-   manager->getScene("Start").add(StartLabel::getInstance());
+    manager->getScene("Start")->add(Label::getInstance(25, 200, 450, 50, "ScribbleHop"));
+    manager->getScene("Start")->add(StartLabel::getInstance());
 }
 
 // void createDoodleJump()
@@ -126,7 +123,7 @@ int main(int argv, char **args)
     // }
     // std::cout << "after run()" << std::endl;
     manager->createScene("Start", *createStartScreen);
-    
+
     manager->loadScene("Start");
 
     return 0;

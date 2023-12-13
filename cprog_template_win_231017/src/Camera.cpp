@@ -30,7 +30,7 @@ void Camera::tick()
     {
         toMove += (450 - componentToFollow->getRect().y) / 60; // FPS; // flytta kameran mjukt och lugnt
         float toMoveThisFrame = toMove / 60;                   // FPS;
-        for (std::shared_ptr<Component> c : manager->getScene("Start").components)
+        for (std::shared_ptr<Component> c : manager->getScene("Start")->components)
         {
             if (c->isCollider())
                 c->move(0, toMoveThisFrame);

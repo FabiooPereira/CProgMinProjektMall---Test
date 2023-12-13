@@ -9,15 +9,16 @@ SceneManager *SceneManager::getInstance()
     static SceneManager instance;
     return &instance;
 }
+
 void SceneManager::createScene(std::string name, void (*build)())
 {
-    sessions.push_back(Session(name, build));
+    sessions.push_back(Session::getInstance(name, build));
 }
-Session SceneManager::getScene(std::string name)
+Session *SceneManager::getScene(std::string name)
 {
     for (auto s : sessions)
     {
-        if (s.getName() == name)
+        if (s->getName() == name)
         {
             return s;
         }
@@ -26,10 +27,10 @@ Session SceneManager::getScene(std::string name)
 }
 void SceneManager::loadScene(std::string name)
 {
-    getScene(name).build();
-    getScene(name).run();
+    getScene(name)->build();
+    getScene(name)->run();
 }
-SceneManager::~SceneManager(){
-    
+SceneManager::~SceneManager()
+{
 }
 SceneManager *manager = SceneManager::getInstance();

@@ -5,7 +5,12 @@
 
 #define FPS 60
 
-Session::Session(std::string name, void(*build)())
+Session *Session::getInstance(std::string name, void (*build)())
+{
+	return new Session(name, build);
+}
+
+Session::Session(std::string name, void (*build)())
 {
 	this->name = name;
 	this->build = build;
@@ -66,7 +71,7 @@ void Session::exit()
 
 void Session::run()
 {
-	//build();
+	// build();
 	quit = false;
 	Uint32 tickInterval = 1000 / FPS;
 	while (!quit)
@@ -150,7 +155,8 @@ void Session::deleteComponentsInVector()
 		}
 	}
 }
-std::string Session::getName(){
+std::string Session::getName()
+{
 	return name;
 }
 // Session startScreen;
