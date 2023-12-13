@@ -18,6 +18,35 @@ void createStartScreen();
 void createDoodleJump();
 void createGameOverScreen();
 
+class DoodlePlayer : public Player
+{
+public:
+    static std::shared_ptr<DoodlePlayer> getInstance()
+    {
+        return std::shared_ptr<DoodlePlayer>(new DoodlePlayer());
+    }
+    void tick() override
+    {
+        if (getRect().y > 1500)
+        {
+            // SceneManager::changeScene(2); gameover
+        }
+    }
+    void onCollision(std::shared_ptr<Component> c) final
+    {
+        if (!jumping)
+        {
+            jumping = true; // Reset jumping when colliding with something
+            velocity = 1;
+            // mixer->playOneShot(mixer->loadSound("boing-2.mp3"));
+        }
+    }
+    ~DoodlePlayer() {}
+
+protected:
+    DoodlePlayer() : Player(250, 850, 100, 100, true) {}
+};
+
 class StartLabel : public Label
 {
 public:
