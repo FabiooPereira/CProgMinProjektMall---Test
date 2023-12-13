@@ -4,6 +4,7 @@
 #include "PlatformInstantiator.h"
 #include <typeinfo>
 #include <memory>
+#include "SceneManager.h"
 std::shared_ptr<PlatformInstantiator> PlatformInstantiator::getInstance()
 {
     return std::shared_ptr<PlatformInstantiator>(new PlatformInstantiator());
@@ -28,14 +29,14 @@ void PlatformInstantiator::createPlatform()
 
         std::shared_ptr<Platform> p = Platform::getInstance(random, -5, 120, 20, true); // skapar plattform
         // objects.push_back(p);                                                           // lägger till i egen vektor
-        ses.add(p);  // lägger till i sessions vektor
+        manager->getScene("Start").add(p);  // lägger till i sessions vektor
         platforms++; // håller koll på antal plattformar
     }
 }
 
 void PlatformInstantiator::checkOutOfScope()
 {
-    for (std::shared_ptr<Component> c : ses.components) // går igenom egna vektorn och kollar om de är utanför fönstret
+    for (std::shared_ptr<Component> c :  manager->getScene("Start").components) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
         std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c);
 
@@ -43,7 +44,7 @@ void PlatformInstantiator::checkOutOfScope()
         {
             if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
-                ses.remove(c); // lägger till i sessions remove
+                 manager->getScene("Start").remove(c); // lägger till i sessions remove
                 // toRemove.push_back(c); // lägger till i egen remove
                 platforms--; // håller koll på antal plattformar
                 // std::cout << "removed!" << std::endl;
