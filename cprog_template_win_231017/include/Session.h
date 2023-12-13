@@ -15,9 +15,11 @@ public:
 
 	void exit();
 	void deleteComponentsInVector();
-	std::vector<std::shared_ptr<Component>> components;
+
+	const std::vector<std::shared_ptr<Component>> getComps() const { return components; }
 
 private:
+	std::vector<std::shared_ptr<Component>> components;
 	std::vector<std::shared_ptr<Component>> added, removed;
 
 	void checkCollision(std::shared_ptr<Component> collider);

@@ -34,7 +34,7 @@ void PlatformInstantiator::createPlatform()
 
 void PlatformInstantiator::checkOutOfScope()
 {
-    for (std::shared_ptr<Component> c : ses.components) // går igenom egna vektorn och kollar om de är utanför fönstret
+    for (std::shared_ptr<Component> c : ses.getComps()) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
         std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c);
 

@@ -11,7 +11,6 @@
 #include "PlatformInstantiator.h"
 #include "MasterMixer.h"
 
-#define FPS 60
 using namespace std;
 
 bool play;
@@ -94,8 +93,8 @@ void createStartScreen()
 
 void createDoodleJump()
 {
-    // Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
-    // mixer->playMusic(bgMusic);
+    Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
+    mixer->playMusic(bgMusic);
 
     ses.add(PlatformInstantiator::getInstance());
 

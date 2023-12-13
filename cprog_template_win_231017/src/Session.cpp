@@ -3,8 +3,6 @@
 #include "Session.h"
 #include "System.h"
 
-#define FPS 60
-
 Session::Session()
 {
 }
