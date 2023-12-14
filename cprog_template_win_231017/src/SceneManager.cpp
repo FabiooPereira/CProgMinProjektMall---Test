@@ -33,4 +33,9 @@ void SceneManager::loadScene(std::string name)
 SceneManager::~SceneManager()
 {
 }
+void SceneManager::printScenes(){
+    for(Session* s: sessions){
+        std::cout << s->getName() << std::endl;
+    }
+}
 SceneManager *manager = SceneManager::getInstance();

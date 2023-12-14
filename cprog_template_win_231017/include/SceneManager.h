@@ -20,6 +20,8 @@ public:
     // void runCurrentScene();
     Session *getScene(std::string namn);
     // void play
+    void printScenes();
+    void moveSceneToPosition(Session *scene);
 };
 extern SceneManager *manager;
 #endif
