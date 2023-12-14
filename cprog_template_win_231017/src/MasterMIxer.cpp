@@ -1,6 +1,6 @@
 #include "MasterMixer.h"
-#include <iostream>
 #include "Constants.h"
+#include <iostream>
 
 MasterMixer::MasterMixer()
 {

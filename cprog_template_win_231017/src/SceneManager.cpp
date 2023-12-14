@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "Session.h"
 
+std::string SceneManager::currentScene = "";
 SceneManager::SceneManager()
 {
 }
@@ -27,8 +28,13 @@ Session *SceneManager::getScene(std::string name)
 }
 void SceneManager::loadScene(std::string name)
 {
-    getScene(name)->build();
-    getScene(name)->run();
+    if (!currentScene.empty()) // när programmet startas är currentScene tom
+    {
+        getScene(currentScene)->unLoadScene(); // rensar scenen på komponenter
+    }
+    currentScene = name;
+    getScene(name)->build(); // bygger scenene
+    getScene(name)->run();   // startar nya scenens händelseloop
 }
 SceneManager::~SceneManager()
 {

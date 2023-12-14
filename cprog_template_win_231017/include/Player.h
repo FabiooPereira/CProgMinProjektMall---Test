@@ -13,37 +13,30 @@ public:
     static std::shared_ptr<Player> getInstance(int x, int y, int w, int h, bool collision);
 
     void keyDown(const SDL_Event &eve) override;
-    void keyUp(const SDL_Event &eve) override;
 
     void draw() const override;
     void tick() override;
 
-    void applyVelocity();
-    void jump();
-    void onCollision(std::shared_ptr<Component> c) override;
-
-    //Sprite management
-    void setSprite(const std::string& imageFile);
+    // Sprite management
+    void setSprite(const std::string &imageFile);
     void setAnimation(int frames);
-
+    void updateFrame();
     ~Player() override;
 
 protected:
     Player(int xPos, int yPos, int w, int h, bool collision);
-
-private:
-
     float velocity;
     int jumpForce;
     float gravity;
     bool jumping;
 
-    //Sprite management
+private:
+    // Sprite management
     SDL_Texture *idleSpriteSheet = nullptr;
 
     std::string imageFileURL;
     int spriteSheetWidth, spriteSheetHeight; // Dimensions of the entire sprite sheet
-    int frameWidth, frameHeight;            // Dimensions of a single frame
+    int frameWidth, frameHeight;             // Dimensions of a single frame
     int frameCount;
 
     int currentFrame;

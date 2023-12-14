@@ -16,7 +16,6 @@ void PlatformInstantiator::tick()
 {
     createPlatform();
     checkOutOfScope();
-    // removeOutOfScope();
 }
 
 void PlatformInstantiator::createPlatform()
@@ -28,15 +27,14 @@ void PlatformInstantiator::createPlatform()
                                          // reset counter
 
         std::shared_ptr<Platform> p = Platform::getInstance(random, -5, 120, 20, true); // skapar plattform
-        // objects.push_back(p);                                                           // lägger till i egen vektor
-        manager->getScene("Start")->add(p); // lägger till i sessions vektor
-        platforms++;                        // håller koll på antal plattformar
+        manager->getScene(SceneManager::currentScene)->add(p);                          // lägger till i sessions vektor
+        platforms++;                                                                    // håller koll på antal plattformar
     }
 }
 
 void PlatformInstantiator::checkOutOfScope()
 {
-    for (std::shared_ptr<Component> c : manager->getScene("Start")->components) // går igenom egna vektorn och kollar om de är utanför fönstret
+    for (std::shared_ptr<Component> c : manager->getScene(SceneManager::currentScene)->getComps()) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
         std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c);
 
@@ -44,7 +42,7 @@ void PlatformInstantiator::checkOutOfScope()
         {
             if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
             {
-                manager->getScene("Start")->remove(c); // lägger till i sessions remove
+                manager->getScene(SceneManager::currentScene)->remove(c); // lägger till i sessions remove
                 // toRemove.push_back(c); // lägger till i egen remove
                 platforms--; // håller koll på antal plattformar
                 // std::cout << "removed!" << std::endl;
@@ -52,23 +50,3 @@ void PlatformInstantiator::checkOutOfScope()
         }
     }
 }
-
-// void PlatformInstantiator::removeOutOfScope()
-// {
-//     for (std::shared_ptr<Platform> c : toRemove) // itererar och tar bort plattformar
-//     {
-//         for (std::vector<std::shared_ptr<Platform>>::iterator i = objects.begin();
-//              i != objects.end();)
-//         {
-//             if (*i == c)
-//             {
-//                 i = objects.erase(i);
-//             }
-//             else
-//             {
-//                 i++;
-//             }
-//         }
-//     }
-//     toRemove.clear();
-// }

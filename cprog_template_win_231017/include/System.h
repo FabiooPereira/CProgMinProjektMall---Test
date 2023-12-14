@@ -6,6 +6,9 @@
 #include <string>
 #include <iostream>
 #include <memory>
+
+#define FPS 60;
+
 class System
 {
 public:
@@ -14,6 +17,7 @@ public:
 	SDL_Renderer *get_ren() const;
 	int get_height() const;
 	TTF_Font *get_font() const;
+	static const int getfps() { return FPS; };
 
 private:
 	SDL_Window *win;
