@@ -69,9 +69,11 @@ void Session::run()
 	std::cout << "start of run! " + name << std::endl;
 	// build();
 	quit = false;
+	cleared = false;
 	Uint32 tickInterval = 1000 / FPS;
 	while (!quit)
 	{
+		std::cout << "run of " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
 		Uint32 nextTick = SDL_GetTicks() + tickInterval;
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -92,7 +94,7 @@ void Session::run()
 				break;
 			case SDL_QUIT:
 				quit = true;
-				std::cout << "quit pressed" << std::endl;
+				std::cout << "quit pressed from: " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
 				break;
 			} // switch
 		}	  // inre while event while
@@ -120,7 +122,11 @@ void Session::run()
 		if (delay > 0)
 			SDL_Delay(delay);
 	} // yttre while
-
+	if (!cleared)
+	{
+		unLoadScene();
+	}
+	std::cout << "end of run() " + name << std::endl;
 	// här kördes koden som nu finns i unLoadScene()
 	// det som fanns utanför while loopen kördes inte flrens programmet avslutades.
 	// därför flyttades den avslutande koden till en metod som kallas på av scenemanager innan den laddar in nästa scen
@@ -133,8 +139,9 @@ void Session::unLoadScene()
 	}
 	deleteComponentsInVector();
 	removed.clear();
+	cleared = true;
 	Component::resetCounts(); // ser till att komponent räknaren rensas, blir inte fel utan den men kanske lättare att se vad som skapats under denna session
-							  // std::cout << "end of run! " + name << std::endl;
+	std::cout << "unload scene! " + name << std::endl;
 }
 void Session::deleteComponentsInVector() // går igenom komponenterna som ska tas bort
 {

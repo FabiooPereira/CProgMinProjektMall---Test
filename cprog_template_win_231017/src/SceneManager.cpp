@@ -30,11 +30,13 @@ void SceneManager::loadScene(std::string name)
 {
     if (!currentScene.empty()) // när programmet startas är currentScene tom
     {
+        getScene(currentScene)->exit();
         getScene(currentScene)->unLoadScene(); // rensar scenen på komponenter
     }
     currentScene = name;
     getScene(name)->build(); // bygger scenene
     getScene(name)->run();   // startar nya scenens händelseloop
+    std::cout << "end of loadScene " + name << " and current scene is: " << currentScene << std::endl;
 }
 SceneManager::~SceneManager()
 {

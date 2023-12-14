@@ -174,5 +174,6 @@ int main(int argv, char **args)
     manager->createScene("Game", *createDoodleJump);
     manager->createScene("GameOver", *createGameOverScreen);
     manager->loadScene("Start");
+    std::cout << "returning 0" << std::endl;
     return 0;
 }

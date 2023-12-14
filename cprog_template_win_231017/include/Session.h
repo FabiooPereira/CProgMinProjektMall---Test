@@ -31,6 +31,7 @@ private:
 	void checkCollision(std::shared_ptr<Component> collider);
 	void collisionLoop();
 	bool quit;
+	bool cleared = false;
 };
 
 #endif

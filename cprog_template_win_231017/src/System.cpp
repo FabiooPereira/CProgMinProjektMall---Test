@@ -10,7 +10,7 @@ System::System()
 
 	SDL_Init(SDL_INIT_EVERYTHING);
 	win = SDL_CreateWindow("Scribble Hop", SDL_WINDOWPOS_CENTERED,
-						   SDL_WINDOWPOS_CENTERED, 500, 900, 0);
+						   SDL_WINDOWPOS_CENTERED, width, height, 0);
 	ren = SDL_CreateRenderer(win, -1, 0);
 	TTF_Init();
 	font = TTF_OpenFont((constants::gResPath + "fonts/undertale.ttf").c_str(), 50);
@@ -30,9 +30,9 @@ SDL_Renderer *System::get_ren() const
 {
 	return ren;
 }
-int System::get_height() const
+const int System::get_height() const
 {
-	return SDL_GetWindowSurface(win)->h;
+	return height;
 }
 
 TTF_Font *System::get_font() const
