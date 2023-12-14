@@ -13,6 +13,53 @@
 #include "SceneManager.h"
 
 using namespace std;
+class StartButton : public Button
+{
+public:
+    static std::shared_ptr<StartButton> getInstance(int x, int y, int w, int h, std::string t)
+    {
+        return std::shared_ptr<StartButton>(new StartButton(x, y, w, h, t));
+    }
+    void perform(std::shared_ptr<Button> source) final
+    {
+        manager->loadScene("Game");
+    }
+
+private:
+    StartButton(int x, int y, int w, int h, std::string t) : Button(x, y, w, h, t) {}
+};
+
+class Scene1Button : public Button
+{
+public:
+    static std::shared_ptr<Scene1Button> getInstance()
+    {
+        return std::shared_ptr<Scene1Button>(new Scene1Button());
+    }
+    void perform(std::shared_ptr<Button> source) final
+    {
+        manager->loadScene("Scene2");
+    }
+
+private:
+    Scene1Button() : Button(0, 300, 500, 500, "go to scene 2") {}
+};
+
+class Scene2Button : public Button
+{
+public:
+    static std::shared_ptr<Scene2Button> getInstance()
+    {
+        return std::shared_ptr<Scene2Button>(new Scene2Button());
+    }
+    void perform(std::shared_ptr<Button> source) final
+    {
+        manager->loadScene("Scene1");
+    }
+
+private:
+    Scene2Button() : Button(0, 300, 50, 50, "go to scene 1") {}
+};
 
 class DoodlePlayer : public Player
 {
@@ -94,23 +141,6 @@ public:
 protected:
     StartLabel() : Label(50, 500, 400, 50, "Press any key to start") {}
 };
-// class FakeLabel : public Label
-// {
-// public:
-//     static std::shared_ptr<FakeLabel> getInstance()
-//     {
-//         return std::shared_ptr<FakeLabel>(new FakeLabel());
-//     }
-//     void keyDown(const SDL_Event &eve) override
-//     {
-//         manager->loadScene("Start");
-//     }
-//     void tick() override {}
-//     ~FakeLabel() override {}
-
-// protected:
-//     FakeLabel() : Label(50, 500, 400, 50, "Press any key to start") {}
-// };
 
 class GameOverLabel : public Label
 {
@@ -183,20 +213,36 @@ void createGameOverScreen()
     manager->getScene("GameOver")->add(GameOverLabel::getInstance());
 }
 
-// void createFakeGame()
-// {
-//     manager->getScene("FakeGame")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-// }
+void createScene1()
+{
+    manager->getScene("Scene1")->add(Scene1Button::getInstance());
+    manager->getScene("Scene1")->add(Scene1Button::getInstance());
+
+    // manager->getScene("Scene1")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
+    // manager->getScene("Scene1")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
+    // // manager->getScene("Scene1")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
+    // manager->getScene("Scene1")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
+}
+void createScene2()
+{
+    manager->getScene("Scene2")->add(Scene2Button::getInstance());
+    manager->getScene("Scene2")->add(Scene2Button::getInstance());
+    // manager->getScene("Scene2")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
+    // manager->getScene("Scene2")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
+    // // manager->getScene("Scene2")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
+    // manager->getScene("Scene2")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
+}
 
 int main(int argv, char **args)
 {
     // Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
     // mixer->playMusic(bgMusic);
-    manager->createScene("Start", *createStartScreen);
-    manager->createScene("Game", *createDoodleJump);
-    manager->createScene("GameOver", *createGameOverScreen);
-    // manager->createScene("FakeGame", *createFakeGame);
-    manager->loadScene("Start");
+    // manager->createScene("Start", *createStartScreen);
+    // manager->createScene("Game", *createDoodleJump);
+    // manager->createScene("GameOver", *createGameOverScreen);
+    manager->createScene("Scene1", *createScene1);
+    manager->createScene("Scene2", *createScene2);
+    manager->loadScene("Scene1");
     std::cout << "returning 0" << std::endl;
     return 0;
 }

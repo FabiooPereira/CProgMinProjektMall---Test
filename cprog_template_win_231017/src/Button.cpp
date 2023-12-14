@@ -45,7 +45,7 @@ void Button::mouseUp(const SDL_Event &eve)
 {
     SDL_Point p = {eve.button.x, eve.button.y};
     if (SDL_PointInRect(&p, &getRect()))
-        perform(this);
+        perform(shared_from_this());
     isDown = false;
 }
 void Button::mouseDown(const SDL_Event &eve)
