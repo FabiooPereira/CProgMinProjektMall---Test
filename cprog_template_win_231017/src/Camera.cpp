@@ -15,8 +15,8 @@ std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
 }
 Camera::~Camera()
 {
-    std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
-    std::cout << "camera destructed: " << this << std::endl;
+    // std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
+    // std::cout << "camera destructed: " << this << std::endl;
 }
 void Camera::tick()
 {
@@ -29,7 +29,7 @@ void Camera::tick()
     {
         toMove += (450 - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
         float toMoveThisFrame = toMove / System::getfps();                   // FPS;
-        for (std::shared_ptr<Component> c : manager->getScene("Start")->getComps())
+        for (std::shared_ptr<Component> c : manager->getScene(SceneManager::currentScene)->getComps())
         {
             if (c->isCollider())
                 c->move(0, toMoveThisFrame);

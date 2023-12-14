@@ -17,10 +17,6 @@ public:
     void draw() const override;
     void tick() override;
 
-    void applyVelocity();
-    void jump();
-    void onCollision(std::shared_ptr<Component> c) override;
-
     // Sprite management
     void setSprite(const std::string &imageFile);
     void setAnimation(int frames);

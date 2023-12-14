@@ -4,7 +4,7 @@
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
-    std::cout << "player created: " << this << std::endl;
+    // std::cout << "player created: " << this << std::endl;
     currentFrame = 0;
     frameCounter = 0;
     animationSpeed = 10;
@@ -12,7 +12,7 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
 
 Player::~Player()
 {
-    std::cout << "player destructed: " << this << std::endl;
+    // std::cout << "player destructed: " << this << std::endl;
     SDL_DestroyTexture(idleSpriteSheet);
 }
 
@@ -46,39 +46,29 @@ void Player::keyDown(const SDL_Event &eve)
         break;
     case SDLK_UP:
         // upfunction
-        if (!jumping) // Allowing jumping only when not already jumping
-        {
-            jumping = true;
-            jumpForce = 30; // Resetting jump force for each jump
-        }
         break;
     case SDLK_DOWN:
         // downfunction
-        move(0, 10);
+        // move(0, 10);
         break;
     default:
         break;
     }
 }
 
-void Player::tick()
+void Player::tick() // kan overridas men och köras genom Player::tick()
 {
     updateFrame();
 }
 
 void Player::updateFrame()
 {
-
     frameCounter++;
     if (frameCounter >= animationSpeed)
     {
         currentFrame = (currentFrame + 1) % frameCount;
         frameCounter = 0;
     }
-}
-
-void Player::onCollision(std::shared_ptr<Component> c)
-{
 }
 
 void Player::setSprite(const std::string &imageFile)

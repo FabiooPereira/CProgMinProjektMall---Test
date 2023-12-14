@@ -9,17 +9,14 @@ private:
     std::vector<Session *> sessions;
 
 public:
-    static Session *currentSession;
+    static std::string currentScene;
     SceneManager();
     static SceneManager *getInstance();
     ~SceneManager();
 
     void createScene(std::string namn, void (*build)());
-    // void addScene(Session session, void(*build)());
     void loadScene(std::string name);
-    // void runCurrentScene();
     Session *getScene(std::string namn);
-    // void play
 };
 extern SceneManager *manager;
 #endif

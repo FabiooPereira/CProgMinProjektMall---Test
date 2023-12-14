@@ -12,11 +12,11 @@ void Platform::draw() const
 
 Platform::Platform(int x, int y, int w, int h, bool collision) : Component(x, y, w, h, collision)
 {
-    std::cout << "platform  created: " << this << std::endl;
+    // std::cout << "platform  created: " << this << std::endl;
     texture = IMG_LoadTexture(sys.get_ren(), (constants::gResPath + "images/Platform.png").c_str());
 }
 Platform::~Platform()
 {
     SDL_DestroyTexture(texture);
-    std::cout << "platform  destructed: " << this << std::endl;
+    // std::cout << "platform  destructed: " << this << std::endl;
 }

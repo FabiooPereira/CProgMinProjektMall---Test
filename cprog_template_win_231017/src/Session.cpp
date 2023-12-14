@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Session.h"
 #include "System.h"
+#include "SceneManager.h"
 
 Session *Session::getInstance(std::string name, void (*build)())
 {
@@ -31,7 +32,6 @@ void Session::remove(std::shared_ptr<Component> comp)
 
 void Session::checkCollision(std::shared_ptr<Component> collider)
 {
-
 	// SDL_Rect rect = collider->getRect();
 	// for (Component *c : colliders)
 	// {
@@ -43,7 +43,6 @@ void Session::checkCollision(std::shared_ptr<Component> collider)
 	{
 		if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 		{
-			// std::cout << "collision!" << endl;
 			collider->onCollision(c);
 		}
 	}
@@ -61,12 +60,13 @@ void Session::collisionLoop()
 }
 void Session::exit()
 {
-	std::cout << "exit";
+	std::cout << "exit" << std::endl;
 	quit = true;
 }
 
 void Session::run()
 {
+	std::cout << "start of run! " + name << std::endl;
 	// build();
 	quit = false;
 	Uint32 tickInterval = 1000 / FPS;
@@ -120,20 +120,23 @@ void Session::run()
 		if (delay > 0)
 			SDL_Delay(delay);
 	} // yttre while
-	std::cout << "end of run() ";
 
+	// här kördes koden som nu finns i unLoadScene()
+	// det som fanns utanför while loopen kördes inte flrens programmet avslutades.
+	// därför flyttades den avslutande koden till en metod som kallas på av scenemanager innan den laddar in nästa scen
+}
+void Session::unLoadScene()
+{
 	for (std::shared_ptr<Component> c : components)
 	{
-		remove(c);
+		remove(c); // lägger till alla komponenter för att tas bort
 	}
 	deleteComponentsInVector();
-
 	removed.clear();
-	Component::printCounts();
-	Component::resetCounts();
+	Component::resetCounts(); // ser till att komponent räknaren rensas, blir inte fel utan den men kanske lättare att se vad som skapats under denna session
+							  // std::cout << "end of run! " + name << std::endl;
 }
-
-void Session::deleteComponentsInVector()
+void Session::deleteComponentsInVector() // går igenom komponenterna som ska tas bort
 {
 	for (std::shared_ptr<Component> c : removed)
 	{
@@ -155,6 +158,3 @@ std::string Session::getName()
 {
 	return name;
 }
-// Session startScreen;
-// Session ses;
-// Session gameoverScreen;
