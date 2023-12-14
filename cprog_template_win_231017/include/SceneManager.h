@@ -19,7 +19,7 @@ public:
     Session *getScene(std::string namn);
     // void play
     void printScenes();
-    void moveSceneToPosition(Session *scene);
+    void moveSceneToPosition(Session *scene, int index);
 };
 extern SceneManager *manager;
 #endif

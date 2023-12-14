@@ -173,6 +173,9 @@ int main(int argv, char **args)
     manager->createScene("Start", *createStartScreen);
     manager->createScene("Game", *createDoodleJump);
     manager->createScene("GameOver", *createGameOverScreen);
+    manager->printScenes();
+    manager->moveSceneToPosition(manager->getScene("Game"), 2);
+    manager->printScenes();
     manager->loadScene("Start");
     return 0;
 }

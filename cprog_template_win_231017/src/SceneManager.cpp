@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "Session.h"
+#include "algorithm"
 
 std::string SceneManager::currentScene = "";
 SceneManager::SceneManager()
@@ -39,9 +40,31 @@ void SceneManager::loadScene(std::string name)
 SceneManager::~SceneManager()
 {
 }
-void SceneManager::printScenes(){
-    for(Session* s: sessions){
+void SceneManager::printScenes()
+{
+    for (Session *s : sessions)
+    {
         std::cout << s->getName() << std::endl;
+    }
+}
+void SceneManager::moveSceneToPosition(Session *scene, int index)
+{
+    auto it = std::find(sessions.begin(), sessions.end(), scene);
+
+    if (it != sessions.end() && index < sessions.size())
+    {
+        int currentIndex = std::distance(sessions.begin(), it);
+
+        if (currentIndex != index)
+            ;
+        {
+            sessions.erase(it);
+            sessions.insert(sessions.begin() + index, scene);
+        }
+    }
+    else
+    {
+        std::cerr << "Invalid session or position specified for moving the scene." << std::endl;
     }
 }
 SceneManager *manager = SceneManager::getInstance();
