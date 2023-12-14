@@ -111,7 +111,7 @@ void Session::run()
 		deleteComponentsInVector();
 
 		removed.clear();
-
+		std::cout << "before renderclear in: " << name << std::endl;
 		SDL_RenderClear(sys.get_ren());
 		SDL_SetRenderDrawColor(sys.get_ren(), 100, 100, 100, 0);
 		for (std::shared_ptr<Component> c : components)
@@ -121,10 +121,14 @@ void Session::run()
 		int delay = nextTick - SDL_GetTicks();
 		if (delay > 0)
 			SDL_Delay(delay);
+		std::cout << "after sdl_delay in: " << name << std::endl;
 	} // yttre while
+	std::cout << "components is empty == " << components.empty() << " in: " << name << std::endl;
 	if (!cleared)
 	{
+		std::cout << "entered not cleared from: " << name << std::endl;
 		unLoadScene();
+		std::cout << "components is empty after unload() == " << components.empty() << " in: " << name << std::endl;
 	}
 	std::cout << "end of run() " + name << std::endl;
 	// här kördes koden som nu finns i unLoadScene()

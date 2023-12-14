@@ -89,11 +89,28 @@ public:
         manager->loadScene("Game");
     }
     void tick() override {}
-    ~StartLabel() {}
+    ~StartLabel() override {}
 
 protected:
     StartLabel() : Label(50, 500, 400, 50, "Press any key to start") {}
 };
+// class FakeLabel : public Label
+// {
+// public:
+//     static std::shared_ptr<FakeLabel> getInstance()
+//     {
+//         return std::shared_ptr<FakeLabel>(new FakeLabel());
+//     }
+//     void keyDown(const SDL_Event &eve) override
+//     {
+//         manager->loadScene("Start");
+//     }
+//     void tick() override {}
+//     ~FakeLabel() override {}
+
+// protected:
+//     FakeLabel() : Label(50, 500, 400, 50, "Press any key to start") {}
+// };
 
 class GameOverLabel : public Label
 {
@@ -166,6 +183,11 @@ void createGameOverScreen()
     manager->getScene("GameOver")->add(GameOverLabel::getInstance());
 }
 
+// void createFakeGame()
+// {
+//     manager->getScene("FakeGame")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
+// }
+
 int main(int argv, char **args)
 {
     // Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
@@ -173,6 +195,7 @@ int main(int argv, char **args)
     manager->createScene("Start", *createStartScreen);
     manager->createScene("Game", *createDoodleJump);
     manager->createScene("GameOver", *createGameOverScreen);
+    // manager->createScene("FakeGame", *createFakeGame);
     manager->loadScene("Start");
     std::cout << "returning 0" << std::endl;
     return 0;
