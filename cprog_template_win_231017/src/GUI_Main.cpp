@@ -26,7 +26,7 @@ public:
     {
         Player::tick(); // kör "bas-Player::tick()" som just nu bara uppdaterar animationen
         applyVelocity();
-        if (getRect().y > sys.get_height()) // kollar om den är utanför skärmen
+        if (getRect().y > 1000) // kollar om den är utanför skärmen
         {
             manager->loadScene("GameOver"); // byter till gameover-scenen
         }
