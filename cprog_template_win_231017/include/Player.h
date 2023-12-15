@@ -34,9 +34,10 @@ private:
     // Sprite management
     SDL_Texture *idleSpriteSheet = nullptr;
 
-    std::string imageFileURL;
     int spriteSheetWidth, spriteSheetHeight; // Dimensions of the entire sprite sheet
-    int frameWidth, frameHeight;             // Dimensions of a single frame
+
+    std::string imageFileURL;
+    int frameWidth, frameHeight; // Dimensions of a single frame
     int frameCount;
 
     int currentFrame;
