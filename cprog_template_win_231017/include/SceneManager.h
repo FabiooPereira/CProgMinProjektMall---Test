@@ -17,10 +17,11 @@ public:
     ~SceneManager();
     bool isQueueEmpty() { return q.empty(); }
     void runNext();
-    void createScene(std::string namn, void (*build)());
+    void createScene(std::string name, void (*build)());
     void loadScene(std::string name);
-    Session *getScene(std::string namn);
+    Session *getScene(std::string name);
     void pop() { q.pop(); }
+    void deleteScene(std::string name);
 };
 extern SceneManager *manager;
 #endif

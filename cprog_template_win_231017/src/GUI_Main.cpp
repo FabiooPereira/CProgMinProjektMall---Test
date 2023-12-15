@@ -246,7 +246,7 @@ int main(int argv, char **args)
     manager->createScene("Scene1", *createScene1);
     manager->createScene("Scene2", *createScene2);
 
-    manager->loadScene("Scene1");
+    manager->loadScene("Scene");
     while (!manager->isQueueEmpty())
     {
         std::cout << "in main" << std::endl;

@@ -15,6 +15,12 @@ void SceneManager::createScene(std::string name, void (*build)())
 {
     sessions.push_back(Session::getInstance(name, build));
 }
+
+void SceneManager::deleteScene(std::string name)
+{
+    // sessions.erase( getScene(name) );
+}
+
 Session *SceneManager::getScene(std::string name)
 {
     for (auto s : sessions)
@@ -24,7 +30,7 @@ Session *SceneManager::getScene(std::string name)
             return s;
         }
     }
-    throw std::runtime_error("Ingen scene hittades");
+    throw std::runtime_error("Ingen scene med namnet: " + name + " hittades");
 }
 void SceneManager::loadScene(std::string name)
 {
