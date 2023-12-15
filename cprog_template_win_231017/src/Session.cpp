@@ -62,18 +62,19 @@ void Session::exit()
 {
 	std::cout << "exit" << std::endl;
 	quit = true;
+	manager->pop();
 }
 
 void Session::run()
 {
 	std::cout << "start of run! " + name << std::endl;
-	// build();
+	build();
 	quit = false;
 	cleared = false;
 	Uint32 tickInterval = 1000 / FPS;
 	while (!quit)
 	{
-		std::cout << "run of " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
+		// std::cout << "run of " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
 		Uint32 nextTick = SDL_GetTicks() + tickInterval;
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -91,10 +92,11 @@ void Session::run()
 			case SDL_KEYDOWN:
 				for (std::shared_ptr<Component> c : components)
 					c->keyDown(event);
+
 				break;
 			case SDL_QUIT:
-				quit = true;
-				std::cout << "quit pressed from: " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
+				exit();
+				// std::cout << "quit pressed from: " << name << " and current scene is: " << SceneManager::currentScene << std::endl;
 				break;
 			} // switch
 		}	  // inre while event while
@@ -102,8 +104,10 @@ void Session::run()
 		collisionLoop();
 
 		for (std::shared_ptr<Component> c : components)
+		{
+			std::cout << c << std ::endl;
 			c->tick();
-
+		}
 		for (std::shared_ptr<Component> c : added)
 			components.push_back(c);
 		added.clear();
@@ -111,7 +115,7 @@ void Session::run()
 		deleteComponentsInVector();
 
 		removed.clear();
-		std::cout << "before renderclear in: " << name << std::endl;
+		// std::cout << "before renderclear in: " << name << std::endl;
 		SDL_RenderClear(sys.get_ren());
 		SDL_SetRenderDrawColor(sys.get_ren(), 100, 100, 100, 0);
 		for (std::shared_ptr<Component> c : components)
@@ -121,20 +125,30 @@ void Session::run()
 		int delay = nextTick - SDL_GetTicks();
 		if (delay > 0)
 			SDL_Delay(delay);
-		std::cout << "after sdl_delay in: " << name << std::endl;
+		// std::cout << "after sdl_delay in: " << name << std::endl;
+
 	} // yttre while
-	std::cout << "components is empty == " << components.empty() << " in: " << name << std::endl;
+	// std::cout << "components is empty == " << components.empty() << " in: " << name << std::endl;
 	if (!cleared)
 	{
-		std::cout << "entered not cleared from: " << name << std::endl;
+		// std::cout << "entered not cleared from: " << name << std::endl;
 		unLoadScene();
-		std::cout << "components is empty after unload() == " << components.empty() << " in: " << name << std::endl;
+		// std::cout << "components is empty after unload() == " << components.empty() << " in: " << name << std::endl;
 	}
-	std::cout << "end of run() " + name << std::endl;
+	// std::cout << "end of run() " + name << std::endl;
+
+	// load nästa scen om det finns queud
 	// här kördes koden som nu finns i unLoadScene()
 	// det som fanns utanför while loopen kördes inte flrens programmet avslutades.
 	// därför flyttades den avslutande koden till en metod som kallas på av scenemanager innan den laddar in nästa scen
 }
+
+// scen1->scen 2 scen2->scen 3
+
+// 	scen 3 quit->scen 3 remove komponenter
+// 		scen 2 går ur loopen
+// 			scen 1 går ur loopen
+
 void Session::unLoadScene()
 {
 	for (std::shared_ptr<Component> c : components)

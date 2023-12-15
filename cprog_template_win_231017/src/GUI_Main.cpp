@@ -75,6 +75,7 @@ public:
         applyVelocity();
         if (getRect().y > sys.get_height()) // kollar om den är utanför skärmen
         {
+            // manager->getScene()
             manager->loadScene("GameOver"); // byter till gameover-scenen
         }
     }
@@ -157,6 +158,9 @@ public:
             std::cout << "space pressed" << std::endl;
             // manager->getScene(SceneManager::currentScene)->exit();
             manager->loadScene("Game");
+
+            // manager->addToQueue(getScene("Game"));
+
             break;
         case SDLK_q:
             std::cout << "q pressed" << std::endl;
@@ -216,21 +220,20 @@ void createGameOverScreen()
 void createScene1()
 {
     manager->getScene("Scene1")->add(Scene1Button::getInstance());
-    manager->getScene("Scene1")->add(Scene1Button::getInstance());
+    // manager->getScene("Scene1")->add(Scene1Button::getInstance());
 
-    // manager->getScene("Scene1")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-    // manager->getScene("Scene1")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
-    // // manager->getScene("Scene1")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
-    // manager->getScene("Scene1")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
+    manager->getScene("Scene1")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
+    manager->getScene("Scene1")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
+    manager->getScene("Scene1")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
+    manager->getScene("Scene1")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
 }
 void createScene2()
 {
     manager->getScene("Scene2")->add(Scene2Button::getInstance());
-    manager->getScene("Scene2")->add(Scene2Button::getInstance());
-    // manager->getScene("Scene2")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-    // manager->getScene("Scene2")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
-    // // manager->getScene("Scene2")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
-    // manager->getScene("Scene2")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
+    manager->getScene("Scene2")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
+    manager->getScene("Scene2")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
+    manager->getScene("Scene2")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
+    manager->getScene("Scene2")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
 }
 
 int main(int argv, char **args)
@@ -242,7 +245,15 @@ int main(int argv, char **args)
     // manager->createScene("GameOver", *createGameOverScreen);
     manager->createScene("Scene1", *createScene1);
     manager->createScene("Scene2", *createScene2);
+
     manager->loadScene("Scene1");
+    while (!manager->isQueueEmpty())
+    {
+        std::cout << "in main" << std::endl;
+        manager->runNext();
+    }
+
+    // manager->queueScene("Start");
     std::cout << "returning 0" << std::endl;
     return 0;
 }
