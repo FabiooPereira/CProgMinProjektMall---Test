@@ -13,7 +13,7 @@ class PlatformInstantiator : public Component
 {
 private:
     float recentDistance;
-    const int distanceInterval = 50;
+    const int minDistanceInterval = 50;
     int platforms;
     int maxPlatforms = 16;
 

@@ -20,7 +20,8 @@ void PlatformInstantiator::tick()
 
 void PlatformInstantiator::createPlatform()
 {
-    if ((Camera::distanceMoved - recentDistance) >= distanceInterval && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
+    int randNum = rand() % (350 - minDistanceInterval + 1) + minDistanceInterval; // hopphöjden är 465 beräknad av fabio, maxintervallet innan en plattform instantieras satte vi till 425
+    if ((Camera::distanceMoved - recentDistance) >= randNum && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
     {
         recentDistance = Camera::distanceMoved;
         int random = 1 + (rand() % 500); // random x position mellan 0 och 500
@@ -36,16 +37,14 @@ void PlatformInstantiator::checkOutOfScope()
 {
     for (std::shared_ptr<Component> c : manager->getScene(SceneManager::currentScene)->getComps()) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
-        std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c);
+        std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c); // kollar varje komponent är en plattform
 
-        if (derivedPtr)
+        if (derivedPtr) // om static cast fungerar det true annars är det nnull och därför false
         {
-            if (c->getRect().y > 900) // just nu hårdkodat för jag lyckas inte hämta storleken på skärmen :/
+            if (c->getRect().y > sys.get_height())
             {
                 manager->getScene(SceneManager::currentScene)->remove(c); // lägger till i sessions remove
-                // toRemove.push_back(c); // lägger till i egen remove
-                platforms--; // håller koll på antal plattformar
-                // std::cout << "removed!" << std::endl;
+                platforms--;                                              // håller koll på antal plattformar
             }
         }
     }

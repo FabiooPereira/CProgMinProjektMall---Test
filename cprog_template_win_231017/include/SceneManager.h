@@ -7,8 +7,8 @@
 class SceneManager
 {
 private:
-    std::vector<Session *> sessions;
-    std::queue<Session *> q;
+    std::vector<std::shared_ptr<Session>> sessions;
+    std::queue<std::shared_ptr<Session>> q;
 
 public:
     static std::string currentScene;
@@ -19,10 +19,11 @@ public:
     void runNext();
     void createScene(std::string name, void (*build)());
     void loadScene(std::string name);
-    Session *getScene(std::string namn);
-    // void play
-    void printScenes();
-    void moveSceneToPosition(Session *scene, int index);
+    std::shared_ptr<Session> getScene(std::string name);
+    void pop() { q.pop(); }
+    void deleteScene(std::string name);
+
+    const void printScenes() const;
 };
 extern SceneManager *manager;
 #endif

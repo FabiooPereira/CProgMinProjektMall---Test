@@ -19,10 +19,14 @@ void SceneManager::createScene(std::string name, void (*build)())
 
 void SceneManager::deleteScene(std::string name)
 {
-    // sessions.erase( getScene(name) );
+    auto iteratorToRemove = std::find(sessions.begin(), sessions.end(), getScene(name));
+    if (iteratorToRemove != sessions.end())
+    {
+        sessions.erase(iteratorToRemove);
+    }
 }
 
-Session *SceneManager::getScene(std::string name)
+std::shared_ptr<Session> SceneManager::getScene(std::string name)
 {
     for (auto s : sessions)
     {
@@ -31,7 +35,7 @@ Session *SceneManager::getScene(std::string name)
             return s;
         }
     }
-    throw std::runtime_error("Ingen scene med namnet: " + name + " hittades");
+    throw std::runtime_error("No scene named: " + name + " was found");
 }
 void SceneManager::loadScene(std::string name)
 {
@@ -41,8 +45,6 @@ void SceneManager::loadScene(std::string name)
     }
     q.push(getScene(name));
     currentScene = name;
-
-    // std::cout << "end of loadScene " + name << " and current scene is: " << currentScene << std::endl;
 }
 
 void SceneManager::runNext()
@@ -52,31 +54,11 @@ void SceneManager::runNext()
 SceneManager::~SceneManager()
 {
 }
-void SceneManager::printScenes()
-{
-    for (Session *s : sessions)
-    {
-        std::cout << s->getName() << std::endl;
-    }
-}
-void SceneManager::moveSceneToPosition(Session *scene, int index)
-{
-    auto it = std::find(sessions.begin(), sessions.end(), scene);
 
-    if (it != sessions.end() && index < sessions.size())
-    {
-        int currentIndex = std::distance(sessions.begin(), it);
-
-        if (currentIndex != index)
-            ;
-        {
-            sessions.erase(it);
-            sessions.insert(sessions.begin() + index, scene);
-        }
-    }
-    else
-    {
-        std::cerr << "Invalid session or position specified for moving the scene." << std::endl;
-    }
+const void SceneManager::printScenes() const
+{
+    for (std::shared_ptr<Session> s : sessions)
+        std::cout << s << std::endl;
 }
+
 SceneManager *manager = SceneManager::getInstance();

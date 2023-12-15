@@ -4,7 +4,6 @@
 
 Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPos, yPos, w, h, collision)
 {
-    // std::cout << "player created: " << this << std::endl;
     currentFrame = 0;
     frameCounter = 0;
     animationSpeed = 10;
@@ -12,7 +11,6 @@ Player::Player(int xPos, int yPos, int w, int h, bool collision) : Component(xPo
 
 Player::~Player()
 {
-    // std::cout << "player destructed: " << this << std::endl;
     SDL_DestroyTexture(idleSpriteSheet);
 }
 

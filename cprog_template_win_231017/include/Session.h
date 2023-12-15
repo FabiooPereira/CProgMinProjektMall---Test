@@ -7,7 +7,7 @@
 class Session
 {
 public:
-	static Session *getInstance(std::string name, void (*build)());
+	static std::shared_ptr<Session> getInstance(std::string name, void (*build)());
 	Session(std::string name, void (*build)());
 	~Session();
 	void add(std::shared_ptr<Component> comp);

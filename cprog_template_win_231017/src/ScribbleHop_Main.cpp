@@ -13,12 +13,13 @@
 #include "SceneManager.h"
 
 using namespace std;
+
 class StartButton : public Button
 {
 public:
-    static std::shared_ptr<StartButton> getInstance(int x, int y, int w, int h, std::string t)
+    static std::shared_ptr<StartButton> getInstance(int x, int y, int w, int h)
     {
-        return std::shared_ptr<StartButton>(new StartButton(x, y, w, h, t));
+        return std::shared_ptr<StartButton>(new StartButton(x, y, w, h));
     }
     void perform(std::shared_ptr<Button> source) final
     {
@@ -26,39 +27,7 @@ public:
     }
 
 private:
-    StartButton(int x, int y, int w, int h, std::string t) : Button(x, y, w, h, t) {}
-};
-
-class Scene1Button : public Button
-{
-public:
-    static std::shared_ptr<Scene1Button> getInstance()
-    {
-        return std::shared_ptr<Scene1Button>(new Scene1Button());
-    }
-    void perform(std::shared_ptr<Button> source) final
-    {
-        manager->loadScene("Scene2");
-    }
-
-private:
-    Scene1Button() : Button(0, 300, 500, 500, "go to scene 2") {}
-};
-
-class Scene2Button : public Button
-{
-public:
-    static std::shared_ptr<Scene2Button> getInstance()
-    {
-        return std::shared_ptr<Scene2Button>(new Scene2Button());
-    }
-    void perform(std::shared_ptr<Button> source) final
-    {
-        manager->loadScene("Scene1");
-    }
-
-private:
-    Scene2Button() : Button(0, 300, 50, 50, "go to scene 1") {}
+    StartButton(int x, int y, int w, int h) : Button(x, y, w, h, "Start") {}
 };
 
 class DoodlePlayer : public Player
@@ -75,18 +44,17 @@ public:
         applyVelocity();
         if (getRect().y > 1000) // kollar om den är utanför skärmen
         {
-            // manager->getScene()
             manager->loadScene("GameOver"); // byter till gameover-scenen
         }
     }
 
     void onCollision(std::shared_ptr<Component> c) final
     {
-        if (!jumping)
+        if (!jumping && (c->getRect().y - getRect().y) > getRect().h - 10)
         {
             jumping = true; // Reset jumping when colliding with something
             velocity = 1;
-            // mixer->playOneShot(mixer->loadSound("boing-2.mp3"));
+            mixer->playOneShot(mixer->loadSound("Jump.wav"));
         }
     }
 
@@ -113,9 +81,8 @@ public:
     }
 
 protected:
-    DoodlePlayer() : Player(250, 850, 100, 100, true)
+    DoodlePlayer() : Player(250, 750, 100, 100, true)
     {
-        // std::cout << "player created: " << this << std::endl;
         velocity = 1;
         jumping = false;
         jumpForce = 30; // Adjust the jump force as needed
@@ -140,7 +107,7 @@ public:
     ~StartLabel() override {}
 
 protected:
-    StartLabel() : Label(50, 500, 400, 50, "Press any key to start") {}
+    StartLabel() : Label(50, 500, 400, 50, "Start") {}
 };
 
 class GameOverLabel : public Label
@@ -155,15 +122,9 @@ public:
         switch (eve.key.keysym.sym)
         {
         case SDLK_SPACE:
-            std::cout << "space pressed" << std::endl;
-            // manager->getScene(SceneManager::currentScene)->exit();
             manager->loadScene("Game");
-
-            // manager->addToQueue(getScene("Game"));
-
             break;
         case SDLK_q:
-            std::cout << "q pressed" << std::endl;
             manager->getScene(SceneManager::currentScene)->exit();
             break;
         default:
@@ -181,14 +142,11 @@ protected:
 void createStartScreen()
 {
     manager->getScene("Start")->add(Label::getInstance(25, 200, 450, 50, "ScribbleHop"));
-    manager->getScene("Start")->add(StartLabel::getInstance());
+    manager->getScene("Start")->add(StartButton::getInstance(50, 500, 400, 50));
 }
 
 void createDoodleJump()
 {
-    // Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
-    // mixer->playMusic(bgMusic);
-
     manager->getScene("Game")->add(PlatformInstantiator::getInstance());
 
     manager->getScene("Game")->add(Platform::getInstance(200, 880, 120, 20, true));
@@ -217,43 +175,19 @@ void createGameOverScreen()
     manager->getScene("GameOver")->add(GameOverLabel::getInstance());
 }
 
-void createScene1()
-{
-    manager->getScene("Scene1")->add(Scene1Button::getInstance());
-    // manager->getScene("Scene1")->add(Scene1Button::getInstance());
-
-    manager->getScene("Scene1")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-    manager->getScene("Scene1")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
-    manager->getScene("Scene1")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
-    manager->getScene("Scene1")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
-}
-void createScene2()
-{
-    manager->getScene("Scene2")->add(Scene2Button::getInstance());
-    manager->getScene("Scene2")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
-    manager->getScene("Scene2")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
-    manager->getScene("Scene2")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
-    manager->getScene("Scene2")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
-}
-
 int main(int argv, char **args)
 {
-    // Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
-    // mixer->playMusic(bgMusic);
-    // manager->createScene("Start", *createStartScreen);
-    // manager->createScene("Game", *createDoodleJump);
-    // manager->createScene("GameOver", *createGameOverScreen);
-    manager->createScene("Scene1", *createScene1);
-    manager->createScene("Scene2", *createScene2);
+    Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
+    mixer->playMusic(bgMusic);
+    manager->createScene("Start", *createStartScreen);
+    manager->createScene("Game", *createDoodleJump);
+    manager->createScene("GameOver", *createGameOverScreen);
 
-    manager->loadScene("Scene");
+    manager->loadScene("Start");
     while (!manager->isQueueEmpty())
     {
-        std::cout << "in main" << std::endl;
         manager->runNext();
     }
-
-    // manager->queueScene("Start");
     std::cout << "returning 0" << std::endl;
     return 0;
 }
