@@ -4,14 +4,14 @@
 #include <SDL2/SDL.h>
 #include "Component.h"
 
-class Button : public Component
+class Button : public Component, public std::enable_shared_from_this<Button>
 {
 public:
     static std::shared_ptr<Button> getInstance(int x, int y, int w, int h, std::string t);
 
     void mouseUp(const SDL_Event &eve) override;
     void mouseDown(const SDL_Event &eve) override;
-    virtual void perform(Button *source) {}
+    virtual void perform(std::shared_ptr<Button> source) {}
     void tick() override {}
     void draw() const override;
     ~Button() override;
