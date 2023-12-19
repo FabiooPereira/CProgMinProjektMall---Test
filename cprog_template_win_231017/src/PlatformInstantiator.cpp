@@ -2,9 +2,8 @@
 #include "Component.h"
 #include "Session.h"
 #include "PlatformInstantiator.h"
-#include <typeinfo>
-#include <memory>
 #include "SceneManager.h"
+
 std::shared_ptr<PlatformInstantiator> PlatformInstantiator::getInstance()
 {
     return std::shared_ptr<PlatformInstantiator>(new PlatformInstantiator());
@@ -20,16 +19,15 @@ void PlatformInstantiator::tick()
 
 void PlatformInstantiator::createPlatform()
 {
-    int randNum = rand() % (350 - minDistanceInterval + 1) + minDistanceInterval; // hopphöjden är 465 beräknad av fabio, maxintervallet innan en plattform instantieras satte vi till 425
+    int randNum = rand() % (350 - minDistanceInterval + 1) + minDistanceInterval;        // hopphöjden är 465 beräknad av fabio, maxintervallet innan en plattform instantieras satte vi till 425
     if ((Camera::distanceMoved - recentDistance) >= randNum && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
     {
         recentDistance = Camera::distanceMoved;
-        int random = 1 + (rand() % 500); // random x position mellan 0 och 500
+        int random = 1 + (rand() % 380); // random x position mellan 0 och 500
                                          // reset counter
 
-        std::shared_ptr<Platform> p = Platform::getInstance(random, -5, 120, 20, true); // skapar plattform
-        manager->getScene(SceneManager::currentScene)->add(p);                          // lägger till i sessions vektor
-        platforms++;                                                                    // håller koll på antal plattformar
+        manager->getScene(SceneManager::currentScene)->add(Platform::getInstance(random, -5, 120, 20, true)); // skapar plattform och lägger till i sessions vektor
+        platforms++;                                                                                          // håller koll på antal plattformar
     }
 }
 
