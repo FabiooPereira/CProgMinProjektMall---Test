@@ -20,20 +20,20 @@ void PlatformInstantiator::tick()
 void PlatformInstantiator::createPlatform()
 {
     int randNum = rand() % (350 - minDistanceInterval + 1) + minDistanceInterval;        // hopphöjden är 465 beräknad av fabio, maxintervallet innan en plattform instantieras satte vi till 425
-    if ((Camera::distanceMoved - recentDistance) >= randNum && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
+    if ((Camera::getDistanceMoved() - recentDistance) >= randNum && platforms < maxPlatforms) // ser till att det bara finns 12 plattformar och att de inte skapas för ofta
     {
-        recentDistance = Camera::distanceMoved;
+        recentDistance = Camera::getDistanceMoved();
         int random = 1 + (rand() % 380); // random x position mellan 0 och 500
                                          // reset counter
 
-        manager->getScene(SceneManager::currentScene)->add(Platform::getInstance(random, -5, 120, 20, true)); // skapar plattform och lägger till i sessions vektor
+        manager->getScene(SceneManager::getCurrentScene())->add(Platform::getInstance(random, -5, 120, 20, true)); // skapar plattform och lägger till i sessions vektor
         platforms++;                                                                                          // håller koll på antal plattformar
     }
 }
 
 void PlatformInstantiator::checkOutOfScope()
 {
-    for (std::shared_ptr<Component> c : manager->getScene(SceneManager::currentScene)->getComps()) // går igenom egna vektorn och kollar om de är utanför fönstret
+    for (std::shared_ptr<Component> c : manager->getScene(SceneManager::getCurrentScene())->getComps()) // går igenom egna vektorn och kollar om de är utanför fönstret
     {
         std::shared_ptr<Platform> derivedPtr = std::dynamic_pointer_cast<Platform>(c); // kollar varje komponent är en plattform
 
@@ -41,7 +41,7 @@ void PlatformInstantiator::checkOutOfScope()
         {
             if (c->getRect().y > sys.get_height())
             {
-                manager->getScene(SceneManager::currentScene)->remove(c); // lägger till i sessions remove
+                manager->getScene(SceneManager::getCurrentScene())->remove(c); // lägger till i sessions remove
                 platforms--;                                              // håller koll på antal plattformar
             }
         }

@@ -25,7 +25,7 @@ void SceneManager::deleteScene(std::string name)
     }
 }
 
-std::shared_ptr<Session> SceneManager::getScene(std::string name)
+const std::shared_ptr<Session> SceneManager::getScene(std::string name)
 {
     for (auto s : sessions)
     {
@@ -36,13 +36,13 @@ std::shared_ptr<Session> SceneManager::getScene(std::string name)
     }
     throw std::runtime_error("No scene named: " + name + " was found");
 }
+
 void SceneManager::loadScene(std::string name)
 {
     if (!currentScene.empty()) // när programmet startas är currentScene tom
     {
         getScene(currentScene)->exit();
-        
-    }
+        }
     q.push(getScene(name));
     currentScene = name;
 }

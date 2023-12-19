@@ -22,14 +22,14 @@ void Camera::tick()
 {
     if (componentToFollow->getRect().y < (sys.get_height() / 2) - 200) // om spelaren är väldigt högt upp
     {
-        toMove += (sys.get_height() / 2 - componentToFollow->getRect().y ); // skynda och flytta kameran
+        toMove += (sys.get_height() / 2 - componentToFollow->getRect().y); // skynda och flytta kameran
     }
 
     if (componentToFollow->getRect().y < sys.get_height() / 2 - 100)
     {
         toMove += ((sys.get_height() / 2 - 100) - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
-        float toMoveThisFrame = toMove / System::getfps();                                    // FPS;
-        for (std::shared_ptr<Component> c : manager->getScene(SceneManager::currentScene)->getComps())
+        float toMoveThisFrame = toMove / System::getfps();                                            // FPS;
+        for (std::shared_ptr<Component> c : manager->getScene(SceneManager::getCurrentScene())->getComps())
         {
             if (c->isCollider())
                 c->move(0, toMoveThisFrame);
@@ -37,4 +37,9 @@ void Camera::tick()
         toMove -= toMoveThisFrame;
         distanceMoved += toMoveThisFrame;
     }
+}
+
+const double Camera::getDistanceMoved()
+{
+    return distanceMoved;
 }

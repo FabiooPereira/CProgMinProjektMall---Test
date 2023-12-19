@@ -47,7 +47,7 @@ public:
             manager->loadScene("Game");
             break;
         case SDLK_q:
-            manager->getScene(SceneManager::currentScene)->exit();
+            manager->getScene(manager->getCurrentScene())->exit();
             break;
         default:
             std::cout << "wrong input pressed" << std::endl;
@@ -92,7 +92,7 @@ void createGameOverScreen()
 {
     manager->getScene("GameOver")->add(Label::getInstance(50, 100, 400, 100, "Game Over"));
     manager->getScene("GameOver")->add(Label::getInstance(75, 200, 350, 50, "Distance traveled:"));
-    manager->getScene("GameOver")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::distanceMoved)));
+    manager->getScene("GameOver")->add(Label::getInstance(50, 300, 400, 150, std::to_string((int)Camera::getDistanceMoved())));
     manager->getScene("GameOver")->add(Label::getInstance(50, 750, 400, 50, "Press 'Q' to quit"));
     manager->getScene("GameOver")->add(GameOverLabel::getInstance(50, 700, 400, 50, "Press 'space' to play again"));
 }
