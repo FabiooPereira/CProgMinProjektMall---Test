@@ -41,6 +41,7 @@ void SceneManager::loadScene(std::string name)
     if (!currentScene.empty()) // när programmet startas är currentScene tom
     {
         getScene(currentScene)->exit();
+        
     }
     q.push(getScene(name));
     currentScene = name;

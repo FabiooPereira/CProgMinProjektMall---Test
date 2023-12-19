@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <SDL2/SDL.h>
 #include <memory>
 #include "Session.h"
 #include "Label.h"
@@ -50,7 +49,7 @@ public:
 
     void onCollision(std::shared_ptr<Component> c) final
     {
-        if (!jumping && (c->getRect().y - getRect().y) > getRect().h - 10)
+        if (!jumping && (c->getRect().y - getRect().y) > getRect().h - 15)
         {
             jumping = true; // Reset jumping when colliding with something
             velocity = 1;
