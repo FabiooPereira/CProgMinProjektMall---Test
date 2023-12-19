@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "Session.h"
+#include <algorithm>
 
 namespace engine
 {
@@ -55,6 +56,8 @@ namespace engine
     }
     SceneManager::~SceneManager()
     {
+     sessions.clear();
+     q.pop();
     }
 
     const void SceneManager::printScenes() const
