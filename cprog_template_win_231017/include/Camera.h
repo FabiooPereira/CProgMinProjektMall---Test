@@ -6,24 +6,26 @@
 #include <SDL2/SDL_ttf.h>
 #include "Component.h"
 
-class Camera : public Component
+namespace engine
 {
-public:
-    static std::shared_ptr<Camera> getInstance(std::shared_ptr<Component> target);
+    class Camera : public Component
+    {
+    public:
+        static std::shared_ptr<Camera> getInstance(std::shared_ptr<Component> target);
 
-    void draw() const override {}
+        void draw() const override {}
 
-    void tick() override;
-    ~Camera() override;
-    static const double getDistanceMoved();
+        void tick() override;
+        ~Camera() override;
+        static const double getDistanceMoved();
 
-protected:
-    Camera(std::shared_ptr<Component> target);
+    protected:
+        Camera(std::shared_ptr<Component> target);
 
-private:
-    std::shared_ptr<Component> componentToFollow;
-    static double distanceMoved;
-    float toMove;
-};
-
+    private:
+        std::shared_ptr<Component> componentToFollow;
+        static double distanceMoved;
+        float toMove;
+    };
+}
 #endif

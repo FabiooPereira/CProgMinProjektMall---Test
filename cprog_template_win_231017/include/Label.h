@@ -5,22 +5,24 @@
 #include <string>
 #include <SDL2/SDL.h>
 
-class Label : public Component
+namespace engine
 {
-public:
-	static std::shared_ptr<Label> getInstance(int x, int y, int w, int h, std::string txt);
-	std::string getText() const;
-	void setText(std::string newText);
-	void draw() const override;
-	void tick() override;
-	~Label() override;
+	class Label : public Component
+	{
+	public:
+		static std::shared_ptr<Label> getInstance(int x, int y, int w, int h, std::string txt);
+		std::string getText() const;
+		void setText(std::string newText);
+		void draw() const override;
+		void tick() override;
+		~Label() override;
 
-protected:
-	Label(int x, int y, int w, int h, std::string txt);
+	protected:
+		Label(int x, int y, int w, int h, std::string txt);
 
-private:
-	std::string text;
-	SDL_Texture *texture;
-};
-
+	private:
+		std::string text;
+		SDL_Texture *texture;
+	};
+}
 #endif

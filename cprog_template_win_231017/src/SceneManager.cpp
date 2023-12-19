@@ -1,64 +1,67 @@
 #include "SceneManager.h"
 #include "Session.h"
 
-std::string SceneManager::currentScene = "";
-SceneManager::SceneManager()
+namespace engine
 {
-}
-SceneManager *SceneManager::getInstance()
-{
-    static SceneManager instance;
-    return &instance;
-}
-
-void SceneManager::createScene(std::string name, void (*build)())
-{
-    sessions.push_back(Session::getInstance(name, build));
-}
-
-void SceneManager::deleteScene(std::string name)
-{
-    auto iteratorToRemove = std::find(sessions.begin(), sessions.end(), getScene(name));
-    if (iteratorToRemove != sessions.end())
+    std::string SceneManager::currentScene = "";
+    SceneManager::SceneManager()
     {
-        sessions.erase(iteratorToRemove);
     }
-}
-
-const std::shared_ptr<Session> SceneManager::getScene(std::string name)
-{
-    for (auto s : sessions)
+    SceneManager *SceneManager::getInstance()
     {
-        if (s->getName() == name)
+        static SceneManager instance;
+        return &instance;
+    }
+
+    void SceneManager::createScene(std::string name, void (*build)())
+    {
+        sessions.push_back(Session::getInstance(name, build));
+    }
+
+    void SceneManager::deleteScene(std::string name)
+    {
+        auto iteratorToRemove = std::find(sessions.begin(), sessions.end(), getScene(name));
+        if (iteratorToRemove != sessions.end())
         {
-            return s;
+            sessions.erase(iteratorToRemove);
         }
     }
-    throw std::runtime_error("No scene named: " + name + " was found");
-}
 
-void SceneManager::loadScene(std::string name)
-{
-    if (!currentScene.empty()) // när programmet startas är currentScene tom
+    const std::shared_ptr<Session> SceneManager::getScene(std::string name)
     {
-        getScene(currentScene)->exit();
+        for (auto s : sessions)
+        {
+            if (s->getName() == name)
+            {
+                return s;
+            }
         }
-    q.push(getScene(name));
-    currentScene = name;
-}
+        throw std::runtime_error("No scene named: " + name + " was found");
+    }
 
-void SceneManager::runNext()
-{
-    q.front()->run();
-}
-SceneManager::~SceneManager()
-{
-}
+    void SceneManager::loadScene(std::string name)
+    {
+        if (!currentScene.empty()) // när programmet startas är currentScene tom
+        {
+            getScene(currentScene)->exit();
+        }
+        q.push(getScene(name));
+        currentScene = name;
+    }
 
-const void SceneManager::printScenes() const
-{
-    for (std::shared_ptr<Session> s : sessions)
-        std::cout << s << std::endl;
-}
+    void SceneManager::runNext()
+    {
+        q.front()->run();
+    }
+    SceneManager::~SceneManager()
+    {
+    }
 
-SceneManager *manager = SceneManager::getInstance();
+    const void SceneManager::printScenes() const
+    {
+        for (std::shared_ptr<Session> s : sessions)
+            std::cout << s << std::endl;
+    }
+
+    SceneManager *manager = SceneManager::getInstance();
+}

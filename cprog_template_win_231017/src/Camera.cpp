@@ -3,43 +3,46 @@
 #include "SceneManager.h"
 #include "System.h"
 
-double Camera::distanceMoved = 0;
-Camera::Camera(std::shared_ptr<Component> target) : Component(0, 0, 0, 0), componentToFollow(target)
+namespace engine
 {
-    distanceMoved = 0;
-}
-
-std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
-{
-    return std::shared_ptr<Camera>(new Camera(target));
-}
-Camera::~Camera()
-{
-    // std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
-    // std::cout << "camera destructed: " << this << std::endl;
-}
-void Camera::tick()
-{
-    if (componentToFollow->getRect().y < (sys.get_height() / 2) - 200) // om spelaren är väldigt högt upp
+    double Camera::distanceMoved = 0;
+    Camera::Camera(std::shared_ptr<Component> target) : Component(0, 0, 0, 0), componentToFollow(target)
     {
-        toMove += (sys.get_height() / 2 - componentToFollow->getRect().y); // skynda och flytta kameran
+        distanceMoved = 0;
     }
 
-    if (componentToFollow->getRect().y < sys.get_height() / 2 - 100)
+    std::shared_ptr<Camera> Camera::getInstance(std::shared_ptr<Component> target)
     {
-        toMove += ((sys.get_height() / 2 - 100) - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
-        float toMoveThisFrame = toMove / System::getfps();                                            // FPS;
-        for (std::shared_ptr<Component> c : manager->getScene(SceneManager::getCurrentScene())->getComps())
+        return std::shared_ptr<Camera>(new Camera(target));
+    }
+    Camera::~Camera()
+    {
+        // std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
+        // std::cout << "camera destructed: " << this << std::endl;
+    }
+    void Camera::tick()
+    {
+        if (componentToFollow->getRect().y < (sys.get_height() / 2) - 200) // om spelaren är väldigt högt upp
         {
-            if (c->isCollider())
-                c->move(0, toMoveThisFrame);
+            toMove += (sys.get_height() / 2 - componentToFollow->getRect().y); // skynda och flytta kameran
         }
-        toMove -= toMoveThisFrame;
-        distanceMoved += toMoveThisFrame;
-    }
-}
 
-const double Camera::getDistanceMoved()
-{
-    return distanceMoved;
+        if (componentToFollow->getRect().y < sys.get_height() / 2 - 100)
+        {
+            toMove += ((sys.get_height() / 2 - 100) - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
+            float toMoveThisFrame = toMove / System::getfps();                                            // FPS;
+            for (std::shared_ptr<Component> c : manager->getScene(SceneManager::getCurrentScene())->getComps())
+            {
+                if (c->isCollider())
+                    c->move(0, toMoveThisFrame);
+            }
+            toMove -= toMoveThisFrame;
+            distanceMoved += toMoveThisFrame;
+        }
+    }
+
+    const double Camera::getDistanceMoved()
+    {
+        return distanceMoved;
+    }
 }

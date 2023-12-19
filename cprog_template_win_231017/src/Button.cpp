@@ -6,50 +6,53 @@
 #include <iostream>
 using namespace std;
 
-Button::Button(int x, int y, int w, int h, std::string t) : Component(x, y, w, h), text(t)
+namespace engine
 {
-    SDL_Surface *surf = TTF_RenderText_Solid(sys.get_font(), text.c_str(), {255, 255, 255, 255});
-    texture = SDL_CreateTextureFromSurface(sys.get_ren(), surf);
-    SDL_FreeSurface(surf);
-    upImage = IMG_LoadTexture(sys.get_ren(), (constants::gResImagePath + "treecolorvariation_soft.png").c_str());
-    downImage = IMG_LoadTexture(sys.get_ren(), (constants::gResImagePath + "treecolorvariation_soft.png").c_str());
-}
-
-std::shared_ptr<Button> Button::getInstance(int x, int y, int w, int h, std::string t)
-{
-    return std::shared_ptr<Button>(new Button(x, y, w, h, t));
-}
-
-Button::~Button()
-{
-    SDL_DestroyTexture(texture);
-    SDL_DestroyTexture(upImage);
-    SDL_DestroyTexture(downImage);
-}
-
-void Button::draw() const
-{
-    if (isDown)
+    Button::Button(int x, int y, int w, int h, std::string t) : Component(x, y, w, h), text(t)
     {
-        SDL_RenderCopy(sys.get_ren(), downImage, NULL, &getRect());
+        SDL_Surface *surf = TTF_RenderText_Solid(sys.get_font(), text.c_str(), {255, 255, 255, 255});
+        texture = SDL_CreateTextureFromSurface(sys.get_ren(), surf);
+        SDL_FreeSurface(surf);
+        upImage = IMG_LoadTexture(sys.get_ren(), (constants::gResImagePath + "treecolorvariation_soft.png").c_str());
+        downImage = IMG_LoadTexture(sys.get_ren(), (constants::gResImagePath + "treecolorvariation_soft.png").c_str());
     }
-    else
-    {
-        SDL_RenderCopy(sys.get_ren(), upImage, NULL, &getRect());
-    }
-    SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
-}
 
-void Button::mouseUp(const SDL_Event &eve)
-{
-    SDL_Point p = {eve.button.x, eve.button.y};
-    if (SDL_PointInRect(&p, &getRect()))
-        perform(shared_from_this());
-    isDown = false;
-}
-void Button::mouseDown(const SDL_Event &eve)
-{
-    SDL_Point p = {eve.button.x, eve.button.y};
-    if (SDL_PointInRect(&p, &getRect()))
-        isDown = true;
+    std::shared_ptr<Button> Button::getInstance(int x, int y, int w, int h, std::string t)
+    {
+        return std::shared_ptr<Button>(new Button(x, y, w, h, t));
+    }
+
+    Button::~Button()
+    {
+        SDL_DestroyTexture(texture);
+        SDL_DestroyTexture(upImage);
+        SDL_DestroyTexture(downImage);
+    }
+
+    void Button::draw() const
+    {
+        if (isDown)
+        {
+            SDL_RenderCopy(sys.get_ren(), downImage, NULL, &getRect());
+        }
+        else
+        {
+            SDL_RenderCopy(sys.get_ren(), upImage, NULL, &getRect());
+        }
+        SDL_RenderCopy(sys.get_ren(), texture, NULL, &getRect());
+    }
+
+    void Button::mouseUp(const SDL_Event &eve)
+    {
+        SDL_Point p = {eve.button.x, eve.button.y};
+        if (SDL_PointInRect(&p, &getRect()))
+            perform(shared_from_this());
+        isDown = false;
+    }
+    void Button::mouseDown(const SDL_Event &eve)
+    {
+        SDL_Point p = {eve.button.x, eve.button.y};
+        if (SDL_PointInRect(&p, &getRect()))
+            isDown = true;
+    }
 }

@@ -11,55 +11,11 @@
 #include "MasterMixer.h"
 #include "SceneManager.h"
 #include "DoodlePlayer.h"
+#include "StartLabel.h"
+#include "GameOverLabel.h"
 
-using namespace std;
-
-class StartLabel : public Label
-{
-public:
-    static std::shared_ptr<StartLabel> getInstance(int x, int y, int w, int h, std::string t)
-    {
-        return std::shared_ptr<StartLabel>(new StartLabel(x, y, w, h, t));
-    }
-    void keyDown(const SDL_Event &eve) override
-    {
-        manager->loadScene("Game");
-    }
-    void tick() override {}
-    ~StartLabel() override {}
-
-protected:
-    StartLabel(int x, int y, int w, int h, std::string t) : Label(x, y, w, h, t) {}
-};
-
-class GameOverLabel : public Label
-{
-public:
-    static std::shared_ptr<GameOverLabel> getInstance(int x, int y, int w, int h, std::string t)
-    {
-        return std::shared_ptr<GameOverLabel>(new GameOverLabel(x, y, w, h, t));
-    }
-    void keyDown(const SDL_Event &eve) override
-    {
-        switch (eve.key.keysym.sym)
-        {
-        case SDLK_SPACE:
-            manager->loadScene("Game");
-            break;
-        case SDLK_q:
-            manager->getScene(manager->getCurrentScene())->exit();
-            break;
-        default:
-            std::cout << "wrong input pressed" << std::endl;
-            break;
-        }
-    }
-    void tick() override {}
-    ~GameOverLabel() {}
-
-protected:
-    GameOverLabel(int x, int y, int w, int h, std::string t) : Label(x, y, w, h, t) {}
-};
+using namespace scribbleHop;
+using namespace engine;
 
 void createStartScreen()
 {
@@ -70,20 +26,14 @@ void createStartScreen()
 void createDoodleJump()
 {
     manager->getScene("Game")->add(PlatformInstantiator::getInstance());
-
     manager->getScene("Game")->add(Platform::getInstance(200, 880, 120, 20, true));
-
     manager->getScene("Game")->add(Platform::getInstance(150, 600, 120, 20, true));
-
     manager->getScene("Game")->add(Platform::getInstance(100, 300, 120, 20, true));
-
     manager->getScene("Game")->add(Platform::getInstance(200, 200, 120, 20, true));
-
     manager->getScene("Game")->add(Platform::getInstance(150, 100, 120, 20, true));
-
     manager->getScene("Game")->add(Platform::getInstance(100, 50, 120, 20, true));
 
-    shared_ptr<DoodlePlayer> player = DoodlePlayer::getInstance();
+    std::shared_ptr<DoodlePlayer> player = DoodlePlayer::getInstance();
     manager->getScene("Game")->add(player);
     manager->getScene("Game")->add(Camera::getInstance(player));
 }

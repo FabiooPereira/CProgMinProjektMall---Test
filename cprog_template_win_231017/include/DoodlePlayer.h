@@ -2,23 +2,25 @@
 #define DOODLEPLAYER_H
 #include "Player.h"
 
-class DoodlePlayer : public Player
+namespace scribbleHop
 {
-public:
-    static std::shared_ptr<DoodlePlayer> getInstance();
+    class DoodlePlayer : public engine::Player
+    {
+    public:
+        static std::shared_ptr<DoodlePlayer> getInstance();
 
-    void keyDown(const SDL_Event &eve) final;
+        void keyDown(const SDL_Event &eve) final;
 
-    void tick() override;
+        void tick() override;
 
-    void onCollision(std::shared_ptr<Component> c) final;
+        void onCollision(std::shared_ptr<Component> c) final;
 
-    void applyVelocity();
+        void applyVelocity();
 
-    void jump();
+        void jump();
 
-private:
-    DoodlePlayer();
-};
-
+    private:
+        DoodlePlayer();
+    };
+}
 #endif
