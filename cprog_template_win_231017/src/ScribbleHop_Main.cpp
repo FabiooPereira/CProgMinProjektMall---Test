@@ -1,6 +1,5 @@
 #include <iostream>
 #include <string>
-#include <SDL2/SDL.h>
 #include <memory>
 #include "Session.h"
 #include "Label.h"
