@@ -30,30 +30,6 @@ void Player::draw() const
     SDL_RenderCopy(sys.get_ren(), idleSpriteSheet, &srcRect, &getRect());
 }
 
-void Player::keyDown(const SDL_Event &eve)
-{
-    switch (eve.key.keysym.sym)
-    {
-    case SDLK_LEFT:
-        // leftfunction
-        move(-20, 0);
-        break;
-    case SDLK_RIGHT:
-        // rightfunction
-        move(20, 0);
-        break;
-    case SDLK_UP:
-        // upfunction
-        break;
-    case SDLK_DOWN:
-        // downfunction
-        // move(0, 10);
-        break;
-    default:
-        break;
-    }
-}
-
 void Player::tick() // kan overridas men och köras genom Player::tick()
 {
     updateFrame();
