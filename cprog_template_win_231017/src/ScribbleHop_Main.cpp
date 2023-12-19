@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <memory>
 #include "Session.h"
 #include "Label.h"
 #include "Button.h"

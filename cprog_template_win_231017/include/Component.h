@@ -2,8 +2,10 @@
 #define COMPONENT_H
 
 #include <SDL2/SDL.h>
-#include <iostream>
+#include <string>
+#include <vector>
 #include <memory>
+#include <iostream>
 
 namespace engine
 {

@@ -1,9 +1,7 @@
 #ifndef SESSION_H
 #define SESSION_H
 
-#include <vector>
 #include "Component.h"
-#include <memory>
 namespace engine
 {
 	class Session
