@@ -11,6 +11,7 @@
 #include "DoodlePlayer.h"
 #include "StartLabel.h"
 #include "GameOverLabel.h"
+#include "ScoreLabel.h"
 
 using namespace scribbleHop;
 using namespace engine;
@@ -30,7 +31,7 @@ void createDoodleJump()
     manager->getScene("Game")->add(Platform::getInstance(200, 200, 120, 20, true));
     manager->getScene("Game")->add(Platform::getInstance(150, 100, 120, 20, true));
     manager->getScene("Game")->add(Platform::getInstance(100, 50, 120, 20, true));
-
+    manager->getScene("Game")->add(ScoreLabel::getInstance(0,0,200,100, ""));
     std::shared_ptr<DoodlePlayer> player = DoodlePlayer::getInstance();
     manager->getScene("Game")->add(player);
     manager->getScene("Game")->add(Camera::getInstance(player));
@@ -47,8 +48,8 @@ void createGameOverScreen()
 
 int main(int argv, char **args)
 {
-    Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
-    mixer->playMusic(bgMusic);
+    //Mix_Music *bgMusic = mixer->loadMusic("BacgroundMusic_489035__michael-db__game-music-01.wav");
+    //mixer->playMusic(bgMusic);
     manager->createScene("Start", *createStartScreen);
     manager->createScene("Game", *createDoodleJump);
     manager->createScene("GameOver", *createGameOverScreen);
