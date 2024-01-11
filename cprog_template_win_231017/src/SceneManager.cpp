@@ -54,6 +54,7 @@ namespace engine
     {
         q.front()->run();
     }
+    
     SceneManager::~SceneManager()
     {
      sessions.clear();

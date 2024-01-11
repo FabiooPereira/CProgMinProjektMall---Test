@@ -45,7 +45,7 @@ namespace engine
 			if (SDL_HasIntersection(&collider->getRect(), &c->getRect()) == SDL_TRUE && collider != c)
 			{
 				collider->onCollision(c);
-				std::cout << "collision" << std::endl;
+				//std::cout << "collision" << std::endl;
 			}
 		}
 	}

@@ -25,7 +25,7 @@ namespace engine
     private:
         std::shared_ptr<Component> componentToFollow;
         static double distanceMoved;
-        float toMove;
+        double toMove;
     };
 }
 #endif

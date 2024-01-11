@@ -17,9 +17,11 @@ namespace engine
     }
     Camera::~Camera()
     {
+        std::cout << distanceMoved;
         // std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
         // std::cout << "camera destructed: " << this << std::endl;
     }
+    
     void Camera::tick()
     {
         if (componentToFollow->getRect().y < (sys.get_height() / 2) - 200) // om spelaren är väldigt högt upp
@@ -30,7 +32,7 @@ namespace engine
         if (componentToFollow->getRect().y < sys.get_height() / 2 - 100)
         {
             toMove += ((sys.get_height() / 2 - 100) - componentToFollow->getRect().y) / System::getfps(); // FPS; // flytta kameran mjukt och lugnt
-            float toMoveThisFrame = toMove / System::getfps();                                            // FPS;
+            double toMoveThisFrame = toMove / System::getfps();                                            // FPS;
             for (std::shared_ptr<Component> c : manager->getScene(SceneManager::getCurrentScene())->getComps())
             {
                 if (c->isCollider())

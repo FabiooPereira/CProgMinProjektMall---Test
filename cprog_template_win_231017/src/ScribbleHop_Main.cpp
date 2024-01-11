@@ -16,6 +16,7 @@
 using namespace scribbleHop;
 using namespace engine;
 
+
 void createStartScreen()
 {
     manager->getScene("Start")->add(Label::getInstance(25, 200, 450, 50, "ScribbleHop"));
