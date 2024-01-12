@@ -1,5 +1,6 @@
 #include "StartLabel.h"
 #include "SceneManager.h"
+#include <string>
 
 namespace scribbleHop
 {

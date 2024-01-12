@@ -1,12 +1,7 @@
 #ifndef PLATFORMINSTANTIATOR_H
 #define PLATFORMINSTANTIATOR_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
 #include "Component.h"
-#include "Constants.h"
-#include "System.h"
 #include "Platform.h"
 
 namespace scribbleHop
@@ -29,7 +24,7 @@ namespace scribbleHop
         void tick() override;
         ~PlatformInstantiator() override {}
 
-    protected:
+    
     };
 }
 #endif

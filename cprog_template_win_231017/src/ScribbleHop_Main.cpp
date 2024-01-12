@@ -12,6 +12,8 @@
 #include "StartLabel.h"
 #include "GameOverLabel.h"
 #include "ScoreLabel.h"
+#include <string>
+
 
 using namespace scribbleHop;
 using namespace engine;

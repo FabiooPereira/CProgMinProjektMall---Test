@@ -1,5 +1,6 @@
 #include "GameOverLabel.h"
 #include "SceneManager.h"
+#include <string>
 
 namespace scribbleHop
 {
@@ -18,7 +19,7 @@ namespace scribbleHop
             engine::manager->getScene(engine::manager->getCurrentScene())->exit();
             break;
         default:
-            std::cout << "wrong input pressed" << std::endl;
+            //std::cout << "wrong input pressed" << std::endl;
             break;
         }
     }

@@ -1,11 +1,10 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Component.h"
-#include "Constants.h"
-#include "System.h"
+#include <string>
+
 
 namespace engine
 {

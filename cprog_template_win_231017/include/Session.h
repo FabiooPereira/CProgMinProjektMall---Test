@@ -2,6 +2,10 @@
 #define SESSION_H
 
 #include "Component.h"
+#include <vector>
+#include <string>
+#include <memory>
+
 namespace engine
 {
 	class Session

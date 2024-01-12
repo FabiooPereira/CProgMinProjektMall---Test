@@ -1,6 +1,3 @@
-#include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #include "Constants.h"
 #include "System.h"
 
@@ -8,7 +5,7 @@ namespace engine
 {
 	System::System()
 	{
-		std::cout << "system created";
+		//std::cout << "system created";
 
 		SDL_Init(SDL_INIT_EVERYTHING);
 		win = SDL_CreateWindow("Scribble Hop", SDL_WINDOWPOS_CENTERED,

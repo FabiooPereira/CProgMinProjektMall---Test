@@ -1,4 +1,6 @@
 #include "Platform.h"
+#include "System.h"
+#include "Constants.h"
 
 namespace scribbleHop
 {

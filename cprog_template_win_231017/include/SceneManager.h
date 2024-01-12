@@ -4,6 +4,8 @@
 #include "Session.h"
 #include <map>
 #include <queue>
+#include <string>
+
 namespace engine
 {
     class SceneManager

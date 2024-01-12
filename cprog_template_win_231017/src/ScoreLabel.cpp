@@ -1,5 +1,6 @@
 #include "ScoreLabel.h"
 #include "Camera.h"
+
 namespace scribbleHop
 {
     ScoreLabel::ScoreLabel(int x, int y, int w, int h, std::string t):Label(x,y,w,h,t){

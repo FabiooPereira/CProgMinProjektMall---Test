@@ -2,7 +2,7 @@
 #define LABEL_H
 
 #include "Component.h"
-#include <SDL2/SDL.h>
+#include <string>
 
 namespace engine
 {

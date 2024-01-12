@@ -17,7 +17,7 @@ namespace engine
     }
     Camera::~Camera()
     {
-        std::cout << distanceMoved;
+        //std::cout << distanceMoved;
         // std::cout << "componenttofollow: " << componentToFollow << this << std::endl;
         // std::cout << "camera destructed: " << this << std::endl;
     }

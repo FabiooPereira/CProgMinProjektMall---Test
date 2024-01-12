@@ -3,6 +3,7 @@
 #include "Session.h"
 #include "PlatformInstantiator.h"
 #include "SceneManager.h"
+#include "System.h"
 
 namespace scribbleHop
 {

@@ -1,5 +1,7 @@
 #include "SceneManager.h"
 #include "Session.h"
+#include <stdexcept>
+#include <iostream>
 #include <algorithm>
 
 namespace engine

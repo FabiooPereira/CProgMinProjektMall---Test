@@ -3,9 +3,6 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <string>
-#include <iostream>
-#include <memory>
 
 #define FPS 60;
 

@@ -1,6 +1,7 @@
 #include "DoodlePlayer.h"
 #include "MasterMixer.h"
 #include "SceneManager.h"
+#include "System.h"
 
 namespace scribbleHop
 {

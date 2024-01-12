@@ -3,8 +3,6 @@
 #include <SDL2/SDL_image.h>
 #include "Constants.h"
 #include "System.h"
-#include <iostream>
-using namespace std;
 
 namespace engine
 {

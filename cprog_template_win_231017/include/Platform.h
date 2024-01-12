@@ -1,11 +1,8 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include "Component.h"
-#include "Constants.h"
-#include "System.h"
 
 namespace scribbleHop
 {

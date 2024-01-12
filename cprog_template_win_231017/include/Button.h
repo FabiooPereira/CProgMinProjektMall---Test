@@ -1,8 +1,8 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include <SDL2/SDL.h>
 #include "Component.h"
+#include <string>
 namespace engine
 {
     class Button : public Component, public std::enable_shared_from_this<Button>

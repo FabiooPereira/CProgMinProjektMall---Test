@@ -1,6 +1,7 @@
 #ifndef SCORELABEL_H
 #define SCORELABEL_H
 #include "Label.h"
+
 namespace scribbleHop
 {
     class ScoreLabel : public engine::Label
