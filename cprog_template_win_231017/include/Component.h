@@ -37,7 +37,7 @@ namespace engine
 	private:
 		SDL_Rect rect;
 		Component(const Component &) = delete;
-		const Component &operator=(const Component &) = delete;
+		Component &operator=(const Component &) = delete;
 		bool collider;
 		static int createCount;
 		static int deleteCount;

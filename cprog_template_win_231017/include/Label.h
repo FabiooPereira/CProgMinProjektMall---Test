@@ -15,7 +15,6 @@ namespace engine
 		void draw() const override;
 		void tick() override;
 		~Label() override;
-		int getscribble();
 	protected:
 		Label(int x, int y, int w, int h, std::string txt);
 
